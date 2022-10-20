@@ -35,15 +35,31 @@ class _MyHomePageState extends State<MyHomePage> {
             print(value);
           },
           tabs: [
-            GButton(icon: Icons.list, text: 'wishlist'),
-            GButton(icon: Icons.history, text: 'history'),
+            GButton(
+              icon: Icons.list, 
+              text: 'wishlist',
+              onPressed: () => {},
+            ),
+            GButton(
+              icon: Icons.history, 
+              text: 'history',
+              onPressed: () => {},
+            ),
             GButton(
               icon: Icons.bookmark_outline, 
               text: 'books', 
               onPressed: () => _slidingPanel(),
             ),
-            GButton(icon: Icons.notifications_outlined, text: 'notifications'),
-            GButton(icon: Icons.settings_outlined, text: 'settings'),
+            GButton(
+              icon: Icons.notifications_outlined, 
+              text: 'notifications',
+              onPressed: () => {},
+            ),
+            GButton(
+              icon: Icons.settings_outlined, 
+              text: 'settings',
+              onPressed: () => {},
+            ),
           ]
         )
       )
