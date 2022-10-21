@@ -36,8 +36,8 @@ class _MyHomePageState extends State<MyHomePage> {
           },
           tabs: [
             GButton(
-              icon: Icons.list, 
-              text: 'wishlist',
+              icon: Icons.home_outlined, 
+              text: 'home',
               onPressed: () => {},
             ),
             GButton(
@@ -92,7 +92,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           icon: const Icon (
                             Icons.calendar_month,
                             color: Colors.redAccent,
-                            size: 25.0,
+                            size: 30.0,
                           )
                         ),
                         const Text(
@@ -117,7 +117,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           icon: const Icon (
                             Icons.upload,
                             color: Colors.amberAccent,
-                            size: 25.0,
+                            size: 30.0,
                           )
                         ),
                         const Text(
@@ -142,7 +142,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           icon: const Icon (
                             Icons.handshake,
                             color: Colors.blueAccent,
-                            size: 25.0,
+                            size: 30.0,
                           )
                         ),
                         const Text(
@@ -167,7 +167,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           icon: const Icon (
                             Icons.search,
                             color: Colors.purpleAccent,
-                            size: 25.0,
+                            size: 30.0,
                           )
                         ),
                         const Text(
