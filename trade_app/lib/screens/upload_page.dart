@@ -12,12 +12,17 @@ class _UploadPageState extends State<UploadPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color.fromARGB(255, 157, 85, 169),
       appBar: AppBar(
-        backgroundColor: Colors.white,
-        title: const Text('this is upload page'),
+        toolbarHeight: 100,
+        backgroundColor: const Color.fromARGB(255, 107, 154, 103),
+        title: const Text('Upload your book here!'),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(30.0),
+        ),
       ),
       body:Container(
-        child: Text('this is upload page'),
+        child: const Text('this is upload page'),
       )
     );
   }
