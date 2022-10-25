@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:trade_app/screens/home_page.dart';
-import 'package:trade_app/screens/notification_page.dart';
 import 'package:trade_app/widgets/nav_bar.dart';
 // import '../widgets/nav_bar.dart';
 
@@ -28,7 +26,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: const HomePage(),
+      home: const NavBar(),
     );
   }
 }
