@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:trade_app/screens/history_page.dart';
 import 'package:trade_app/screens/home_page.dart';
+import 'package:trade_app/screens/notification_page.dart';
 import 'package:trade_app/screens/settings_page.dart';
 import 'package:trade_app/screens/upload_page.dart';
 
@@ -30,7 +31,7 @@ class _NavBarState extends State<NavBar> {
     const HomePage(),
     const HistoryPage(),
     const UploadPage(),
-    const UploadPage(),
+    const NotificationPage(),
     const SettingsPage()
   ];
 
