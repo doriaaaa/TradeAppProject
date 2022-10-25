@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
-import '../widgets/nav_bar.dart';
+import 'package:trade_app/screens/home_page.dart';
+import 'package:trade_app/screens/notification_page.dart';
+import 'package:trade_app/widgets/nav_bar.dart';
+// import '../widgets/nav_bar.dart';
 
 void main() {
   runApp(const MyApp());
@@ -12,7 +15,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Trade App',
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -25,7 +28,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(),
+      home: const HomePage(),
     );
   }
 }
