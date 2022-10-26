@@ -21,9 +21,51 @@ class _UploadPageState extends State<UploadPage> {
           borderRadius: BorderRadius.circular(30.0),
         ),
       ),
-      body:Container(
-        child: const Text('this is upload page'),
+      body: 
+      Column(
+        children: <Widget>[
+          const SizedBox(height: 20),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget> [
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  foregroundColor: Theme.of(context).colorScheme.onSecondaryContainer,
+                  backgroundColor: const Color.fromARGB(100, 217, 217, 217),
+                  minimumSize: const Size(350,350),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                ),
+                onPressed: () {
+                  //let user to choose photo from album
+                },
+                child: const Text('Upload image here'),
+              ),
+            ]
+          ),
+          const SizedBox(height: 20),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget> [
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  foregroundColor: Theme.of(context).colorScheme.onSecondaryContainer,
+                  minimumSize: const Size(350,50),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                ),
+                onPressed: () {
+                  //let user to choose photo from album
+                },
+                child: const Text('Scan ISBN'),
+              ),
+            ]
+          ),
+        ],
       )
+      
     );
   }
 }
