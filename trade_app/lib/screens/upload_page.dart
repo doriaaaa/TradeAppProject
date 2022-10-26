@@ -14,7 +14,7 @@ class _UploadPageState extends State<UploadPage> {
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 157, 85, 169),
       appBar: AppBar(
-        toolbarHeight: 100,
+        toolbarHeight: 70,
         backgroundColor: const Color.fromARGB(255, 107, 154, 103),
         title: const Text('Upload your book here!'),
         shape: RoundedRectangleBorder(
@@ -24,7 +24,7 @@ class _UploadPageState extends State<UploadPage> {
       body: 
       Column(
         children: <Widget>[
-          const SizedBox(height: 20),
+          const SizedBox(height: 30),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget> [
@@ -44,7 +44,7 @@ class _UploadPageState extends State<UploadPage> {
               ),
             ]
           ),
-          const SizedBox(height: 20),
+          const SizedBox(height: 30),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget> [
@@ -63,9 +63,65 @@ class _UploadPageState extends State<UploadPage> {
               ),
             ]
           ),
+          const SizedBox(height: 30),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget> [
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.pinkAccent,
+                  minimumSize: const Size(350,50),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                ),
+                onPressed: () {
+                  //this button should be disabled at first, if there is data fetched from ISBN, then it is enabled
+                },
+                child: const Text('View details'),
+              ),
+            ]
+          ),
+          const SizedBox(height: 30),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget> [
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.green,
+                  minimumSize: const Size(350,50),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                ),
+                onPressed: () {
+                  //upload data to database
+                },
+                child: const Text('Upload book'),
+              ),
+            ]
+          ),
+          const SizedBox(height: 30),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget> [
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.redAccent,
+                  minimumSize: const Size(350,50),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                ),
+                onPressed: () {
+                  //clear all the fields
+                },
+                child: const Text('Cancel'),
+              ),
+            ]
+          ),
         ],
       )
-      
     );
   }
 }
