@@ -1,5 +1,6 @@
 //IMPORT FROM PACKAGES
 const express = require('express');
+console.log("hello server");
 
 //IMPORT FROM OTHER FILES
 const authRouter = require('./routes/auth');
