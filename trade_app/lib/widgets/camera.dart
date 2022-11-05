@@ -17,6 +17,12 @@ class _CameraState extends State<Camera> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Mobile Scanner"),
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: const Icon(Icons.close),
+        ),
         actions: [
           IconButton(
             color: Colors.white,
