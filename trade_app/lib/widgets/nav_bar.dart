@@ -68,7 +68,7 @@ class _NavBarState extends State<NavBar> {
           ),
           GButton(
             icon: Icons.notifications_outlined, 
-            text: 'news',
+            text: 'notifications',
             onPressed: () => {},
           ),
           GButton(
