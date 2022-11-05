@@ -4,9 +4,13 @@ console.log("hello server");
 
 //IMPORT FROM OTHER FILES
 const authRouter = require('./routes/auth');
+
 //INIT
 const PORT = 3000;
 const app = express();
+
+//middleware
+app.use(authRouter);
 
 //create API
 // app.get("/hello-world", (req, res) => {
