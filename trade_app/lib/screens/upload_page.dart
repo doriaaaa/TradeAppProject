@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 
 class UploadPage extends StatefulWidget {
   const UploadPage({Key? key}) : super(key: key);
@@ -8,6 +10,8 @@ class UploadPage extends StatefulWidget {
 }
 
 class _UploadPageState extends State<UploadPage> {
+
+  String? scanResult;
 
   @override
   Widget build(BuildContext context) {
@@ -57,10 +61,17 @@ class _UploadPageState extends State<UploadPage> {
                   ),
                 ),
                 onPressed: () {
-                  //let user to choose photo from album
+                  //let user to scan the barcode on book
+                  scanBarcode;
+                  if (scanResult == null) {
+                    print("no barcode scanned");
+                  }
+                  else {
+                    print(scanResult);
+                  }
                 },
-                child: const Text('Scan ISBN'),
-              ),
+                child: const Text('Scan ISBN code here'),
+              )
             ]
           ),
           const SizedBox(height: 30),
@@ -123,5 +134,22 @@ class _UploadPageState extends State<UploadPage> {
         ],
       )
     );
+  }
+
+  Future scanBarcode() async {
+    String scanResult;
+    try {
+      scanResult = await FlutterBarcodeScanner.scanBarcode(
+        "#FF6666", 
+        "Cancel", 
+        true, 
+        ScanMode.BARCODE
+      );
+    } on PlatformException {
+      scanResult = "Failed to get platform version.";
+    }
+    if (!mounted) return;
+
+    setState(() => this.scanResult = scanResult);
   }
 }
