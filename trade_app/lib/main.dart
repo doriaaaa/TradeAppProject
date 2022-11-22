@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:trade_app/widgets/nav_bar.dart';
+import '../screens/login_page.dart';
+
 // import '../widgets/nav_bar.dart';
 
 void main() {
@@ -26,7 +28,8 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: const NavBar(),
+      // home: const NavBar(),
+      home: LoginPage(),
     );
   }
 }
