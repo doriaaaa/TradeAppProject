@@ -14,14 +14,13 @@ class _LoginPageState extends State<LoginPage> {
       child: CircleAvatar(
         backgroundColor: Colors.transparent,
         radius: 48.0,
-        child: Image.asset('../assets/logo.png'),
+        child: Image.network(
+            'http://books.google.com/books/content?id=-VfNSAAACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api'),
       ),
     );
 
     final email = TextFormField(
       keyboardType: TextInputType.emailAddress,
-      autofocus: false,
-      initialValue: 'user@gmail.com',
       decoration: InputDecoration(
         hintText: 'Email',
         contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
@@ -30,9 +29,6 @@ class _LoginPageState extends State<LoginPage> {
     );
 
     final password = TextFormField(
-      autofocus: false,
-      initialValue: 'abc123',
-      obscureText: true,
       decoration: InputDecoration(
         hintText: 'Password',
         contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
