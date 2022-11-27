@@ -29,8 +29,8 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       // home: const NavBar(),
-      home: LoginPage(),
-      //home: InfoPage(),
+      //home: LoginPage(),
+      home: InfoPage(),
     );
   }
 }
