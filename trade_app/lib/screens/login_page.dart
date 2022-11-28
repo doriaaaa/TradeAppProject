@@ -1,13 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
+import 'package:trade_app/widgets/reusable_widget.dart';
+import 'package:trade_app/services/auth/connector.dart';
 
 class LoginPage extends StatefulWidget {
   static String tag = 'login-page';
+  const LoginPage({super.key});
   @override
   _LoginPageState createState() => new _LoginPageState();
 }
 
 class _LoginPageState extends State<LoginPage> {
+
+  final _formKey = GlobalKey<FormState>();
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     final slide = ImageSlideshow(
@@ -37,7 +52,14 @@ class _LoginPageState extends State<LoginPage> {
     // );
 
     final email = TextFormField(
+      controller: emailController,
       keyboardType: TextInputType.emailAddress,
+      validator: (value) {
+        if (value == null || value.isEmpty) {
+          return 'Please enter your email';
+        }
+        return null;
+      },
       decoration: InputDecoration(
         hintText: 'Email',
         contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
@@ -46,12 +68,23 @@ class _LoginPageState extends State<LoginPage> {
     );
 
     final password = TextFormField(
+      controller: passwordController,
+      obscureText: true,
+      enableSuggestions: false,
+      autocorrect: false,
+      validator: (value) {
+        if (value == null || value.isEmpty) {
+          return 'Please enter the password';
+        }
+        return null;
+      },
       decoration: InputDecoration(
         hintText: 'Password',
         contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
       ),
     );
+    
     final heading = Text.rich(
       TextSpan(
         text: 'Login',
@@ -59,20 +92,34 @@ class _LoginPageState extends State<LoginPage> {
         // default text style
       ),
     );
-    final loginButton = Padding(
-      padding: EdgeInsets.symmetric(vertical: 16.0),
-      child: Material(
-        borderRadius: BorderRadius.circular(30.0),
+
+    final loginButton = ElevatedButton(
+      style: ElevatedButton.styleFrom(
         shadowColor: Colors.lightBlueAccent.shade100,
+        minimumSize: const Size(350,50),
         elevation: 5.9,
-        child: MaterialButton(
-          minWidth: 200,
-          height: 42,
-          onPressed: () {},
-          color: Colors.lightBlueAccent,
-          child: Text('Log in', style: TextStyle(color: Colors.white)),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10.0),
         ),
       ),
+      onPressed: () {
+        // Validate returns true if the form is valid, or false otherwise.
+        // print(emailController.text);
+        // print(passwordController.text);
+        if (_formKey.currentState!.validate()) {
+          // If the form is valid, display a snackbar. In the real world,
+          // you'd often call a server or save the information in a database.
+          AuthService().signInUser(
+            context:context, 
+            email:emailController.text,
+            password: passwordController.text
+          );
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Logging in...')),
+          );
+        }
+      },
+      child: const Text('Login'),
     );
 
     // final forgotLabel = FlatButton(
@@ -85,20 +132,16 @@ class _LoginPageState extends State<LoginPage> {
 
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        centerTitle: true,
-        title: const Text(
-          'Welcome to Trade Book',
-        ),
-      ),
-      body: Center(
+      appBar: ReusableWidgets.LoginPageAppBar('Welcome to Trade Book'),
+      body: Form(
+        key: _formKey,
         child: ListView(
           shrinkWrap: true,
           padding: EdgeInsets.only(left: 24.0, right: 24.0),
           children: <Widget>[
             heading,
             //logo,
-            slide,
+            // slide,
             SizedBox(height: 48.0),
             email,
             SizedBox(height: 8.0),

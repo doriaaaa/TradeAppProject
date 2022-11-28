@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
+  static const String routeName = '/home';
   const HomePage({Key? key}) : super(key: key);
 
   @override
@@ -11,11 +12,12 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: const Text('Welcome'),
-        ),
-        body: const Center(
-          child: Text('Hi'),
-        ));
+      appBar: AppBar(
+        title: const Text('Welcome'),
+      ),
+      body: const Center(
+        child: Text('Hi'),
+      )
+    );
   }
 }

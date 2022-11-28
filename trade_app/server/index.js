@@ -9,7 +9,7 @@ const authRouter = require('./routes/auth');
 //INIT
 const PORT = 3000;
 const app = express();
-const DB = "mongodb+srv://cuhktradeApp:9dbhnx67Xjx904Oc@cluster0.pjrdqne.mongodb.net/?retryWrites=true&w=majority";
+const DB = "mongodb+srv://cuhktradeApp:9dbhnx67Xjx904Oc@cluster0.pjrdqne.mongodb.net/test";
 
 //middleware
 app.use(express.json());

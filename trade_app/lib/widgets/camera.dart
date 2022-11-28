@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
+import 'package:http/http.dart';
+import 'dart:io';
 
 class Camera extends StatefulWidget {
   const Camera({Key? key}) : super(key: key);
@@ -11,6 +13,7 @@ class Camera extends StatefulWidget {
 class _CameraState extends State<Camera> {
   MobileScannerController cameraController = MobileScannerController();
   bool _screenOpened = false;
+  String serverResponse = 'Server response';
 
   @override
   Widget build(BuildContext context) {
@@ -70,7 +73,9 @@ class _CameraState extends State<Camera> {
     /// open screen
     if (!_screenOpened) {
       final String code = barcode.rawValue ?? "---";
-      print(barcode);
+      if (code != "---") {
+        _makeGetRequest();
+      }
       debugPrint('Barcode found! $code');
       _screenOpened = true;
       Navigator.push(
@@ -82,6 +87,22 @@ class _CameraState extends State<Camera> {
 
   void _screenWasClosed() {
     _screenOpened = false;
+  }
+
+  _makeGetRequest() async {
+    final url = Uri.parse(_localhost());
+    Response response = await get(url);
+    setState(() {
+      serverResponse = response.body; //return response
+    });
+  }
+
+  String _localhost() {
+    if (Platform.isAndroid) {
+      return 'http://127.0.0.1:3000';
+    } else {// for iOS simulator 
+      return 'http://localhost:3000';
+    }
   }
 }
 

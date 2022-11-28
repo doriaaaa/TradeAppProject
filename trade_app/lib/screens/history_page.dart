@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class HistoryPage extends StatefulWidget {
+  static const String routeName = '/history';
   const HistoryPage({Key? key}) : super(key: key);
 
   @override

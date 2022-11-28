@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:trade_app/widgets/nav_bar.dart';
 import '../screens/login_page.dart';
-import '../screens/bookinfo.dart';
-import 'package:carousel_slider/carousel_slider.dart';
+import 'package:trade_app/routes/router.dart';
 // import '../widgets/nav_bar.dart';
 
 void main() {
@@ -30,7 +28,9 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       // home: const NavBar(),
-      home: LoginPage(),
+      // home: LoginPage(),
+      onGenerateRoute: (settings) => generateRoute(settings),
+      home: LoginPage()
       //home: InfoPage(),
     );
   }
