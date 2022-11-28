@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
 
 class LoginPage extends StatefulWidget {
   static String tag = 'login-page';
@@ -9,15 +10,31 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
-    final logo = Hero(
-      tag: 'hero',
-      child: CircleAvatar(
-        backgroundColor: Colors.transparent,
-        radius: 48.0,
-        child: Image.network(
-            'http://books.google.com/books/content?id=-VfNSAAACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api'),
-      ),
+    final slide = ImageSlideshow(
+      indicatorColor: Colors.blue,
+      onPageChanged: (value) {
+        debugPrint('Page changed: $value');
+      },
+      autoPlayInterval: 3000,
+      isLoop: true,
+      children: [
+        Image.network(
+            "http://books.google.com/books/content?id=-VfNSAAACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"),
+        Image.network(
+            "http://books.google.com/books/content?id=fltxyAEACAAJ&printsec=frontcover&img=1&zoom=5&source=gbs_api"),
+        Image.network(
+            "http://books.google.com/books/content?id=T929zgEACAAJ&printsec=frontcover&img=1&zoom=5&source=gbs_api"),
+      ],
     );
+    // final logo = Hero(
+    //   tag: 'hero',
+    //   child: CircleAvatar(
+    //     backgroundColor: Colors.transparent,
+    //     radius: 48.0,
+    //     child: Image.network(
+    //         'http://books.google.com/books/content?id=-VfNSAAACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api'),
+    //   ),
+    // );
 
     final email = TextFormField(
       keyboardType: TextInputType.emailAddress,
@@ -35,7 +52,13 @@ class _LoginPageState extends State<LoginPage> {
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
       ),
     );
-
+    final heading = Text.rich(
+      TextSpan(
+        text: 'Login',
+        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 40),
+        // default text style
+      ),
+    );
     final loginButton = Padding(
       padding: EdgeInsets.symmetric(vertical: 16.0),
       child: Material(
@@ -62,12 +85,20 @@ class _LoginPageState extends State<LoginPage> {
 
     return Scaffold(
       backgroundColor: Colors.white,
+      appBar: AppBar(
+        centerTitle: true,
+        title: const Text(
+          'Welcome to Trade Book',
+        ),
+      ),
       body: Center(
         child: ListView(
           shrinkWrap: true,
           padding: EdgeInsets.only(left: 24.0, right: 24.0),
           children: <Widget>[
-            logo,
+            heading,
+            //logo,
+            slide,
             SizedBox(height: 48.0),
             email,
             SizedBox(height: 8.0),

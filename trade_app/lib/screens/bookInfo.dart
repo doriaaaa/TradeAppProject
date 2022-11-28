@@ -10,6 +10,12 @@ class InfoPage extends StatefulWidget {
 }
 
 class _InfoPageState extends State<InfoPage> {
+  @override
+  void initState() {
+    super.initState();
+    readJson();
+  }
+
   List _items = [];
   // Fetch content from the json file
   Future<void> readJson() async {
@@ -34,10 +40,11 @@ class _InfoPageState extends State<InfoPage> {
         padding: const EdgeInsets.all(25),
         child: Column(
           children: [
-            ElevatedButton(
-              onPressed: readJson,
-              child: const Text('Load Book (gets data from json)'),
-            ),
+            //auto load
+            // ElevatedButton(
+            //   onPressed: readJson,
+            //   child: const Text('Load Book (gets data from json)'),
+            // ),
 
             // Display the data loaded from sample.json
             _items.isNotEmpty

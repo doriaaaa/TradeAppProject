@@ -38,6 +38,8 @@ dependencies:
   google_nav_bar: ^5.0.6
   mobile_scanner: ^2.0.0
   http: ^0.13.5
+  carousel_slider: ^4.1.1
+  flutter_image_slideshow: ^0.1.4
   
 
 dev_dependencies:
