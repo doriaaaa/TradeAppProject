@@ -11,7 +11,6 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-
   final _formKey = GlobalKey<FormState>();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
@@ -84,7 +83,7 @@ class _LoginPageState extends State<LoginPage> {
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
       ),
     );
-    
+
     final heading = Text.rich(
       TextSpan(
         text: 'Login',
@@ -96,7 +95,7 @@ class _LoginPageState extends State<LoginPage> {
     final loginButton = ElevatedButton(
       style: ElevatedButton.styleFrom(
         shadowColor: Colors.lightBlueAccent.shade100,
-        minimumSize: const Size(350,50),
+        minimumSize: const Size(350, 50),
         elevation: 5.9,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10.0),
@@ -110,10 +109,9 @@ class _LoginPageState extends State<LoginPage> {
           // If the form is valid, display a snackbar. In the real world,
           // you'd often call a server or save the information in a database.
           AuthService().signInUser(
-            context:context, 
-            email:emailController.text,
-            password: passwordController.text
-          );
+              context: context,
+              email: emailController.text,
+              password: passwordController.text);
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(content: Text('Logging in...')),
           );
@@ -139,9 +137,10 @@ class _LoginPageState extends State<LoginPage> {
           shrinkWrap: true,
           padding: EdgeInsets.only(left: 24.0, right: 24.0),
           children: <Widget>[
+            SizedBox(height: 60.0),
             heading,
             //logo,
-            // slide,
+            //slide,
             SizedBox(height: 48.0),
             email,
             SizedBox(height: 8.0),
