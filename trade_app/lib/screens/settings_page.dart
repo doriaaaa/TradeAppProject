@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:babstrap_settings_screen/babstrap_settings_screen.dart';
 import 'package:trade_app/screens/information_page.dart';
 import 'package:trade_app/screens/login_page.dart';
+import 'package:trade_app/screens/change_page.dart';
 import 'package:trade_app/widgets/app_title_homepage.dart';
 
 class SettingsPage extends StatefulWidget {
@@ -99,9 +100,15 @@ class _SettingsPageState extends State<SettingsPage> {
                     title: "Sign Out",
                   ),
                   SettingsItem(
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const ChangePage()),
+                      );
+                    },
                     icons: CupertinoIcons.repeat,
-                    title: "Change email",
+                    title: "Change email/password",
                   ),
                   SettingsItem(
                     onTap: () {},
