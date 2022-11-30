@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:trade_app/screens/home_page.dart';
-import 'package:trade_app/screens/history_page.dart';
+import 'package:trade_app/screens/search.dart';
+import 'package:trade_app/widgets/nav_bar.dart';
 
 Route<dynamic> generateRoute(RouteSettings routeSettings) {
   switch (routeSettings.name) {
-    case HomePage.routeName: 
+    case NavBar.routeName:
       return MaterialPageRoute(
-        settings: routeSettings,
-        builder: (_) => const HomePage() 
-      );
-    case HistoryPage.routeName: 
+          settings: routeSettings, builder: (_) => const NavBar());
+    case HomePage.routeName:
       return MaterialPageRoute(
-        settings: routeSettings,
-        builder: (_) => const HistoryPage() 
-      );
+          settings: routeSettings, builder: (_) => const HomePage());
+    case SearchPage.routeName:
+      return MaterialPageRoute(
+          settings: routeSettings, builder: (_) => const SearchPage());
     default:
       return MaterialPageRoute(
         settings: routeSettings,

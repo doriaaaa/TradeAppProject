@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 
-class HistoryPage extends StatefulWidget {
-  static const String routeName = '/history';
-  const HistoryPage({Key? key}) : super(key: key);
+class SearchPage extends StatefulWidget {
+  static const String routeName = '/Search';
+  const SearchPage({Key? key}) : super(key: key);
 
   @override
-  State<HistoryPage> createState() => _HistoryPageState();
+  State<SearchPage> createState() => _SearchPageState();
 }
 
-class _HistoryPageState extends State<HistoryPage> {
+class _SearchPageState extends State<SearchPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Welcome'),
+        title: const Text('Search for a book!'),
         actions: [
           IconButton(
             onPressed: () {

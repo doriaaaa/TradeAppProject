@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
-import 'package:trade_app/screens/history_page.dart';
+import 'package:trade_app/screens/search.dart';
 import 'package:trade_app/screens/home_page.dart';
 import 'package:trade_app/screens/notification_page.dart';
 import 'package:trade_app/screens/register_page.dart';
 import 'package:trade_app/screens/settings_page.dart';
 import 'package:trade_app/screens/upload_page.dart';
+import 'package:trade_app/screens/bookinfo.dart';
 
 class NavBar extends StatefulWidget {
   const NavBar({Key? key}) : super(key: key);
-
+  static const String routeName = '/info';
   // This widget is the home page of your application. It is stateful, meaning
   // that it has a State object (defined below) that contains fields that affect
   // how it looks.
@@ -29,7 +30,7 @@ class _NavBarState extends State<NavBar> {
   int _selectedindex = 0;
   final List<Widget> _children = [
     const HomePage(),
-    const HistoryPage(),
+    const SearchPage(),
     const UploadPage(),
     const NotificationPage(),
     const SettingsPage(),
@@ -58,8 +59,8 @@ class _NavBarState extends State<NavBar> {
                 onPressed: () => {},
               ),
               GButton(
-                icon: Icons.history,
-                text: 'history',
+                icon: Icons.search,
+                text: 'Search',
                 onPressed: () => {},
               ),
               GButton(
