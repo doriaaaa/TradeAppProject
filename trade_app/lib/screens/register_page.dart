@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
 import 'package:trade_app/widgets/reusable_widget.dart';
 import 'package:trade_app/services/auth/connector.dart';
+import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:http/http.dart' as http;
 
 class RegisterPage extends StatefulWidget {
   static String tag = 'register-page';
@@ -14,9 +17,10 @@ class _RegisterPageState extends State<RegisterPage> {
   final _formKey = GlobalKey<FormState>();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
-
+  final nameController = TextEditingController();
   @override
   void dispose() {
+    nameController.dispose();
     emailController.dispose();
     passwordController.dispose();
     super.dispose();
@@ -49,6 +53,22 @@ class _RegisterPageState extends State<RegisterPage> {
     //         'http://books.google.com/books/content?id=-VfNSAAACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api'),
     //   ),
     // );
+    final name = TextFormField(
+      controller: nameController,
+      enableSuggestions: false,
+      autocorrect: false,
+      validator: (value) {
+        if (value == null || value.isEmpty) {
+          return 'Please enter your user name';
+        }
+        return null;
+      },
+      decoration: InputDecoration(
+        hintText: 'User name',
+        contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
+      ),
+    );
 
     final email = TextFormField(
       controller: emailController,
@@ -102,9 +122,19 @@ class _RegisterPageState extends State<RegisterPage> {
         ),
       ),
       onPressed: () {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Registerd successfully')),
-        );
+        if (_formKey.currentState!.validate()) {
+          AuthService().signUpUser(
+            context: context,
+            email: emailController.text,
+            password: passwordController.text,
+            name: nameController.text,
+          );
+
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+                content: Text('Registerd successfully (fake), please login')),
+          );
+        }
       },
       child: const Text('Register'),
     );
@@ -131,6 +161,8 @@ class _RegisterPageState extends State<RegisterPage> {
             //logo,
             //slide,
             SizedBox(height: 48.0),
+            name,
+            SizedBox(height: 8.0),
             email,
             SizedBox(height: 8.0),
             password,

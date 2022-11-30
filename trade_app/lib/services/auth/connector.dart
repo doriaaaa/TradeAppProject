@@ -40,4 +40,41 @@ class AuthService {
       print(e.toString());
     }
   }
+
+  void signUpUser({
+    required BuildContext context,
+    required String name,
+    required String email,
+    required String password,
+  }) async {
+    try {
+      http.Response res =
+          await http.post(Uri.parse('http://localhost:3000/api/signup'),
+              body: jsonEncode({
+                'name': name,
+                'email': email,
+                'password': password,
+              }),
+              headers: <String, String>{
+            'Content-Type': 'application/json; charset=UTF-8',
+          });
+      httpErrorHandle(
+        response: res,
+        context: context,
+        onSuccess: () async {
+          //store token in app memory
+          SharedPreferences prefs = await SharedPreferences.getInstance();
+          await prefs.setString('x-auth-token', jsonDecode(res.body)['token']);
+          // ignore: use_build_context_synchronously
+          Navigator.pushNamedAndRemoveUntil(
+            context,
+            NavBar.routeName,
+            (route) => false,
+          );
+        },
+      );
+    } catch (e) {
+      print(e.toString());
+    }
+  }
 }
