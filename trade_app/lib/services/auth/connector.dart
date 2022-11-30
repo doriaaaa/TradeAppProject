@@ -2,8 +2,6 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:trade_app/screens/bookInfo.dart';
-import 'package:trade_app/screens/home_page.dart';
 import 'package:trade_app/widgets/nav_bar.dart';
 import '../../constants/error_handling.dart';
 

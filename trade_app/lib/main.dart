@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:trade_app/screens/home_page.dart';
 import '../screens/login_page.dart';
-import '../screens/settings_page.dart';
 import 'package:trade_app/routes/router.dart';
 // import '../widgets/nav_bar.dart';
 

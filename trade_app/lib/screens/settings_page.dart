@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:babstrap_settings_screen/babstrap_settings_screen.dart';
 import 'package:trade_app/screens/information_page.dart';
 import 'package:trade_app/screens/login_page.dart';
 import 'package:trade_app/screens/change_page.dart';
-import 'package:trade_app/widgets/app_title_homepage.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({Key? key}) : super(key: key);

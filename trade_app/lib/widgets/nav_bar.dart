@@ -6,7 +6,6 @@ import 'package:trade_app/screens/notification_page.dart';
 import 'package:trade_app/screens/register_page.dart';
 import 'package:trade_app/screens/settings_page.dart';
 import 'package:trade_app/screens/upload_page.dart';
-import 'package:trade_app/screens/bookinfo.dart';
 
 class NavBar extends StatefulWidget {
   const NavBar({Key? key}) : super(key: key);

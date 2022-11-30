@@ -1,8 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
-import 'package:trade_app/widgets/reusable_widget.dart';
-import 'package:trade_app/services/auth/connector.dart';
-import 'package:trade_app/widgets/app_title_informationpage.dart';
 
 class InformationPage extends StatefulWidget {
   static String tag = 'information';
