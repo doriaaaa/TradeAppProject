@@ -132,7 +132,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
-                content: Text('Registerd successfully (fake), please login')),
+                content: Text('Registerd successfully , please login')),
           );
         }
       },

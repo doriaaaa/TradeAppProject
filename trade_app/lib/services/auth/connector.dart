@@ -4,6 +4,7 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:trade_app/widgets/nav_bar.dart';
 import '../../constants/error_handling.dart';
+import 'package:trade_app/screens/login_page.dart';
 
 class AuthService {
   void signInUser({
@@ -64,11 +65,11 @@ class AuthService {
         onSuccess: () async {
           //store token in app memory
           SharedPreferences prefs = await SharedPreferences.getInstance();
-          await prefs.setString('x-auth-token', jsonDecode(res.body)['token']);
+          //await prefs.setString('x-auth-token', jsonDecode(res.body)['token']);
           // ignore: use_build_context_synchronously
           Navigator.pushNamedAndRemoveUntil(
             context,
-            NavBar.routeName,
+            LoginPage.routeName,
             (route) => false,
           );
         },
