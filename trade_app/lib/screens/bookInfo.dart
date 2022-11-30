@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 
 class InfoPage extends StatefulWidget {
   const InfoPage({Key? key}) : super(key: key);
-
+  static const String routeName = '/bookinfo';
   @override
   State<InfoPage> createState() => _InfoPageState();
 }

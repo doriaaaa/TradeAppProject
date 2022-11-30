@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:trade_app/widgets/reusable_widget.dart';
-import 'package:trade_app/services/auth/connector.dart';
+import 'package:trade_app/screens/settings_page.dart';
 
 class ChangePage extends StatefulWidget {
   static String tag = 'change-page';
+
   const ChangePage({super.key});
   @override
   _ChangePageState createState() => new _ChangePageState();
@@ -85,20 +86,9 @@ class _ChangePageState extends State<ChangePage> {
         ),
       ),
       onPressed: () {
-        // Validate returns true if the form is valid, or false otherwise.
-        // print(emailController.text);
-        // print(passwordController.text);
-        if (_formKey.currentState!.validate()) {
-          // If the form is valid, display a snackbar. In the real world,
-          // you'd often call a server or save the information in a database.
-          AuthService().signInUser(
-              context: context,
-              email: emailController.text,
-              password: passwordController.text);
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Logging in...')),
-          );
-        }
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Email/PAssword reseted!')),
+        );
       },
       child: const Text('Reset'),
     );

@@ -102,20 +102,9 @@ class _RegisterPageState extends State<RegisterPage> {
         ),
       ),
       onPressed: () {
-        // Validate returns true if the form is valid, or false otherwise.
-        // print(emailController.text);
-        // print(passwordController.text);
-        if (_formKey.currentState!.validate()) {
-          // If the form is valid, display a snackbar. In the real world,
-          // you'd often call a server or save the information in a database.
-          AuthService().signInUser(
-              context: context,
-              email: emailController.text,
-              password: passwordController.text);
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Logging in...')),
-          );
-        }
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Registerd successfully')),
+        );
       },
       child: const Text('Register'),
     );

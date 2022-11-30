@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:trade_app/widgets/reusable_widget.dart';
 
 class NotificationPage extends StatefulWidget {
   const NotificationPage({Key? key}) : super(key: key);
@@ -8,17 +9,22 @@ class NotificationPage extends StatefulWidget {
 }
 
 class _NotificationPageState extends State<NotificationPage> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        title: const Text('this is notification page'),
+      appBar: ReusableWidgets.LoginPageAppBar('Notifications'),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Center(
+            child: Image.asset('assets/notification.png'),
+          ),
+          new Text(
+            'No notification so far',
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
+          )
+        ],
       ),
-      body:Container(
-        child: Text('this is notification page'),
-      )
     );
   }
 }
