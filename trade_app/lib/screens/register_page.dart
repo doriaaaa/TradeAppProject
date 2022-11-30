@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
-import 'package:trade_app/screens/register_page.dart';
 import 'package:trade_app/widgets/reusable_widget.dart';
 import 'package:trade_app/services/auth/connector.dart';
 
-class LoginPage extends StatefulWidget {
-  static String tag = 'login-page';
-  const LoginPage({super.key});
+class RegisterPage extends StatefulWidget {
+  static String tag = 'register-page';
+  const RegisterPage({super.key});
   @override
-  _LoginPageState createState() => new _LoginPageState();
+  _RegisterPageState createState() => new _RegisterPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _RegisterPageState extends State<RegisterPage> {
   final _formKey = GlobalKey<FormState>();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
@@ -87,20 +86,10 @@ class _LoginPageState extends State<LoginPage> {
 
     final heading = Text.rich(
       TextSpan(
-        text: 'Login',
+        text: 'Register Account',
         style: TextStyle(fontWeight: FontWeight.bold, fontSize: 40),
         // default text style
       ),
-    );
-
-    final register_button = TextButton(
-      onPressed: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => const RegisterPage()),
-        );
-      },
-      child: const Text("Don't have an account? Sign up!"),
     );
 
     final loginButton = ElevatedButton(
@@ -128,7 +117,7 @@ class _LoginPageState extends State<LoginPage> {
           );
         }
       },
-      child: const Text('Login'),
+      child: const Text('Register'),
     );
 
     // final forgotLabel = FlatButton(
@@ -158,8 +147,6 @@ class _LoginPageState extends State<LoginPage> {
             password,
             SizedBox(height: 24.0),
             loginButton,
-            SizedBox(height: 5.0),
-            register_button
           ],
         ),
       ),
