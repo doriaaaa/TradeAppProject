@@ -18,6 +18,7 @@ class _RegisterPageState extends State<RegisterPage> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final nameController = TextEditingController();
+  final TextEditingController _confirmPass = TextEditingController();
   @override
   void dispose() {
     nameController.dispose();
@@ -95,10 +96,30 @@ class _RegisterPageState extends State<RegisterPage> {
         if (value == null || value.isEmpty) {
           return 'Please enter the password';
         }
+        if (value != _confirmPass.text) return 'Not Match';
         return null;
       },
       decoration: InputDecoration(
         hintText: 'Password',
+        contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
+      ),
+    );
+
+    final password2 = TextFormField(
+      controller: _confirmPass,
+      obscureText: true,
+      enableSuggestions: false,
+      autocorrect: false,
+      validator: (value) {
+        if (value == null || value.isEmpty) {
+          return 'Please enter the password again';
+        }
+        if (value != passwordController.text) return 'Not Match';
+        return null;
+      },
+      decoration: InputDecoration(
+        hintText: 'Re-Enter Password',
         contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
       ),
@@ -166,6 +187,8 @@ class _RegisterPageState extends State<RegisterPage> {
             email,
             SizedBox(height: 8.0),
             password,
+            SizedBox(height: 8.0),
+            password2,
             SizedBox(height: 24.0),
             loginButton,
           ],
