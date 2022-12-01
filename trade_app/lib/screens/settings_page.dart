@@ -24,8 +24,8 @@ class _SettingsPageState extends State<SettingsPage> {
             children: [
               // user card
               SimpleUserCard(
-                userName: "Admin124",
-                userProfilePic: AssetImage("assets/avator.jpg"),
+                userName: "admin124",
+                userProfilePic: AssetImage("assets/avatar.jpg"),
               ),
               SettingsGroup(
                 items: [

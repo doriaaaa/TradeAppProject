@@ -32,7 +32,7 @@ class _HomePageState extends State<HomePage> {
 
   final heading = Text.rich(
     TextSpan(
-      text: 'Our\nLatest Recomandations! ',
+      text: 'Our\nLatest Recommendations! ',
       style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
       // default text style
     ),
@@ -40,7 +40,7 @@ class _HomePageState extends State<HomePage> {
 
   final category_text = Text.rich(
     TextSpan(
-      text: 'Recomanded Categories',
+      text: 'Recommended Categories',
       style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
       // default text style
     ),
