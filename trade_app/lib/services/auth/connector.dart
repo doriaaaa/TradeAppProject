@@ -34,7 +34,7 @@ class AuthService {
             context,
             NavBar.routeName,
             (route) => false,
-          );
+          ); //return res.body['name']
         },
       );
     } catch (e) {
