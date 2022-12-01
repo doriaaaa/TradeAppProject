@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class SearchPage extends StatefulWidget {
   static const String routeName = '/Search';
@@ -13,7 +14,18 @@ class _SearchPageState extends State<SearchPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Search for a book!'),
+        title: Text('Search for a book!',
+            style: GoogleFonts.montserrat(
+                textStyle: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                    height: 0.9,
+                    fontSize: 25))),
+        flexibleSpace: Image(
+          image: AssetImage('assets/book_title.jpg'),
+          fit: BoxFit.cover,
+        ),
+        backgroundColor: Colors.transparent,
         actions: [
           IconButton(
             onPressed: () {
@@ -22,7 +34,7 @@ class _SearchPageState extends State<SearchPage> {
                 delegate: CustomSearchDelegate(),
               );
             },
-            icon: const Icon(Icons.search),
+            icon: const Icon(Icons.search, size: 35),
           ),
         ],
       ),
@@ -32,9 +44,9 @@ class _SearchPageState extends State<SearchPage> {
 
 class CustomSearchDelegate extends SearchDelegate {
   List<String> seacrhTerms = [
-    'Apple',
-    'Banana',
-    'Crunch',
+    'Atomic Habits',
+    'Cracking the Coding Interview, Fourth Edition Book 1',
+    'The Last Wish',
   ];
   @override
   List<Widget> buildActions(BuildContext context) {

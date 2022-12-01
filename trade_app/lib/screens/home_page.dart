@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:trade_app/widgets/app_title_homepage.dart';
 import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
 import 'package:trade_app/screens/bookInfo.dart';
+import 'package:trade_app/widgets/reusable_widget.dart';
 
 class HomePage extends StatefulWidget {
   static const String routeName = '/home';
@@ -29,10 +30,32 @@ class _HomePageState extends State<HomePage> {
           "http://books.google.com/books/content?id=T929zgEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"),
     ],
   );
+  final slide2 = ImageSlideshow(
+    indicatorColor: Colors.white,
+    onPageChanged: (value) {
+      debugPrint('Page changed: $value');
+    },
+    autoPlayInterval: 3000,
+    isLoop: true,
+    children: [
+      Image.network(
+          "http://books.google.com/books/content?id=gvB1DQAAQBAJ&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api"),
+      Image.network(
+          "http://books.google.com/books/content?id=ZRdbmjRjljkC&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api"),
+    ],
+  );
+  final bm = Text.rich(
+    TextSpan(
+      text: 'Books of the month! ',
 
+      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
+      // default text style
+    ),
+    textAlign: TextAlign.left,
+  );
   final heading = Text.rich(
     TextSpan(
-      text: 'Our\nLatest Recomandations! ',
+      text: 'Trandings',
       style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
       // default text style
     ),
@@ -48,15 +71,19 @@ class _HomePageState extends State<HomePage> {
 
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: ReusableWidgets.LoginPageAppBar('Welcome Back! Admin124'),
       body: Column(
         children: <Widget>[
-          AppTitle(),
+          SizedBox(height: 70.0),
+          bm,
+          SizedBox(height: 20.0),
+          slide,
           SizedBox(height: 70.0),
           heading,
           SizedBox(height: 20.0),
-          slide,
+          slide2,
           SizedBox(height: 20.0),
-          category_text,
+          //category_text,
         ],
       ),
     );

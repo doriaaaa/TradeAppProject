@@ -4,6 +4,7 @@ import 'package:babstrap_settings_screen/babstrap_settings_screen.dart';
 import 'package:trade_app/screens/information_page.dart';
 import 'package:trade_app/screens/login_page.dart';
 import 'package:trade_app/screens/change_page.dart';
+import 'package:trade_app/widgets/reusable_widget.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({Key? key}) : super(key: key);
@@ -17,6 +18,7 @@ class _SettingsPageState extends State<SettingsPage> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
+        appBar: ReusableWidgets.LoginPageAppBar('Settings'),
         backgroundColor: Colors.white.withOpacity(.94),
         body: Padding(
           padding: const EdgeInsets.all(10),

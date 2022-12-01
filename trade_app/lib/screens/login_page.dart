@@ -67,6 +67,14 @@ class _LoginPageState extends State<LoginPage> {
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
       ),
     );
+    final bg = SizedBox(
+        width: 300,
+        height: 200,
+        child: FittedBox(
+            fit: BoxFit.fitWidth,
+            child: Image.asset(
+                "assets/overlay.png") //add your image url if its from network if not change it to image.asset
+            ));
 
     final password = TextFormField(
       controller: passwordController,
@@ -151,9 +159,11 @@ class _LoginPageState extends State<LoginPage> {
           children: <Widget>[
             SizedBox(height: 60.0),
             heading,
+            SizedBox(height: 75.0),
             //logo,
+            bg,
             //slide,
-            SizedBox(height: 48.0),
+            SizedBox(height: 75.0),
             email,
             SizedBox(height: 8.0),
             password,
