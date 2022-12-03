@@ -1,7 +1,23 @@
+import 'dart:convert';
+import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
-import 'package:http/http.dart';
 import 'dart:io';
+import 'package:http/http.dart' as http;
+import 'package:trade_app/services/auth/connector.dart';
+
+class ISBN_info {
+  final String title;
+  final String publishedDate;
+
+  ISBN_info({required this.title, required this.publishedDate});
+
+  factory ISBN_info.fromJson(Map<String, dynamic> json) {
+    final title = json['title'] as String;
+    final publishedDate = json['publishedDate'] as String;
+    return ISBN_info(title: title, publishedDate: publishedDate);
+  }
+}
 
 class Camera extends StatefulWidget {
   const Camera({Key? key}) : super(key: key);
@@ -14,6 +30,36 @@ class _CameraState extends State<Camera> {
   MobileScannerController cameraController = MobileScannerController();
   bool _screenOpened = false;
   String serverResponse = 'Server response';
+
+  Future<String> getBookData(Barcode barcode, MobileScannerArguments? args) async {
+
+    if (!_screenOpened) {
+      final String code = barcode.rawValue ?? "---";
+      // final String code = "9780733426094";
+      if (code != "---") {
+        // debugPrint('Barcode found! $code');
+        var res = await http.post(
+          Uri.parse('http://172.20.10.4:3000/api/bookinfo'), 
+          body: jsonEncode({
+            "book_isbn": code
+          }),
+          headers: <String, String>{
+            'Content-Type': 'application/json; charset=UTF-8',
+          }
+        );
+        var resBody = json.decode(res.body);
+        _screenOpened = true;
+        debugPrint(code);
+        debugPrint(resBody['title']); // can print title
+        // ignore: use_build_context_synchronously
+        Navigator.push(
+          context, 
+          MaterialPageRoute(builder: (context) => FoundCodeScreen(screenClosed: _screenWasClosed, value: resBody))
+        );
+      }
+    }
+    return "Success!";
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -64,45 +110,29 @@ class _CameraState extends State<Camera> {
       body: MobileScanner(
         allowDuplicates: true,
         controller: cameraController,
-        onDetect: _foundBarcode,
+        onDetect: getBookData,
       ),
     );
   }
 
-  void _foundBarcode(Barcode barcode, MobileScannerArguments? args) {
-    /// open screen
-    if (!_screenOpened) {
-      final String code = barcode.rawValue ?? "---";
-      if (code != "---") {
-        _makeGetRequest();
-      }
-      debugPrint('Barcode found! $code');
-      _screenOpened = true;
-      Navigator.push(
-        context, 
-        MaterialPageRoute(builder: (context) => FoundCodeScreen(screenClosed: _screenWasClosed, value: code),)
-      );
-    }
-  }
+  // void _foundBarcode(Barcode barcode, MobileScannerArguments? args) {
+  //   /// open screen
+  //   if (!_screenOpened) {
+  //     final String code = barcode.rawValue ?? "---";
+  //     if (code != "---") {
+        
+  //     }
+  //     debugPrint('Barcode found! $code');
+  //     _screenOpened = true;
+  //     Navigator.push(
+  //       context, 
+  //       MaterialPageRoute(builder: (context) => FoundCodeScreen(screenClosed: _screenWasClosed, value: code),)
+  //     );
+  //   }
+  // }
 
   void _screenWasClosed() {
     _screenOpened = false;
-  }
-
-  _makeGetRequest() async {
-    final url = Uri.parse(_localhost());
-    Response response = await get(url);
-    setState(() {
-      serverResponse = response.body; //return response
-    });
-  }
-
-  String _localhost() {
-    if (Platform.isAndroid) {
-      return 'http://127.0.0.1:3000';
-    } else {// for iOS simulator 
-      return 'http://localhost:3000';
-    }
   }
 }
 
@@ -142,7 +172,7 @@ class _FoundCodeScreenState extends State<FoundCodeScreen> {
             children: [
               const Text("Scanned Code:", style: TextStyle(fontSize: 20,),),
               const SizedBox(height: 20,),
-              Text(widget.value, style: const TextStyle(fontSize: 16,),), //isbn
+              Text(widget.value, style: const TextStyle(fontSize: 16,),), 
             ],
           ),
         ),

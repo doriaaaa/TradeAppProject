@@ -1,10 +1,21 @@
 import 'package:flutter/material.dart';
 import '../screens/login_page.dart';
 import 'package:trade_app/routes/router.dart';
+import 'package:provider/provider.dart';
+import 'package:trade_app/provider/user_provider.dart';
 // import '../widgets/nav_bar.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (context) => UserProvider(),
+        ),
+      ], 
+    child: const MyApp()
+    )
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -27,12 +38,8 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      // home: const NavBar(),
       home: LoginPage(),
       onGenerateRoute: (settings) => generateRoute(settings),
-      //home: InfoPage(),
-      //home: HomePage(),
-      //home: SettingsPage(),
     );
   }
 }

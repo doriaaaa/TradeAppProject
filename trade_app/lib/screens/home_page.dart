@@ -3,6 +3,8 @@ import 'package:trade_app/widgets/app_title_homepage.dart';
 import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
 import 'package:trade_app/screens/bookInfo.dart';
 import 'package:trade_app/widgets/reusable_widget.dart';
+import 'package:trade_app/provider/user_provider.dart';
+import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
   static const String routeName = '/home';
@@ -13,7 +15,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  @override
   final slide = ImageSlideshow(
     indicatorColor: Colors.white,
     onPageChanged: (value) {
@@ -69,9 +70,11 @@ class _HomePageState extends State<HomePage> {
     ),
   );
 
+  @override
   Widget build(BuildContext context) {
+    var username = context.watch<UserProvider>().user.name;
     return Scaffold(
-      appBar: ReusableWidgets.LoginPageAppBar('Welcome Back! Admin124'),
+      appBar: ReusableWidgets.LoginPageAppBar('Welcome Back! $username'),
       body: Column(
         children: <Widget>[
           SizedBox(height: 70.0),

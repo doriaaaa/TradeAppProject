@@ -5,6 +5,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:trade_app/widgets/nav_bar.dart';
 import '../../constants/error_handling.dart';
 import 'package:trade_app/screens/login_page.dart';
+import 'package:provider/provider.dart';
+import 'package:trade_app/provider/user_provider.dart';
 
 class AuthService {
   void signInUser({
@@ -14,7 +16,7 @@ class AuthService {
   }) async {
     try {
       http.Response res =
-          await http.post(Uri.parse('http://localhost:3000/api/signin'),
+          await http.post(Uri.parse('http://172.20.10.4:3000/api/signin'),
               body: jsonEncode({
                 'email': email,
                 'password': password,
@@ -22,6 +24,7 @@ class AuthService {
               headers: <String, String>{
             'Content-Type': 'application/json; charset=UTF-8',
           });
+      debugPrint(res.body);
       httpErrorHandle(
         response: res,
         context: context,
@@ -29,6 +32,7 @@ class AuthService {
           //store token in app memory
           SharedPreferences prefs = await SharedPreferences.getInstance();
           await prefs.setString('x-auth-token', jsonDecode(res.body)['token']);
+          Provider.of<UserProvider>(context, listen: false).setUser(res.body);
           // ignore: use_build_context_synchronously
           Navigator.pushNamedAndRemoveUntil(
             context,
@@ -50,7 +54,7 @@ class AuthService {
   }) async {
     try {
       http.Response res =
-          await http.post(Uri.parse('http://localhost:3000/api/signup'),
+          await http.post(Uri.parse('http://172.20.10.4:3000/api/signup'),
               body: jsonEncode({
                 'name': name,
                 'email': email,
