@@ -5,6 +5,8 @@ import 'package:trade_app/screens/information_page.dart';
 import 'package:trade_app/screens/login_page.dart';
 import 'package:trade_app/screens/change_page.dart';
 import 'package:trade_app/widgets/reusable_widget.dart';
+import 'package:trade_app/provider/user_provider.dart';
+import 'package:provider/provider.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({Key? key}) : super(key: key);
@@ -16,6 +18,7 @@ class SettingsPage extends StatefulWidget {
 class _SettingsPageState extends State<SettingsPage> {
   @override
   Widget build(BuildContext context) {
+    var username = context.watch<UserProvider>().user.name;
     return MaterialApp(
       home: Scaffold(
         appBar: ReusableWidgets.LoginPageAppBar('Settings'),
@@ -26,7 +29,7 @@ class _SettingsPageState extends State<SettingsPage> {
             children: [
               // user card
               SimpleUserCard(
-                userName: "admin124",
+                userName: username,
                 userProfilePic: AssetImage("assets/avatar.jpg"),
               ),
               SettingsGroup(
