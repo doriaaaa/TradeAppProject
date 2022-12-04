@@ -54,7 +54,7 @@ class _CameraState extends State<Camera> {
         // ignore: use_build_context_synchronously
         Navigator.push(
           context, 
-          MaterialPageRoute(builder: (context) => FoundCodeScreen(screenClosed: _screenWasClosed, value: resBody))
+          MaterialPageRoute(builder: (context) => FoundCodeScreen(screenClosed: _screenWasClosed, value: resBody['title']))
         );
       }
     }

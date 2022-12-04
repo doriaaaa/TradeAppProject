@@ -33,7 +33,6 @@ class _NavBarState extends State<NavBar> {
     const UploadPage(),
     const NotificationPage(),
     const SettingsPage(),
-    const RegisterPage(),
   ];
 
   @override
@@ -44,6 +43,7 @@ class _NavBarState extends State<NavBar> {
             onTabChange: (value) => {
                   setState(() {
                     _selectedindex = value;
+                    print("pages: " + value.toString());
                   })
                 },
             gap: 0.5,
@@ -65,7 +65,8 @@ class _NavBarState extends State<NavBar> {
               GButton(
                 icon: Icons.bookmark_outline,
                 text: 'books',
-                onPressed: () => _slidingPanel(),
+                // onPressed: () => _slidingPanel(),
+                onPressed: () => {},
               ),
               GButton(
                 icon: Icons.notifications_outlined,

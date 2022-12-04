@@ -60,12 +60,12 @@ class _RegisterPageState extends State<RegisterPage> {
       autocorrect: false,
       validator: (value) {
         if (value == null || value.isEmpty) {
-          return 'Please enter your user name';
+          return 'Please enter your username';
         }
         return null;
       },
       decoration: InputDecoration(
-        hintText: 'User name',
+        hintText: 'Username',
         contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
       ),
@@ -81,7 +81,7 @@ class _RegisterPageState extends State<RegisterPage> {
         return null;
       },
       decoration: InputDecoration(
-        hintText: 'Email',
+        hintText: 'Registration Email',
         contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
       ),
@@ -94,7 +94,7 @@ class _RegisterPageState extends State<RegisterPage> {
       autocorrect: false,
       validator: (value) {
         if (value == null || value.isEmpty) {
-          return 'Please enter the password';
+          return 'Password';
         }
         if (value != _confirmPass.text) return 'Not Match';
         return null;
@@ -113,13 +113,13 @@ class _RegisterPageState extends State<RegisterPage> {
       autocorrect: false,
       validator: (value) {
         if (value == null || value.isEmpty) {
-          return 'Please enter the password again';
+          return 'Verify Password';
         }
         if (value != passwordController.text) return 'Not Match';
         return null;
       },
       decoration: InputDecoration(
-        hintText: 'Re-Enter Password',
+        hintText: 'Verify Password',
         contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
       ),
@@ -162,7 +162,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
-                content: Text('Registerd successfully , please login')),
+                content: Text('Registered successfully, please login')),
           );
         }
       },
