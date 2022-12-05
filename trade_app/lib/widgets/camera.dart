@@ -5,6 +5,7 @@ import 'package:mobile_scanner/mobile_scanner.dart';
 import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:trade_app/services/auth/connector.dart';
+import 'package:trade_app/screens/bookInfodetail.dart';
 
 class ISBN_info {
   final String title;
@@ -30,32 +31,34 @@ class _CameraState extends State<Camera> {
   MobileScannerController cameraController = MobileScannerController();
   bool _screenOpened = false;
   String serverResponse = 'Server response';
-
-  Future<String> getBookData(Barcode barcode, MobileScannerArguments? args) async {
-
+  int counter = 0;
+  Future<String> getBookData(
+      Barcode barcode, MobileScannerArguments? args) async {
     if (!_screenOpened) {
       final String code = barcode.rawValue ?? "---";
+      counter++;
       // final String code = "9780733426094";
-      if (code != "---") {
+      if (code != "---" && counter == 1) {
         // debugPrint('Barcode found! $code');
         var res = await http.post(
-          Uri.parse('http://172.20.10.4:3000/api/bookinfo'), 
-          body: jsonEncode({
-            "book_isbn": code
-          }),
-          headers: <String, String>{
-            'Content-Type': 'application/json; charset=UTF-8',
-          }
-        );
+            //localhost
+            Uri.parse('http://172.20.10.3:3000/api/bookinfo'),
+            body: jsonEncode({"book_isbn": code}),
+            headers: <String, String>{
+              'Content-Type': 'application/json; charset=UTF-8',
+            });
         var resBody = json.decode(res.body);
         _screenOpened = true;
+        String stringValue = counter.toString();
+        debugPrint(stringValue);
         debugPrint(code);
         debugPrint(resBody['title']); // can print title
         // ignore: use_build_context_synchronously
         Navigator.push(
-          context, 
-          MaterialPageRoute(builder: (context) => FoundCodeScreen(screenClosed: _screenWasClosed, value: resBody['title']))
-        );
+            context,
+            MaterialPageRoute(
+                builder: (context) => FoundCodeScreen(
+                    screenClosed: _screenWasClosed, value: resBody['title'])));
       }
     }
     return "Success!";
@@ -120,12 +123,12 @@ class _CameraState extends State<Camera> {
   //   if (!_screenOpened) {
   //     final String code = barcode.rawValue ?? "---";
   //     if (code != "---") {
-        
+
   //     }
   //     debugPrint('Barcode found! $code');
   //     _screenOpened = true;
   //     Navigator.push(
-  //       context, 
+  //       context,
   //       MaterialPageRoute(builder: (context) => FoundCodeScreen(screenClosed: _screenWasClosed, value: code),)
   //     );
   //   }
@@ -161,7 +164,9 @@ class _FoundCodeScreenState extends State<FoundCodeScreen> {
             widget.screenClosed();
             Navigator.pop(context);
           },
-          icon: const Icon(Icons.arrow_back_outlined,),
+          icon: const Icon(
+            Icons.arrow_back_outlined,
+          ),
         ),
       ),
       body: Center(
@@ -170,9 +175,21 @@ class _FoundCodeScreenState extends State<FoundCodeScreen> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              const Text("Scanned Code:", style: TextStyle(fontSize: 20,),),
-              const SizedBox(height: 20,),
-              Text(widget.value, style: const TextStyle(fontSize: 16,),), 
+              const Text(
+                "Scanned Code:",
+                style: TextStyle(
+                  fontSize: 20,
+                ),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              Text(
+                widget.value,
+                style: const TextStyle(
+                  fontSize: 16,
+                ),
+              ),
             ],
           ),
         ),
