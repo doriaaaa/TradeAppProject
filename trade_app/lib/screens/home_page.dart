@@ -56,7 +56,7 @@ class _HomePageState extends State<HomePage> {
   );
   final heading = Text.rich(
     TextSpan(
-      text: 'Our Recommendations! ',
+      text: 'Our Latest Recommendations! ',
       style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
       // default text style
     ),
