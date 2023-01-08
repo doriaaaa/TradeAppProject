@@ -114,7 +114,7 @@ class _UploadPageState extends State<UploadPage> {
 
     return MaterialApp(
       home: Scaffold(
-        appBar: ReusableWidgets.loginPageAppBar("Upload book"),
+        appBar: ReusableWidgets.persistentAppBar("Upload book"),
         body: Column(
           children: <Widget>[
             const SizedBox(height: 30),

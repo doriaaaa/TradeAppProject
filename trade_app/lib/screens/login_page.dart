@@ -150,7 +150,7 @@ class _LoginPageState extends State<LoginPage> {
 
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: ReusableWidgets.loginPageAppBar('Welcome to Trade Book'),
+      appBar: ReusableWidgets.persistentAppBar('Welcome to Trade Book'),
       body: Form(
         key: _formKey,
         child: ListView(

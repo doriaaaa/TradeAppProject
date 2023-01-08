@@ -71,7 +71,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     var username = context.watch<UserProvider>().user.name;
     return Scaffold(
-      appBar: ReusableWidgets.loginPageAppBar('Welcome back! $username'),
+      appBar: ReusableWidgets.persistentAppBar('Welcome back! $username'),
       body: Column(
         children: <Widget>[
           const SizedBox(height: 70.0),

@@ -28,8 +28,7 @@ class _CameraState extends State<Camera> {
   bool _screenOpened = false;
   String serverResponse = 'Server response';
   int counter = 0;
-  Future<String> getBookData(
-      Barcode barcode, MobileScannerArguments? args) async {
+  Future<String> getBookData(Barcode barcode, MobileScannerArguments? args) async {
     if (!_screenOpened) {
       final String code = barcode.rawValue ?? "---";
       counter++;
@@ -51,10 +50,13 @@ class _CameraState extends State<Camera> {
         debugPrint(resBody['title']); // can print title
         // ignore: use_build_context_synchronously
         Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => FoundCodeScreen(
-                    screenClosed: _screenWasClosed, value: resBody['title'])));
+          context,
+          MaterialPageRoute(
+              builder: (context) => FoundCodeScreen(
+                screenClosed: _screenWasClosed, value: resBody['title']
+              )
+          )
+        );
       }
     }
     return "Success!";
@@ -113,22 +115,6 @@ class _CameraState extends State<Camera> {
       ),
     );
   }
-
-  // void _foundBarcode(Barcode barcode, MobileScannerArguments? args) {
-  //   /// open screen
-  //   if (!_screenOpened) {
-  //     final String code = barcode.rawValue ?? "---";
-  //     if (code != "---") {
-
-  //     }
-  //     debugPrint('Barcode found! $code');
-  //     _screenOpened = true;
-  //     Navigator.push(
-  //       context,
-  //       MaterialPageRoute(builder: (context) => FoundCodeScreen(screenClosed: _screenWasClosed, value: code),)
-  //     );
-  //   }
-  // }
 
   void _screenWasClosed() {
     _screenOpened = false;

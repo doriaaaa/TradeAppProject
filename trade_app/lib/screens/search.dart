@@ -13,7 +13,7 @@ class _SearchPageState extends State<SearchPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: ReusableWidgets.loginPageAppBar("Search for a book"),
+      appBar: ReusableWidgets.persistentAppBar("Search for a book"),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           // Add your onPressed code here!

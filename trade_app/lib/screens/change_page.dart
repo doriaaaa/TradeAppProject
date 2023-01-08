@@ -102,7 +102,7 @@ class _ChangePageState extends State<ChangePage> {
 
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: ReusableWidgets.loginPageAppBar('Settings'),
+      appBar: ReusableWidgets.persistentAppBar('Settings'),
       body: Form(
         key: _formKey,
         child: ListView(

@@ -21,7 +21,7 @@ class _SettingsPageState extends State<SettingsPage> {
     var username = context.watch<UserProvider>().user.name;
     return MaterialApp(
       home: Scaffold(
-        appBar: ReusableWidgets.loginPageAppBar('Settings'),
+        appBar: ReusableWidgets.persistentAppBar('Settings'),
         backgroundColor: Colors.white.withOpacity(.94),
         body: Padding(
           padding: const EdgeInsets.all(10),

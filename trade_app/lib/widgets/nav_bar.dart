@@ -37,47 +37,44 @@ class _NavBarState extends State<NavBar> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: _children.elementAt(_selectedindex),
-        bottomNavigationBar: GNav(
-            onTabChange: (value) => {
-                  setState(() {
-                    _selectedindex = value;
-                    print("pages: " + value.toString());
-                  })
-                },
-            gap: 0.5,
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-            backgroundColor: Colors.black,
-            color: Colors.white,
-            activeColor: Colors.white,
-            tabs: [
-              GButton(
-                icon: Icons.home_outlined,
-                text: 'home',
-                onPressed: () => {},
-              ),
-              GButton(
-                icon: Icons.search,
-                text: 'Search',
-                onPressed: () => {},
-              ),
-              GButton(
-                icon: Icons.bookmark_outline,
-                text: 'books',
-                // onPressed: () => _slidingPanel(),
-                onPressed: () => {},
-              ),
-              GButton(
-                icon: Icons.notifications_outlined,
-                text: 'news',
-                onPressed: () => {},
-              ),
-              GButton(
-                icon: Icons.settings_outlined,
-                text: 'settings',
-                onPressed: () => {},
-              ),
-            ]));
+      body: _children.elementAt(_selectedindex),
+      bottomNavigationBar: GNav(
+          onTabChange: (value) => {
+            setState(() {
+              _selectedindex = value;
+              print("pages: " + value.toString());
+            })
+          },
+          gap: 0.5,
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+          backgroundColor: Colors.black,
+          color: Colors.white,
+          activeColor: Colors.white,
+          tabs: const [
+            GButton(
+              icon: Icons.home_outlined,
+              text: 'home',
+            ),
+            GButton(
+              icon: Icons.search,
+              text: 'Search',
+            ),
+            GButton(
+              icon: Icons.bookmark_outline,
+              text: 'books',
+              // onPressed: () => _slidingPanel(),
+            ),
+            GButton(
+              icon: Icons.notifications_outlined,
+              text: 'news',
+            ),
+            GButton(
+              icon: Icons.settings_outlined,
+              text: 'settings',
+            ),
+          ]
+        )
+      );
   }
 
   void _slidingPanel() {
@@ -94,81 +91,81 @@ class _NavBarState extends State<NavBar> {
               crossAxisCount: 2,
               children: <Widget>[
                 Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      // Expanded(child: Container()),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          IconButton(
-                              onPressed: () {},
-                              icon: const Icon(
-                                Icons.calendar_month,
-                                color: Colors.redAccent,
-                                size: 30.0,
-                              )),
-                          const Text('calendar',
-                              style: TextStyle(color: Colors.redAccent))
-                        ],
-                      )
-                    ]),
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    // Expanded(child: Container()),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        IconButton(
+                            onPressed: () {},
+                            icon: const Icon(
+                              Icons.calendar_month,
+                              color: Colors.redAccent,
+                              size: 30.0,
+                            )),
+                        const Text('calendar',
+                            style: TextStyle(color: Colors.redAccent))
+                      ],
+                    )
+                  ]),
                 Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      // Expanded(child: Container()),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          IconButton(
-                              onPressed: () {},
-                              icon: const Icon(
-                                Icons.upload,
-                                color: Colors.amberAccent,
-                                size: 30.0,
-                              )),
-                          const Text('add',
-                              style: TextStyle(color: Colors.amberAccent))
-                        ],
-                      )
-                    ]),
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    // Expanded(child: Container()),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        IconButton(
+                            onPressed: () {},
+                            icon: const Icon(
+                              Icons.upload,
+                              color: Colors.amberAccent,
+                              size: 30.0,
+                            )),
+                        const Text('add',
+                            style: TextStyle(color: Colors.amberAccent))
+                      ],
+                    )
+                  ]),
                 Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      // Expanded(child: Container()),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          IconButton(
-                              onPressed: () {},
-                              icon: const Icon(
-                                Icons.handshake,
-                                color: Colors.blueAccent,
-                                size: 30.0,
-                              )),
-                          const Text('exchange',
-                              style: TextStyle(color: Colors.blueAccent))
-                        ],
-                      )
-                    ]),
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    // Expanded(child: Container()),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        IconButton(
+                            onPressed: () {},
+                            icon: const Icon(
+                              Icons.handshake,
+                              color: Colors.blueAccent,
+                              size: 30.0,
+                            )),
+                        const Text('exchange',
+                            style: TextStyle(color: Colors.blueAccent))
+                      ],
+                    )
+                  ]),
                 Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      // Expanded(child: Container()),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          IconButton(
-                              onPressed: () {},
-                              icon: const Icon(
-                                Icons.search,
-                                color: Colors.purpleAccent,
-                                size: 30.0,
-                              )),
-                          const Text('search',
-                              style: TextStyle(color: Colors.purpleAccent))
-                        ],
-                      )
-                    ]),
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    // Expanded(child: Container()),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        IconButton(
+                            onPressed: () {},
+                            icon: const Icon(
+                              Icons.search,
+                              color: Colors.purpleAccent,
+                              size: 30.0,
+                            )),
+                        const Text('search',
+                            style: TextStyle(color: Colors.purpleAccent))
+                      ],
+                    )
+                  ]),
               ],
             ),
           ]);
