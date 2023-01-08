@@ -16,7 +16,6 @@ class _SearchPageState extends State<SearchPage> {
       appBar: ReusableWidgets.persistentAppBar("Search for a book"),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          // Add your onPressed code here!
           showSearch(
             context: context,
             delegate: CustomSearchDelegate(),

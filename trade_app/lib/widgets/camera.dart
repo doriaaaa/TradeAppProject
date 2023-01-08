@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:http/http.dart' as http;
+import 'package:trade_app/widgets/reusable_widget.dart';
 
 class ISBN_info {
   final String title;
@@ -34,14 +35,15 @@ class _CameraState extends State<Camera> {
       counter++;
       // final String code = "9780733426094";
       if (code != "---" && counter == 1) {
-        // debugPrint('Barcode found! $code');
+        debugPrint('Barcode found! $code');
         var res = await http.post(
-            // set phone's ip
-            Uri.parse('http://172.20.10.3:3000/api/bookinfo'),
-            body: jsonEncode({"book_isbn": code}),
-            headers: <String, String>{
-              'Content-Type': 'application/json; charset=UTF-8',
-            });
+          // set phone's ip
+          Uri.parse('http://172.20.10.4:3000/api/bookinfo'),
+          body: jsonEncode({"book_isbn": code}),
+          headers: <String, String>{
+            'Content-Type': 'application/json; charset=UTF-8',
+          }
+        );
         var resBody = json.decode(res.body);
         _screenOpened = true;
         String stringValue = counter.toString();
@@ -65,54 +67,54 @@ class _CameraState extends State<Camera> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Mobile Scanner"),
-        leading: IconButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          icon: const Icon(Icons.close),
-        ),
-        actions: [
-          IconButton(
-            color: Colors.white,
-            icon: ValueListenableBuilder(
-              valueListenable: cameraController.torchState,
-              builder: (context, state, child) {
-                switch (state as TorchState) {
-                  case TorchState.off:
-                    return const Icon(Icons.flash_off, color: Colors.grey);
-                  case TorchState.on:
-                    return const Icon(Icons.flash_on, color: Colors.yellow);
-                }
-              },
-            ),
-            iconSize: 32.0,
-            onPressed: () => cameraController.toggleTorch(),
+      appBar: ReusableWidgets.persistentAppBar("Scan ISBN Code"),
+      body: Stack(
+        children: <Widget>[
+          MobileScanner(
+            allowDuplicates: true,
+            controller: cameraController,
+            onDetect: getBookData,
           ),
-          IconButton(
-            color: Colors.white,
-            icon: ValueListenableBuilder(
-              valueListenable: cameraController.cameraFacingState,
-              builder: (context, state, child) {
-                switch (state as CameraFacing) {
-                  case CameraFacing.front:
-                    return const Icon(Icons.camera_front);
-                  case CameraFacing.back:
-                    return const Icon(Icons.camera_rear);
-                }
-              },
-            ),
-            iconSize: 32.0,
-            onPressed: () => cameraController.switchCamera(),
+          Positioned(
+            bottom: 60,
+            right: 20,
+            child: FloatingActionButton(
+              heroTag: 1,
+              onPressed: () => cameraController.switchCamera(),
+              child: ValueListenableBuilder(
+                valueListenable: cameraController.cameraFacingState,
+                builder: (context, state, child) {
+                  switch (state) {
+                    case CameraFacing.front:
+                      return const Icon(Icons.camera_front);
+                    case CameraFacing.back:
+                      return const Icon(Icons.camera_rear);
+                  }
+                },
+              )
+            )
           ),
-        ],
-      ),
-      body: MobileScanner(
-        allowDuplicates: true,
-        controller: cameraController,
-        onDetect: getBookData,
-      ),
+          Positioned(
+            bottom: 60, 
+            left: 20, 
+            child: FloatingActionButton(
+              heroTag: 1,
+              onPressed: () => cameraController.toggleTorch(),
+              child: ValueListenableBuilder(
+                valueListenable: cameraController.torchState,
+                builder: (context, state, child) {
+                  switch (state) {
+                    case TorchState.off:
+                      return const Icon(Icons.flash_off, color: Colors.grey);
+                    case TorchState.on:
+                      return const Icon(Icons.flash_on, color: Colors.yellow);
+                  }
+                }
+              ),
+            ),
+          )
+        ]
+      )
     );
   }
 
