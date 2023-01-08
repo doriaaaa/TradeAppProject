@@ -13,34 +13,40 @@ class UploadPage extends StatefulWidget {
 class _UploadPageState extends State<UploadPage> {
   @override
   Widget build(BuildContext context) {
-    final scanISBNButton = ElevatedButton(
-      style: ElevatedButton.styleFrom(
-        foregroundColor: Theme.of(context).colorScheme.onSecondaryContainer,
-        minimumSize: const Size(350, 50),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10.0),
-        ),
+    ButtonStyle buttonStyle = OutlinedButton.styleFrom(
+      foregroundColor: Colors.white,
+      side: const BorderSide(
+        color: Color.fromARGB(210, 10, 10, 10),
+        width: 3
       ),
-      onPressed: () {
-        //open camera widget
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => const Camera()));
-      },
-      child: const Text('Scan ISBN'),
+      minimumSize: const Size(350, 50),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10.0),
+      ),
     );
 
-    final cancelButton = ElevatedButton(
-      style: ElevatedButton.styleFrom(
-        backgroundColor: Colors.redAccent,
-        minimumSize: const Size(350, 50),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10.0),
-        ),
-      ),
+    buttonText (String text) {
+      return Text(
+        text, 
+        style: const TextStyle(color: Color.fromARGB(210, 10, 10, 10))
+      );
+    }
+
+    final scanISBNButton = OutlinedButton(
+      style: buttonStyle,
+      onPressed: () {
+        //open camera widget
+        Navigator.push(context, MaterialPageRoute(builder: (context) => const Camera()));
+      },
+      child: buttonText("Scan ISBN"),
+    );
+
+    final cancelButton = OutlinedButton(
+      style: buttonStyle,
       onPressed: () {
         //clear all the fields
       },
-      child: const Text('Cancel'),
+      child: buttonText('Cancel'),
     );
 
     final uploadImageButton = ElevatedButton(
@@ -58,70 +64,55 @@ class _UploadPageState extends State<UploadPage> {
       child: const Text('Upload image here'),
     );
 
-    final viewDetailsButton = ElevatedButton(
-      style: ElevatedButton.styleFrom(
-        backgroundColor: Colors.pinkAccent,
-        minimumSize: const Size(350, 50),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10.0),
-        ),
-      ),
+    final viewDetailsButton = OutlinedButton(
+      style: buttonStyle,
       onPressed: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => const InfoDetailPage()),
-        );
+        Navigator.push(context, MaterialPageRoute(builder: (context) => const InfoDetailPage()));
         //this button should be disabled at first, if there is data fetched from ISBN, then it is enabled
       },
-      child: const Text('View details'),
+      child: buttonText('View details'),
     );
 
-    final submitButton = ElevatedButton(
-      style: ElevatedButton.styleFrom(
-        backgroundColor: Colors.green,
-        minimumSize: const Size(350, 50),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10.0),
-        ),
-      ),
+    final submitButton = OutlinedButton(
+      style: buttonStyle,
       onPressed: () {
         //upload data to database
       },
-      child: const Text('Upload book'),
+      child: buttonText('Upload book'),
     );
 
     return MaterialApp(
       home: Scaffold(
-          appBar: ReusableWidgets.loginPageAppBar("Upload your book!"),
-          body: Column(
-            children: <Widget>[
-              const SizedBox(height: 30),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[uploadImageButton]
-              ),
-              const SizedBox(height: 30),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[scanISBNButton]
-              ),
-              const SizedBox(height: 30),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[viewDetailsButton]
-              ),
-              const SizedBox(height: 30),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[submitButton]
-              ),
-              const SizedBox(height: 30),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[cancelButton]
-              ),
-            ],
-          )
+        appBar: ReusableWidgets.loginPageAppBar("Upload book"),
+        body: Column(
+          children: <Widget>[
+            const SizedBox(height: 30),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[uploadImageButton]
+            ),
+            const SizedBox(height: 30),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[scanISBNButton]
+            ),
+            const SizedBox(height: 30),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[viewDetailsButton]
+            ),
+            const SizedBox(height: 30),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[submitButton]
+            ),
+            const SizedBox(height: 30),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[cancelButton]
+            ),
+          ],
+        )
       )
     );
   }

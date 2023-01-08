@@ -46,7 +46,6 @@ class _HomePageState extends State<HomePage> {
   final bm = const Text.rich(
     TextSpan(
       text: 'Books of the month! ',
-
       style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
       // default text style
     ),
@@ -72,7 +71,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     var username = context.watch<UserProvider>().user.name;
     return Scaffold(
-      appBar: ReusableWidgets.loginPageAppBar('Welcome Back! $username'),
+      appBar: ReusableWidgets.loginPageAppBar('Welcome back! $username'),
       body: Column(
         children: <Widget>[
           const SizedBox(height: 70.0),
