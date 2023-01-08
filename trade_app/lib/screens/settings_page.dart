@@ -30,7 +30,7 @@ class _SettingsPageState extends State<SettingsPage> {
               // user card
               SimpleUserCard(
                 userName: username,
-                userProfilePic: AssetImage("assets/avatar.jpg"),
+                userProfilePic: const AssetImage("assets/avatar.jpg"),
               ),
               SettingsGroup(
                 items: [
@@ -117,7 +117,7 @@ class _SettingsPageState extends State<SettingsPage> {
                     onTap: () {},
                     icons: CupertinoIcons.delete_solid,
                     title: "Delete account",
-                    titleStyle: TextStyle(
+                    titleStyle: const TextStyle(
                       color: Colors.red,
                       fontWeight: FontWeight.bold,
                     ),

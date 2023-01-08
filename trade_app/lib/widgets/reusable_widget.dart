@@ -15,14 +15,14 @@ class ReusableWidgets {
       title: Text(
         title,
         style: GoogleFonts.montserrat(
-            textStyle: TextStyle(
+            textStyle: const TextStyle(
                 fontWeight: FontWeight.bold,
                 color: Colors.white,
                 height: 0.9,
                 fontSize: 25)),
         textAlign: TextAlign.left,
       ),
-      flexibleSpace: Image(
+      flexibleSpace: const Image(
         image: AssetImage('assets/book_title.jpg'),
         fit: BoxFit.cover,
       ),

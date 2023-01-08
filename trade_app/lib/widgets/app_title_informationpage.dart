@@ -8,7 +8,7 @@ class AppTitle extends StatelessWidget {
       elevation: 2,
       child: Container(
         height: 150,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
             image: DecorationImage(
                 image: AssetImage("assets/book_title.jpg"), fit: BoxFit.cover)),
         child: Container(
@@ -26,7 +26,7 @@ class AppTitle extends StatelessWidget {
                       'About Us',
                       textAlign: TextAlign.start,
                       style: GoogleFonts.montserrat(
-                          textStyle: TextStyle(
+                          textStyle: const TextStyle(
                               fontWeight: FontWeight.bold,
                               color: Colors.white,
                               height: 0.9,

@@ -1,11 +1,7 @@
 import 'dart:convert';
-import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
-import 'dart:io';
 import 'package:http/http.dart' as http;
-import 'package:trade_app/services/auth/connector.dart';
-import 'package:trade_app/screens/bookInfodetail.dart';
 
 class ISBN_info {
   final String title;
@@ -41,7 +37,7 @@ class _CameraState extends State<Camera> {
       if (code != "---" && counter == 1) {
         // debugPrint('Barcode found! $code');
         var res = await http.post(
-            //localhost
+            // set phone's ip
             Uri.parse('http://172.20.10.3:3000/api/bookinfo'),
             body: jsonEncode({"book_isbn": code}),
             headers: <String, String>{

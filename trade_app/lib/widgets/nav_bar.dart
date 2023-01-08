@@ -3,7 +3,6 @@ import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:trade_app/screens/search.dart';
 import 'package:trade_app/screens/home_page.dart';
 import 'package:trade_app/screens/notification_page.dart';
-import 'package:trade_app/screens/register_page.dart';
 import 'package:trade_app/screens/settings_page.dart';
 import 'package:trade_app/screens/upload_page.dart';
 

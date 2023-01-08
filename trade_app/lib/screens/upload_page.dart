@@ -13,7 +13,7 @@ class UploadPage extends StatefulWidget {
 class _UploadPageState extends State<UploadPage> {
   @override
   Widget build(BuildContext context) {
-    final ScanISBNButton = ElevatedButton(
+    final scanISBNButton = ElevatedButton(
       style: ElevatedButton.styleFrom(
         foregroundColor: Theme.of(context).colorScheme.onSecondaryContainer,
         minimumSize: const Size(350, 50),
@@ -29,7 +29,7 @@ class _UploadPageState extends State<UploadPage> {
       child: const Text('Scan ISBN'),
     );
 
-    final CancelButton = ElevatedButton(
+    final cancelButton = ElevatedButton(
       style: ElevatedButton.styleFrom(
         backgroundColor: Colors.redAccent,
         minimumSize: const Size(350, 50),
@@ -43,7 +43,7 @@ class _UploadPageState extends State<UploadPage> {
       child: const Text('Cancel'),
     );
 
-    final UploadImageButton = ElevatedButton(
+    final uploadImageButton = ElevatedButton(
       style: ElevatedButton.styleFrom(
         foregroundColor: Theme.of(context).colorScheme.onSecondaryContainer,
         backgroundColor: const Color.fromARGB(100, 217, 217, 217),
@@ -58,7 +58,7 @@ class _UploadPageState extends State<UploadPage> {
       child: const Text('Upload image here'),
     );
 
-    final ViewDetailsButton = ElevatedButton(
+    final viewDetailsButton = ElevatedButton(
       style: ElevatedButton.styleFrom(
         backgroundColor: Colors.pinkAccent,
         minimumSize: const Size(350, 50),
@@ -76,7 +76,7 @@ class _UploadPageState extends State<UploadPage> {
       child: const Text('View details'),
     );
 
-    final SubmitButton = ElevatedButton(
+    final submitButton = ElevatedButton(
       style: ElevatedButton.styleFrom(
         backgroundColor: Colors.green,
         minimumSize: const Size(350, 50),
@@ -99,23 +99,23 @@ class _UploadPageState extends State<UploadPage> {
                 const SizedBox(height: 30),
                 Row(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[UploadImageButton]),
+                    children: <Widget>[uploadImageButton]),
                 const SizedBox(height: 30),
                 Row(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[ScanISBNButton]),
+                    children: <Widget>[scanISBNButton]),
                 const SizedBox(height: 30),
                 Row(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[ViewDetailsButton]),
+                    children: <Widget>[viewDetailsButton]),
                 const SizedBox(height: 30),
                 Row(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[SubmitButton]),
+                    children: <Widget>[submitButton]),
                 const SizedBox(height: 30),
                 Row(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[CancelButton]),
+                    children: <Widget>[cancelButton]),
               ],
             )));
   }
