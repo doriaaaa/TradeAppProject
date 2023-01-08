@@ -14,6 +14,17 @@ class _SearchPageState extends State<SearchPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: ReusableWidgets.loginPageAppBar("Search for a book"),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          // Add your onPressed code here!
+          showSearch(
+            context: context,
+            delegate: CustomSearchDelegate(),
+          );
+        },
+        backgroundColor: Colors.lightBlue,
+        child: const Icon(Icons.search),
+      ),
     );
   }
 }
@@ -49,9 +60,9 @@ class CustomSearchDelegate extends SearchDelegate {
   @override
   Widget buildResults(BuildContext context) {
     List<String> matchQuery = [];
-    for (var fruit in seacrhTerms) {
-      if (fruit.toLowerCase().contains(query.toLowerCase())) {
-        matchQuery.add(fruit);
+    for (var book in seacrhTerms) {
+      if (book.toLowerCase().contains(query.toLowerCase())) {
+        matchQuery.add(book);
       }
     }
     return ListView.builder(
@@ -69,8 +80,9 @@ class CustomSearchDelegate extends SearchDelegate {
   Widget buildSuggestions(BuildContext context) {
     List<String> matchQuery = [];
     for (var fruit in seacrhTerms) {
-      if (fruit.toLowerCase().contains(query.toLowerCase()))
+      if (fruit.toLowerCase().contains(query.toLowerCase())) {
         matchQuery.add(fruit);
+      }
     }
     return ListView.builder(
       itemCount: matchQuery.length,
