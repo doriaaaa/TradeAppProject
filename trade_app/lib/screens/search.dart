@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import '../widgets/reusable_widget.dart';
 
 class SearchPage extends StatefulWidget {
   static const String routeName = '/Search';
@@ -13,31 +13,7 @@ class _SearchPageState extends State<SearchPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Search for a book!',
-            style: GoogleFonts.montserrat(
-                textStyle: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                    height: 0.9,
-                    fontSize: 25))),
-        flexibleSpace: const Image(
-          image: AssetImage('assets/book_title.jpg'),
-          fit: BoxFit.cover,
-        ),
-        backgroundColor: Colors.transparent,
-        actions: [
-          IconButton(
-            onPressed: () {
-              showSearch(
-                context: context,
-                delegate: CustomSearchDelegate(),
-              );
-            },
-            icon: const Icon(Icons.search, size: 35),
-          ),
-        ],
-      ),
+      appBar: ReusableWidgets.loginPageAppBar("Search for a book"),
     );
   }
 }
