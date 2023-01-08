@@ -32,26 +32,26 @@ tradeApp@hku --> password
 
 2. Chatroom lobby page:
 - [ ] Chatroom UI
-> When user clicks on the chatroom page
-> It should display a list of chatroom records
-> chatroom records should include the message, name and icon of other user
+> When user clicks on the chatroom page\
+> It should display a list of chatroom records\
+> chatroom records should include the message, name and icon of other user\
 > Then user clicks into the chatroom and navigate to the chat page
 - [ ] Chatroom button
-> When user clicks on the chatroom page
-> User can click the write message button on the top right corner
+> When user clicks on the chatroom page\
+> User can click the write message button on the top right corner\
 > Then it will display a list of contacts (hardcode for friends temporarily)
 
 3. Chatroom page: 
 - [ ] Main Chatroom
-> When user navigates to the chat page
-> It can retrieve latest 10 messages from the database (lazy load when user scrolls up)
+> When user navigates to the chat page\
+> It can retrieve latest 10 messages from the database (lazy load when user scrolls up)\
 > User can view the message
 - [ ] Send Message
-> When user types a message in the input field and clicks the send button
-> message will be sent to the api and save to database
+> When user types a message in the input field and clicks the send button\
+> message will be sent to the api and save to database\
 > database will be uploaded
 - [ ] Upload DB
-> When the database is uploaded
+> When the database is uploaded\
 > it will automatically upload the other side of the client
 
 ###### Wrap up
