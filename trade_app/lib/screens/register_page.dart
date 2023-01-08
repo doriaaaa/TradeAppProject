@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
 import 'package:trade_app/widgets/reusable_widget.dart';
 import 'package:trade_app/services/auth/connector.dart';
-import 'package:flutter/material.dart';
 
-import 'package:http/http.dart' as http;
 
 class RegisterPage extends StatefulWidget {
   static String tag = 'register-page';
@@ -179,7 +177,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: ReusableWidgets.LoginPageAppBar('Welcome to Trade Book'),
+      appBar: ReusableWidgets.loginPageAppBar('Welcome to Trade Book'),
       body: Form(
         key: _formKey,
         child: ListView(

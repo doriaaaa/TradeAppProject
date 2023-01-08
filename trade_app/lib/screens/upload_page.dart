@@ -91,32 +91,38 @@ class _UploadPageState extends State<UploadPage> {
     );
 
     return MaterialApp(
-        home: Scaffold(
-            appBar: ReusableWidgets.accountPageAppBar("Upload your book!"),
-            backgroundColor: const Color.fromARGB(255, 157, 85, 169),
-            body: Column(
-              children: <Widget>[
-                const SizedBox(height: 30),
-                Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[uploadImageButton]),
-                const SizedBox(height: 30),
-                Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[scanISBNButton]),
-                const SizedBox(height: 30),
-                Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[viewDetailsButton]),
-                const SizedBox(height: 30),
-                Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[submitButton]),
-                const SizedBox(height: 30),
-                Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[cancelButton]),
-              ],
-            )));
+      home: Scaffold(
+          appBar: ReusableWidgets.loginPageAppBar("Upload your book!"),
+          body: Column(
+            children: <Widget>[
+              const SizedBox(height: 30),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[uploadImageButton]
+              ),
+              const SizedBox(height: 30),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[scanISBNButton]
+              ),
+              const SizedBox(height: 30),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[viewDetailsButton]
+              ),
+              const SizedBox(height: 30),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[submitButton]
+              ),
+              const SizedBox(height: 30),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[cancelButton]
+              ),
+            ],
+          )
+      )
+    );
   }
 }

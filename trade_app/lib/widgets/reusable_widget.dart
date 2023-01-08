@@ -10,7 +10,7 @@ class ReusableWidgets {
     );
   }
 
-  static LoginPageAppBar(String title) {
+  static loginPageAppBar(String title) {
     return AppBar(
       title: Text(
         title,

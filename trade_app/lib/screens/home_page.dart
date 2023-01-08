@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:trade_app/widgets/app_title_homepage.dart';
 import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
-import 'package:trade_app/screens/bookInfo.dart';
 import 'package:trade_app/widgets/reusable_widget.dart';
 import 'package:trade_app/provider/user_provider.dart';
 import 'package:provider/provider.dart';
@@ -45,7 +43,7 @@ class _HomePageState extends State<HomePage> {
           "http://books.google.com/books/content?id=ZRdbmjRjljkC&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api"),
     ],
   );
-  final bm = Text.rich(
+  final bm = const Text.rich(
     TextSpan(
       text: 'Books of the month! ',
 
@@ -54,7 +52,7 @@ class _HomePageState extends State<HomePage> {
     ),
     textAlign: TextAlign.left,
   );
-  final heading = Text.rich(
+  final heading = const Text.rich(
     TextSpan(
       text: 'Our Latest Recommendations! ',
       style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
@@ -62,7 +60,7 @@ class _HomePageState extends State<HomePage> {
     ),
   );
 
-  final category_text = Text.rich(
+  final category_text = const Text.rich(
     TextSpan(
       text: 'Recommended Categories',
       style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
@@ -74,18 +72,18 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     var username = context.watch<UserProvider>().user.name;
     return Scaffold(
-      appBar: ReusableWidgets.LoginPageAppBar('Welcome Back! $username'),
+      appBar: ReusableWidgets.loginPageAppBar('Welcome Back! $username'),
       body: Column(
         children: <Widget>[
-          SizedBox(height: 70.0),
+          const SizedBox(height: 70.0),
           bm,
-          SizedBox(height: 20.0),
+          const SizedBox(height: 20.0),
           slide,
-          SizedBox(height: 70.0),
+          const SizedBox(height: 70.0),
           heading,
-          SizedBox(height: 20.0),
+          const SizedBox(height: 20.0),
           slide2,
-          SizedBox(height: 20.0),
+          const SizedBox(height: 20.0),
           //category_text,
         ],
       ),

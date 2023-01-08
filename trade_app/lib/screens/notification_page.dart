@@ -12,7 +12,7 @@ class _NotificationPageState extends State<NotificationPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: ReusableWidgets.LoginPageAppBar('Notifications'),
+      appBar: ReusableWidgets.loginPageAppBar('Notifications'),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [

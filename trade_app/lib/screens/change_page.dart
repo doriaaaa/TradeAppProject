@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:trade_app/widgets/reusable_widget.dart';
-import 'package:trade_app/screens/settings_page.dart';
 
 class ChangePage extends StatefulWidget {
   static String tag = 'change-page';
@@ -45,7 +44,7 @@ class _ChangePageState extends State<ChangePage> {
       },
       decoration: InputDecoration(
         hintText: 'new email',
-        contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
+        contentPadding: const EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
       ),
     );
@@ -103,7 +102,7 @@ class _ChangePageState extends State<ChangePage> {
 
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: ReusableWidgets.LoginPageAppBar('Settings'),
+      appBar: ReusableWidgets.loginPageAppBar('Settings'),
       body: Form(
         key: _formKey,
         child: ListView(

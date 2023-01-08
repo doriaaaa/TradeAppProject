@@ -48,3 +48,14 @@ database will be uploaded
 
 When the database is uploaded
 it will automatically upload the other side of the client
+
+- Wrap up
+1.  upload page -- scan isbn button
+    information is fetched and store in a variable --> user can access the variable by clicking "view details"
+2.  upload page -- upload image
+    clicking the grey button should appear an image picker
+    after user selects the image, it should display in the image box
+3.  upload page -- upload book
+    information is sent in terms of form, and should be stored in database
+4.  upload page -- cancel button
+    clear the form

@@ -31,7 +31,7 @@ class _InfoDetailPageState extends State<InfoDetailPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: ReusableWidgets.LoginPageAppBar('Book Detailed Info'),
+      appBar: ReusableWidgets.loginPageAppBar('Book Detailed Info'),
       body: Padding(
         padding: const EdgeInsets.all(25),
         child: Column(
