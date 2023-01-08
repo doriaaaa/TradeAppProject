@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:trade_app/widgets/reusable_widget.dart';
 import 'package:trade_app/screens/bookInfodetail.dart';
 import '/../widgets/camera.dart';
@@ -11,6 +14,9 @@ class UploadPage extends StatefulWidget {
 }
 
 class _UploadPageState extends State<UploadPage> {
+  File? pickedImage;
+  bool isPicked = false;
+
   @override
   Widget build(BuildContext context) {
     ButtonStyle buttonStyle = OutlinedButton.styleFrom(
@@ -49,21 +55,46 @@ class _UploadPageState extends State<UploadPage> {
       child: buttonText('Cancel'),
     );
 
-    final uploadImageButton = ElevatedButton(
-      style: ElevatedButton.styleFrom(
-        foregroundColor: Theme.of(context).colorScheme.onSecondaryContainer,
-        backgroundColor: const Color.fromARGB(100, 217, 217, 217),
-        minimumSize: const Size(350, 350),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10.0),
-        ),
-      ),
-      onPressed: () {
-        //let user to choose photo from album
+    final uploadImageButton = GestureDetector(
+      onTap: () async {
+        ImagePicker picker = ImagePicker();
+        XFile? image = await picker.pickImage(source: ImageSource.gallery);
+        if (image != null) {
+          pickedImage = File(image.path);
+          setState(() {
+            isPicked = true;
+          });
+        }
       },
-      child: const Text('Upload image here'),
+      child: Container(
+        width: 350,
+        height: 350,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10.0),
+          color: const Color.fromARGB(100, 217, 217, 217)
+        ),
+        child: isPicked
+          ? Image.file(
+              pickedImage!,
+              width: 350.0,
+              height: 350.0,
+              fit: BoxFit.fitHeight,
+            )
+          : Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10.0),
+                color: const Color.fromARGB(100, 217, 217, 217)
+              ),
+              width: 350,
+              height: 350,
+              child: Icon(
+                Icons.camera_alt,
+                color: Colors.grey[800],
+              ),
+            ),
+      )
     );
-
+    
     final viewDetailsButton = OutlinedButton(
       style: buttonStyle,
       onPressed: () {
