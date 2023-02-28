@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 // var isbn_code = '9781451578270';
 
-const bookSchema = ({
+const bookSchema = mongoose.Schema({
     book_isbn: {
         required: true,
         type: String, 

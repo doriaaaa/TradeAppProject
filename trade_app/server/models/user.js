@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 
 // set user model
+// link the booklist to user
 
 const userSchema = mongoose.Schema({
     name: {
@@ -37,7 +38,11 @@ const userSchema = mongoose.Schema({
     type: {
         type: String,
         default: 'user',
-    }
+    },
+    uploadedBookList: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'uploadBookInfo'
+    }]
 });
 const User = mongoose.model("User", userSchema);
 module.exports = User; // allow public access
