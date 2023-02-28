@@ -40,7 +40,10 @@ const userSchema = mongoose.Schema({
         type: String,
         default: 'user',
     },
-    uploadedBookList: [ {upload_bookSchema} ]
+    uploadedBookList: {
+        type: Array,
+        of: upload_bookSchema
+    }
 });
 const User = mongoose.model("User", userSchema);
 module.exports = User; // allow public access
