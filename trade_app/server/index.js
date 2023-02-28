@@ -5,6 +5,7 @@ console.log("hello server");
 
 //IMPORT FROM OTHER FILES
 const authRouter = require('./routes/auth');
+const uploadRouter = require('./routes/upload');
 
 //INIT
 const PORT = 3000;
@@ -14,6 +15,7 @@ const DB = "mongodb+srv://cuhktradeApp:9dbhnx67Xjx904Oc@cluster0.pjrdqne.mongodb
 //middleware
 app.use(express.json());
 app.use(authRouter);
+app.use(uploadRouter);
 
 //create API
 // app.get("/hello-world", (req, res) => {

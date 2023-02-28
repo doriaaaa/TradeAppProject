@@ -1,10 +1,6 @@
 const mongoose = require('mongoose');
 
 const upload_bookSchema = mongoose.Schema({
-    user_email: { //take user_email as the registration name
-        require: true,
-        type: String
-    },
     title: {
         require: true,
         type: String,
@@ -33,5 +29,4 @@ const upload_bookSchema = mongoose.Schema({
     }
 })
 
-const uploadBookInfo = mongoose.model("uploadBookInfo", upload_bookSchema);
-module.exports = uploadBookInfo; // allow public access
+module.exports = upload_bookSchema; // allow public access

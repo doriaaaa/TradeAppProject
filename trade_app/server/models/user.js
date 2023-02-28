@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const upload_bookSchema = require("./upload_book");
 
 // set user model
 // link the booklist to user
@@ -40,8 +41,7 @@ const userSchema = mongoose.Schema({
         default: 'user',
     },
     uploadedBookList: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'uploadBookInfo'
+        booklist: upload_bookSchema,
     }]
 });
 const User = mongoose.model("User", userSchema);

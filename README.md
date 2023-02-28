@@ -69,3 +69,14 @@ tradeApp@hku --> password
 - [ ] found barcode should redirect user to the upload page
 6. upload page -- save information temporarily
 - [ ] create a form variable to store the photo path / book info
+
+## add-ons:
+what extra features to add
+--> forumlise the apps
+
+- google analytics --> search by keywords (filter by categories)
+- user A can add the categories --> user B can search by categories, or auto notifications
+- users can send a request --> allow other users to see that
+
+- auto matching in a group 
+- create a community, knowledge exchange (reddit/futu)
