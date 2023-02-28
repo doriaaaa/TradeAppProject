@@ -8,20 +8,24 @@ const {parse, stringify, toJSON, fromJSON} = require('flatted');
 uploadRouter.post("/api/user/upload", auth, async (req, res) => {
     // const { title, author, publisher, pics_url, description } = req.body;
     const bookToAdd = req.body;
-    // let user = await User.findById(req.user);
     console.log(bookToAdd);
+    // let user = await User.findById(req.user);
     console.log(req.user);
-    // console.log(user.name);
     try {
-        const user = await User.findOneAndUpdate({_id: req.user}, { $push: {uploadedBookList: bookToAdd} }, function(err, res) {
-            if(err) {
-                console.log(err);
-                console.log(res);
-                console.log("failed to save the book");
-            } else {
-                console.log("book is uploaded successfully");
-            }
-        });
+        const uploadedBook = await User.findOneAndUpdate({_id: req.user}, { $push: { uploadedBookList: bookToAdd } }, {new: true});
+        if (uploadedBook) {
+            console.log("book uploaded successfully");
+            res.status(200).json({
+                msg: "success",
+                result: uploadedBook
+            });
+        } else {
+            console.log("failed");
+            res.status(400).json({
+                msg: "failed",
+                result: "unknown error occured"
+            });
+        }
     } catch (e) {
         return res.status(500).json({ error: e.message });
     }
