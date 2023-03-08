@@ -8,14 +8,15 @@ import 'package:trade_app/widgets/reusableWidget.dart';
 import 'package:trade_app/provider/user_provider.dart';
 import 'package:provider/provider.dart';
 
-class SettingsPage extends StatefulWidget {
-  const SettingsPage({Key? key}) : super(key: key);
+class settingPage extends StatefulWidget {
+  static const String routeName = '/setting';
+  const settingPage({Key? key}) : super(key: key);
 
   @override
-  State<SettingsPage> createState() => _SettingsPageState();
+  State<settingPage> createState() => _settingPageState();
 }
 
-class _SettingsPageState extends State<SettingsPage> {
+class _settingPageState extends State<settingPage> {
   @override
   Widget build(BuildContext context) {
     var username = context.watch<UserProvider>().user.name;

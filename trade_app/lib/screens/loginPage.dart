@@ -8,8 +8,9 @@ class loginPage extends StatefulWidget {
   static String tag = 'login-page';
   static const String routeName = '/login';
   const loginPage({super.key});
+  
   @override
-  _loginPageState createState() => new _loginPageState();
+  _loginPageState createState() => _loginPageState();
 }
 
 class _loginPageState extends State<loginPage> {
@@ -93,15 +94,9 @@ class _loginPageState extends State<loginPage> {
       ),
     );
 
-    final heading = Text.rich(
-      TextSpan(
-        text: 'Login',
-        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 40),
-        // default text style
-      ),
-    );
+    const heading = Text.rich( TextSpan( text: 'Login', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 40)));
 
-    final register_button = TextButton(
+    final registerButton = TextButton(
       onPressed: () {
         Navigator.push(
           context,
@@ -154,7 +149,6 @@ class _loginPageState extends State<loginPage> {
       body: Form(
         key: _formKey,
         child: ListView(
-          shrinkWrap: true,
           padding: EdgeInsets.only(left: 24.0, right: 24.0),
           children: <Widget>[
             SizedBox(height: 60.0),
@@ -170,7 +164,7 @@ class _loginPageState extends State<loginPage> {
             SizedBox(height: 24.0),
             loginButton,
             SizedBox(height: 5.0),
-            register_button
+            registerButton
           ],
         ),
       ),

@@ -3,7 +3,7 @@ import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:trade_app/screens/search.dart';
 import 'package:trade_app/screens/homePage.dart';
 import 'package:trade_app/screens/notificationPage.dart';
-import 'package:trade_app/screens/settings_page.dart';
+import 'package:trade_app/screens/settingPage.dart';
 import 'package:trade_app/widgets/camera.dart';
 
 class NavBar extends StatefulWidget {
@@ -21,7 +21,7 @@ class _NavBarState extends State<NavBar> {
     const SearchPage(),
     const Camera(),
     const notificationPage(),
-    const SettingsPage(),
+    const settingPage(),
   ];
 
   @override
