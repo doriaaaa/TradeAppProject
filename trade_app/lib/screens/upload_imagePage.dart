@@ -26,7 +26,15 @@ class _uploadImagePageState extends State<uploadImagePage> {
 
   File? pickedImage;
   bool isPicked = false;
+  final _formKey = GlobalKey<FormState>();
+  final descriptionController = TextEditingController();
   
+  @override
+  void dispose() {
+    descriptionController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     Map extractedDetails = json.decode(widget.bookInfoDetails); // map json response
@@ -41,29 +49,37 @@ class _uploadImagePageState extends State<uploadImagePage> {
           // get base64 image
           final _imageFile = ImageProcess.decodeImage( pickedImage!.readAsBytesSync());
           String base64Image = base64Encode(ImageProcess.encodePng(_imageFile!));
-          // debugPrint(base64Image); 
+          // debugPrint(base64Image);
+          // print(base64Image);
           setState(() { isPicked = true; });
         }
       },
       child: Container(
-        width: 350,
-        height: 350,
+        width: 200,
+        height: 200,
         decoration: BoxDecoration( borderRadius: BorderRadius.circular(10.0), color: const Color.fromARGB(100, 217, 217, 217)),
-        child: isPicked ? Image.file( pickedImage!, width: 350.0, height: 350.0, fit: BoxFit.fitHeight)
+        child: isPicked ? Image.file( pickedImage!, width: 200.0, height: 200.0, fit: BoxFit.fitHeight)
           : Container(
               decoration: BoxDecoration( borderRadius: BorderRadius.circular(10.0), color: const Color.fromARGB(100, 217, 217, 217)),
-              width: 350, height: 350, child: Icon( Icons.attachment, color: Colors.grey[800]),
+              width: 200, height: 200, child: Icon( Icons.attachment, color: Colors.grey[800]),
             ),
       )
     );
 
     final bookInfoDisplayBox = <Widget>[
-      Row( children: <Widget>[Text("Title: ${extractedDetails['title']}")]),
-      Row( children: <Widget>[Text("Authors: ${extractedDetails['authors']}")]),
-      Row( children: <Widget>[Text("Published Date: ${extractedDetails['publishedDate']}")]),
+      Row( children: <Widget>[ Flexible(child: Text("Title: ${extractedDetails['title']}"))]),
+      const SizedBox(height: 10),
+      Row( children: <Widget>[ Flexible(child: Text("First Author: ${extractedDetails['authors'][0] ?? "not specified" }"))]),
+      const SizedBox(height: 10),
+      Row( children: <Widget>[ Flexible(child: Text("Published Date: ${extractedDetails['publishedDate'] ?? "not specified" }"))]),
+      const SizedBox(height: 10),
+      Row( children: <Widget>[ Flexible(child: Text("Publisher: ${extractedDetails['publisher'] ?? "not specified" }"))]),
+      const SizedBox(height: 10),
+      Row( children: <Widget>[ Flexible(
+        child: Text("Summary: ${ (extractedDetails['description'].length > 50 ? extractedDetails['description'].substring(0,50)+"..." : extractedDetails['description']) ?? "not specified" }")
+      )]),
     ];
 
-    final _formKey = GlobalKey<FormState>();
     return Scaffold(
       // allow user to go back to previous page
       backgroundColor: Colors.white,
@@ -78,9 +94,7 @@ class _uploadImagePageState extends State<uploadImagePage> {
                 uploadService().uploadPost(
                   context: context,
                   imageURL: pickedImage,
-                  title: extractedDetails['title'],
-                  author: extractedDetails['author'],
-                  publishedDate: extractedDetails['publishedDate']
+                  bookInfo: widget.bookInfoDetails
                 );
               }
             }, 
@@ -91,31 +105,43 @@ class _uploadImagePageState extends State<uploadImagePage> {
           onPressed: () { Navigator.pop(context);},
           icon: const Icon( Icons.arrow_back_outlined ),
         ),
-        flexibleSpace: const Image(
-          image: AssetImage('assets/book_title.jpg'),
-          fit: BoxFit.cover,
-        ),
+        flexibleSpace: const Image( image: AssetImage('assets/book_title.jpg'), fit: BoxFit.cover),
       ),
       // have to create a box to put the image
       // text area to print out the book info
       body: Form(
         key: _formKey,
-        child: Column(children: <Widget>[
-          const SizedBox(height: 30),
-          // row need position the box
-          Row( 
-            children: <Widget> [
-              Column( children: <Widget>[uploadImageButton]),
-              Column( children: bookInfoDisplayBox)
-            ]
-          ),
-          const SizedBox(height: 30),
-          // Row(
-          //   children: const <Widget> [
-              
-          //   ],
-          // )
-        ])
+        child: ListView(
+          padding: const EdgeInsets.only(left: 20.0, right: 20.0),
+          children: <Widget>[
+            const SizedBox(height: 30),
+            // row need position the box
+            Row( 
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget> [
+                Expanded(child: Column( children: <Widget>[uploadImageButton])),
+                const SizedBox(width:10),
+                Expanded(child: Column( children: bookInfoDisplayBox))
+              ]
+            ),
+            const SizedBox(height: 30),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget> [
+                Expanded(
+                  child: TextFormField( 
+                    controller: descriptionController,
+                    maxLines: 6,
+                    decoration: InputDecoration( 
+                      border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0)), 
+                      hintText: 'Input description here...'
+                    )
+                  )
+                )
+              ],
+            )
+          ]
+        )
       ),
     );
   }

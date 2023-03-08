@@ -11,9 +11,7 @@ class uploadService {
   void uploadPost({
     required BuildContext context,
     required File? imageURL,
-    required String title,
-    required String author,
-    required String publishedDate
+    required String bookInfo
   }) async {
 
   }
