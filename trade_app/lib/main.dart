@@ -1,9 +1,8 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:trade_app/screens/upload_imagePage.dart';
-import 'package:trade_app/widgets/camera.dart';
-import '../screens/login_page.dart';
+import 'package:trade_app/screens/loginPage.dart';
+import 'package:trade_app/screens/uploadPage.dart';
 import 'package:trade_app/routes/router.dart';
 import 'package:provider/provider.dart';
 import 'package:trade_app/provider/user_provider.dart';
@@ -88,10 +87,11 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: uploadImagePage(
-        screenClosed: () { false; }, 
-        bookInfoDetails: res
-      ),
+      home: const loginPage(),
+      // home: uploadPage(
+      //   screenClosed: () { false; }, 
+      //   bookInfoDetails: res
+      // ),
       onGenerateRoute: (settings) => generateRoute(settings),
     );
   }

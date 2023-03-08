@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../widgets/reusable_widget.dart';
+import '../widgets/reusableWidget.dart';
 
 class SearchPage extends StatefulWidget {
   static const String routeName = '/Search';

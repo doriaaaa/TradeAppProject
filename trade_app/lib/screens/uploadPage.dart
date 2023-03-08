@@ -8,24 +8,25 @@ import 'package:image_picker/image_picker.dart';
 import 'package:image/image.dart' as ImageProcess;
 import '../services/upload.dart';
 
-class uploadImagePage extends StatefulWidget {
+class uploadPage extends StatefulWidget {
   final String bookInfoDetails;
   final Function() screenClosed;
   
-  uploadImagePage({
+  uploadPage({
     Key? key,
     required this.bookInfoDetails, // pass the json file? widget.value to access the information
     required this.screenClosed,
   }) : super(key: key);
 
   @override
-  State<uploadImagePage> createState() => _uploadImagePageState();
+  State<uploadPage> createState() => _uploadPageState();
 }
 
-class _uploadImagePageState extends State<uploadImagePage> {
+class _uploadPageState extends State<uploadPage> {
 
   File? pickedImage;
   bool isPicked = false;
+  String? base64Image;
   final _formKey = GlobalKey<FormState>();
   final descriptionController = TextEditingController();
   
@@ -47,8 +48,8 @@ class _uploadImagePageState extends State<uploadImagePage> {
           pickedImage = File(image.path);
           debugPrint(image.path);
           // get base64 image
-          final _imageFile = ImageProcess.decodeImage( pickedImage!.readAsBytesSync());
-          String base64Image = base64Encode(ImageProcess.encodePng(_imageFile!));
+          // final _imageFile = ImageProcess.decodeImage( pickedImage!.readAsBytesSync());
+          // base64Image = base64Encode(ImageProcess.encodePng(_imageFile!));
           // debugPrint(base64Image);
           // print(base64Image);
           setState(() { isPicked = true; });
@@ -93,8 +94,9 @@ class _uploadImagePageState extends State<uploadImagePage> {
               if (_formKey.currentState!.validate()) { 
                 uploadService().uploadPost(
                   context: context,
-                  imageURL: pickedImage,
-                  bookInfo: widget.bookInfoDetails
+                  image: pickedImage, // should pass image value
+                  bookInfo: widget.bookInfoDetails,
+                  description: descriptionController.text
                 );
               }
             }, 

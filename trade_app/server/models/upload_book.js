@@ -1,17 +1,9 @@
 const mongoose = require('mongoose');
 
 const upload_bookSchema = mongoose.Schema({
-    title: {
+    bookInfo: {
         require: true,
-        type: String,
-    },
-    author: {
-        require: true,
-        type: String,
-    },
-    publisher: {
-        require: false,
-        type: String,
+        type: Object
     },
     image: {
         require: true,

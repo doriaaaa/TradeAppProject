@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:trade_app/screens/search.dart';
-import 'package:trade_app/screens/home_page.dart';
-import 'package:trade_app/screens/notification_page.dart';
+import 'package:trade_app/screens/homePage.dart';
+import 'package:trade_app/screens/notificationPage.dart';
 import 'package:trade_app/screens/settings_page.dart';
 import 'package:trade_app/widgets/camera.dart';
 
@@ -17,10 +17,10 @@ class NavBar extends StatefulWidget {
 class _NavBarState extends State<NavBar> {
   int _selectedindex = 0;
   final List<Widget> _children = [
-    const HomePage(),
+    const homePage(),
     const SearchPage(),
     const Camera(),
-    const NotificationPage(),
+    const notificationPage(),
     const SettingsPage(),
   ];
 

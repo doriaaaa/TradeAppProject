@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:flutter/services.dart';
-import 'package:trade_app/widgets/reusable_widget.dart';
+import 'package:trade_app/widgets/reusableWidget.dart';
 
 class InfoDetailPage extends StatefulWidget {
   const InfoDetailPage({Key? key}) : super(key: key);

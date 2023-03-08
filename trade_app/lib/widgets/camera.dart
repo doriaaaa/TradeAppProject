@@ -2,7 +2,7 @@
 // first user will be redirected to camera page to scan the book
 import 'package:flutter/material.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
-import 'package:trade_app/widgets/reusable_widget.dart';
+import 'package:trade_app/widgets/reusableWidget.dart';
 
 import '../services/upload.dart';
 

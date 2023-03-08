@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
-import 'package:trade_app/screens/register_page.dart';
-import 'package:trade_app/widgets/reusable_widget.dart';
+import 'package:trade_app/screens/registerPage.dart';
+import 'package:trade_app/widgets/reusableWidget.dart';
 import 'package:trade_app/services/auth/connector.dart';
 
-class LoginPage extends StatefulWidget {
+class loginPage extends StatefulWidget {
   static String tag = 'login-page';
   static const String routeName = '/login';
-  const LoginPage({super.key});
+  const loginPage({super.key});
   @override
-  _LoginPageState createState() => new _LoginPageState();
+  _loginPageState createState() => new _loginPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _loginPageState extends State<loginPage> {
   final _formKey = GlobalKey<FormState>();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
@@ -105,7 +105,7 @@ class _LoginPageState extends State<LoginPage> {
       onPressed: () {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => const RegisterPage()),
+          MaterialPageRoute(builder: (context) => const registerPage()),
         );
       },
       child: const Text("Don't have an account? Sign up!"),

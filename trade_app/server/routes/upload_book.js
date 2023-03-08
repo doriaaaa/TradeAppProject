@@ -9,10 +9,12 @@ uploadBookRouter.post("/api/user/upload", auth, async (req, res) => {
     // const { title, author, publisher, pics_url, description } = req.body;
     const bookToAdd = req.body;
     // console.log(bookToAdd);
+    // console.log(bookToAdd);
     // let user = await User.findById(req.user);
     // console.log(req.user);
     try {
         const uploadedBook = await User.findOneAndUpdate({_id: req.user}, { $push: { uploadedBookList: bookToAdd } }, {new: true});
+        console.log(uploadedBook);
         if (uploadedBook) {
             console.log("book uploaded successfully");
             res.status(200).json({

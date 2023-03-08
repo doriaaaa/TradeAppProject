@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
-import 'package:trade_app/widgets/reusable_widget.dart';
+import 'package:trade_app/widgets/reusableWidget.dart';
 import 'package:trade_app/provider/user_provider.dart';
 import 'package:provider/provider.dart';
 
-class HomePage extends StatefulWidget {
+class homePage extends StatefulWidget {
   static const String routeName = '/home';
-  const HomePage({Key? key}) : super(key: key);
+  const homePage({Key? key}) : super(key: key);
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<homePage> createState() => _homePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _homePageState extends State<homePage> {
   final slide = ImageSlideshow(
     indicatorColor: Colors.white,
     onPageChanged: (value) {

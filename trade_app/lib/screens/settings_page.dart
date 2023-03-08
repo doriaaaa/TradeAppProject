@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:babstrap_settings_screen/babstrap_settings_screen.dart';
 import 'package:trade_app/screens/information_page.dart';
-import 'package:trade_app/screens/login_page.dart';
 import 'package:trade_app/screens/change_page.dart';
-import 'package:trade_app/widgets/reusable_widget.dart';
+import 'package:trade_app/screens/loginPage.dart';
+import 'package:trade_app/widgets/reusableWidget.dart';
 import 'package:trade_app/provider/user_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -95,9 +95,9 @@ class _SettingsPageState extends State<SettingsPage> {
                   SettingsItem(
                     onTap: () {
                       Navigator.of(context).pushAndRemoveUntil(
-                          new MaterialPageRoute(
-                              builder: (context) => new LoginPage()),
-                          (route) => false);
+                        MaterialPageRoute(
+                            builder: (context) => loginPage()),
+                        (route) => false);
                     },
                     icons: Icons.exit_to_app_rounded,
                     title: "Sign Out",

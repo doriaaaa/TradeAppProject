@@ -4,24 +4,55 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:mobile_scanner/mobile_scanner.dart';
 import '../constants/error_handling.dart';
-import '../screens/upload_imagePage.dart';
+import '../screens/uploadPage.dart';
 
 class uploadService {
-
+  
   void uploadPost({
     required BuildContext context,
-    required File? imageURL,
-    required String bookInfo
+    required File? image, // this is a base64 image string
+    required String bookInfo, // this is a json response, use Map extractedDetails = json.decode(widget.bookInfoDetails); // map json response
+    required String description, // this is the book description, can be ""
   }) async {
+    // call pass image value api first
+    try {
+      // upload image to imgur
+      var request = http.MultipartRequest("POST", Uri.parse("https://api.imgur.com/3/upload")); //not sure about the endpoint
+      request.headers["Authorization"] = "Client-ID 236f2c1ca957230";
+      var file = await http.MultipartFile.fromPath( "image", image!.path);
+      request.files.add(file);
+      var response = await request.send();
+      var result = await http.Response.fromStream(response).then((value) => jsonDecode(value.body));
+      var imageURL = result["data"]['link'];
+      print(imageURL);
+      uploadDB(imageURL, bookInfo, description);
+    } catch (e) {
+      print(e.toString());
+    }
+  }
 
+  void uploadDB(String imageURL, String bookInfo, String description) async {
+    // store to db by calling backend server
+    try {
+      http.Response res = 
+        await http.post(Uri.parse('http://172.20.10.4:3000/api/user/upload'),
+          body: jsonEncode({
+            "bookInfo": bookInfo,
+            "image": imageURL,
+            "description": description
+          }),
+          headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        });
+      debugPrint(res.body);
+    } catch (e) {
+      print(e.toString());
+    }
   }
 
   Future<String> getBookData( BuildContext context, Barcode barcode, MobileScannerArguments? args) async {
     bool _screenOpened = false;
-
-    void _screenWasClosed() {
-      _screenOpened = false;
-    }
+    void _screenWasClosed() { _screenOpened = false; }
 
     if (!_screenOpened) {
       final String code = barcode.rawValue ?? "---";
@@ -44,7 +75,7 @@ class uploadService {
             context: context,
             onSuccess: () {
               debugPrint(code);
-              Navigator.push( context, MaterialPageRoute( builder: (context) => uploadImagePage(screenClosed: _screenWasClosed, bookInfoDetails: res.body)));
+              Navigator.push( context, MaterialPageRoute( builder: (context) => uploadPage(screenClosed: _screenWasClosed, bookInfoDetails: res.body)));
             },
           );
         }

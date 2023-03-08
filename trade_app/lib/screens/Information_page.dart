@@ -4,18 +4,18 @@ class InformationPage extends StatefulWidget {
   static String tag = 'information';
   const InformationPage({super.key});
   @override
-  _InformationPageState createState() => new _InformationPageState();
+  State<InformationPage> createState() => _InformationPageState();
 }
 
 class _InformationPageState extends State<InformationPage> {
-  final heading = Text.rich(
+  final heading = const Text.rich(
     TextSpan(
-      text: 'By Doria and Tang',
+      text: 'By Doria',
       style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
       // default text style
     ),
   );
-  final intro = Card(
+  final intro = const Card(
     child: Padding(
       padding: EdgeInsets.all(16.0),
       child: Text(
@@ -29,9 +29,9 @@ class _InformationPageState extends State<InformationPage> {
       body: Column(
         children: <Widget>[
           AppBar(),
-          SizedBox(height: 70.0),
+          const SizedBox(height: 70.0),
           heading,
-          SizedBox(height: 20.0),
+          const SizedBox(height: 20.0),
           intro,
         ],
       ),

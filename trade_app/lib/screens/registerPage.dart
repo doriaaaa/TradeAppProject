@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
-import 'package:trade_app/widgets/reusable_widget.dart';
+import 'package:trade_app/widgets/reusableWidget.dart';
 import 'package:trade_app/services/auth/connector.dart';
 
-
-class RegisterPage extends StatefulWidget {
+class registerPage extends StatefulWidget {
   static String tag = 'register-page';
-  const RegisterPage({super.key});
+  const registerPage({super.key});
   @override
-  _RegisterPageState createState() => new _RegisterPageState();
+  _registerPageState createState() => new _registerPageState();
 }
 
-class _RegisterPageState extends State<RegisterPage> {
+class _registerPageState extends State<registerPage> {
   final _formKey = GlobalKey<FormState>();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
