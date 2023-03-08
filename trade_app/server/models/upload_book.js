@@ -13,7 +13,7 @@ const upload_bookSchema = mongoose.Schema({
         require: false,
         type: String,
     },
-    bookPictureURL: {
+    image: {
         require: true,
         type: String
     },

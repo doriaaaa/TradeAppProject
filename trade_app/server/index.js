@@ -1,21 +1,23 @@
 //IMPORT FROM PACKAGES
+require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
+const bodyParser = require('body-parser')
 console.log("hello server");
 
 //IMPORT FROM OTHER FILES
 const authRouter = require('./routes/auth');
-const uploadRouter = require('./routes/upload');
+const uploadBookRouter = require('./routes/upload_book');
 
 //INIT
-const PORT = 3000;
 const app = express();
-const DB = "mongodb+srv://cuhktradeApp:9dbhnx67Xjx904Oc@cluster0.pjrdqne.mongodb.net/test";
 
 //middleware
 app.use(express.json());
 app.use(authRouter);
-app.use(uploadRouter);
+app.use(uploadBookRouter);
+app.use(bodyParser.json({limit: '16mb', extended: true}));     // Make sure you add these two lines
+app.use(bodyParser.urlencoded({limit: '16mb', extended: true}))
 
 //create API
 // app.get("/hello-world", (req, res) => {
@@ -28,16 +30,14 @@ app.use(uploadRouter);
 
 // connections
 
-mongoose
-    .connect(DB)
+mongoose.connect(process.env.DB)
     .then(() => {
         console.log("Connected to MongoDB successfully");
-    })
-    .catch((e) => {
+    }).catch((e) => {
         console.log("Error: " + e);
     })
 
-app.listen(PORT, "0.0.0.0", () => {
-    console.log(`connected at PORT ${PORT}`);
+app.listen(process.env.PORT, "0.0.0.0", () => {
+    console.log(`connected at PORT ${process.env.PORT}`);
 }) //access anywhere, for android to locate localhost
 //localhost, 127.0.0.1

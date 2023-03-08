@@ -67,14 +67,13 @@ class _LoginPageState extends State<LoginPage> {
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
       ),
     );
+    
     final bg = SizedBox(
         width: 300,
         height: 200,
-        child: FittedBox(
-            fit: BoxFit.fitWidth,
-            child: Image.asset(
-                "assets/overlay.png") //add your image url if its from network if not change it to image.asset
-            ));
+        child: FittedBox( fit: BoxFit.fitWidth, child: Image.asset( "assets/overlay.png") //add your image url if its from network if not change it to image.asset
+      )
+    );
 
     final password = TextFormField(
       controller: passwordController,
@@ -129,9 +128,10 @@ class _LoginPageState extends State<LoginPage> {
           // If the form is valid, display a snackbar. In the real world,
           // you'd often call a server or save the information in a database.
           AuthService().signInUser(
-              context: context,
-              email: emailController.text,
-              password: passwordController.text);
+            context: context,
+            email: emailController.text,
+            password: passwordController.text
+          );
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(content: Text('Logging in...')),
           );

@@ -7,7 +7,6 @@ class UserProvider extends ChangeNotifier {
     name: '',
     email: '',
     password: '',
-    address: '',
     type: '',
     token: '',
   );

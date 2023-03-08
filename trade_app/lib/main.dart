@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:trade_app/widgets/camera.dart';
 import '../screens/login_page.dart';
 import 'package:trade_app/routes/router.dart';
 import 'package:provider/provider.dart';

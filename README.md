@@ -52,3 +52,5 @@ what extra features to add
 
 - auto matching in a group 
 - create a community, knowledge exchange (reddit/futu)
+
+imgur 
