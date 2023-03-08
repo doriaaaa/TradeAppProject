@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
-import 'package:trade_app/screens/registerPage.dart';
 import 'package:trade_app/widgets/reusableWidget.dart';
 import 'package:trade_app/services/auth/connector.dart';
 
@@ -10,7 +8,7 @@ class loginPage extends StatefulWidget {
   const loginPage({super.key});
   
   @override
-  _loginPageState createState() => _loginPageState();
+  State<loginPage> createState() => _loginPageState();
 }
 
 class _loginPageState extends State<loginPage> {
@@ -27,39 +25,12 @@ class _loginPageState extends State<loginPage> {
 
   @override
   Widget build(BuildContext context) {
-    final slide = ImageSlideshow(
-      indicatorColor: Colors.blue,
-      onPageChanged: (value) {
-        debugPrint('Page changed: $value');
-      },
-      autoPlayInterval: 3000,
-      isLoop: true,
-      children: [
-        Image.network(
-            "http://books.google.com/books/content?id=-VfNSAAACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"),
-        Image.network(
-            "http://books.google.com/books/content?id=fltxyAEACAAJ&printsec=frontcover&img=1&zoom=5&source=gbs_api"),
-        Image.network(
-            "http://books.google.com/books/content?id=T929zgEACAAJ&printsec=frontcover&img=1&zoom=5&source=gbs_api"),
-      ],
-    );
-    // final logo = Hero(
-    //   tag: 'hero',
-    //   child: CircleAvatar(
-    //     backgroundColor: Colors.transparent,
-    //     radius: 48.0,
-    //     child: Image.network(
-    //         'http://books.google.com/books/content?id=-VfNSAAACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api'),
-    //   ),
-    // );
 
     final email = TextFormField(
       controller: emailController,
       keyboardType: TextInputType.emailAddress,
       validator: (value) {
-        if (value == null || value.isEmpty) {
-          return 'Please enter your email';
-        }
+        if (value == null || value.isEmpty) return 'Please enter your email';
         return null;
       },
       decoration: InputDecoration(
@@ -72,7 +43,7 @@ class _loginPageState extends State<loginPage> {
     final bg = SizedBox(
         width: 300,
         height: 200,
-        child: FittedBox( fit: BoxFit.fitWidth, child: Image.asset( "assets/overlay.png") //add your image url if its from network if not change it to image.asset
+        child: FittedBox( fit: BoxFit.fitWidth, child: Image.asset("assets/overlay.png") //add your image url if its from network if not change it to image.asset
       )
     );
 
@@ -89,7 +60,7 @@ class _loginPageState extends State<loginPage> {
       },
       decoration: InputDecoration(
         hintText: 'Password',
-        contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
+        contentPadding: const EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
       ),
     );
@@ -97,12 +68,7 @@ class _loginPageState extends State<loginPage> {
     const heading = Text.rich( TextSpan( text: 'Login', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 40)));
 
     final registerButton = TextButton(
-      onPressed: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => const registerPage()),
-        );
-      },
+      onPressed: () { Navigator.pushNamed( context, "/register"); },
       child: const Text("Don't have an account? Sign up!"),
     );
 
@@ -135,35 +101,25 @@ class _loginPageState extends State<loginPage> {
       child: const Text('Login'),
     );
 
-    // final forgotLabel = FlatButton(
-    //   child: Text(
-    //     'Forgot password?',
-    //     style: TextStyle(color: Colors.black54),
-    //   ),
-    //   onPressed: () {},
-    // );
-
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: ReusableWidgets.persistentAppBar('Welcome to Trade Book'),
       body: Form(
         key: _formKey,
         child: ListView(
-          padding: EdgeInsets.only(left: 24.0, right: 24.0),
+          padding: const EdgeInsets.only(left: 24.0, right: 24.0),
           children: <Widget>[
-            SizedBox(height: 60.0),
+            const SizedBox(height: 60.0),
             heading,
-            SizedBox(height: 75.0),
-            //logo,
+            const SizedBox(height: 75.0),
             bg,
-            //slide,
-            SizedBox(height: 75.0),
+            const SizedBox(height: 75.0),
             email,
-            SizedBox(height: 8.0),
+            const SizedBox(height: 8.0),
             password,
-            SizedBox(height: 24.0),
+            const SizedBox(height: 24.0),
             loginButton,
-            SizedBox(height: 5.0),
+            const SizedBox(height: 5.0),
             registerButton
           ],
         ),

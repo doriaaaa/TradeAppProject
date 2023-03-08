@@ -26,7 +26,6 @@ class AuthService {
             'Content-Type': 'application/json; charset=UTF-8',
           });
       debugPrint(res.body);
-      // ignore: use_build_context_synchronously
       httpErrorHandle(
         response: res,
         context: context,
@@ -37,11 +36,7 @@ class AuthService {
           // ignore: use_build_context_synchronously
           Provider.of<UserProvider>(context, listen: false).setUser(res.body);
           // ignore: use_build_context_synchronously
-          Navigator.pushNamedAndRemoveUntil(
-            context,
-            NavBar.routeName,
-            (route) => false,
-          ); //return res.body['name']
+          Navigator.pushNamedAndRemoveUntil( context, NavBar.routeName, (route) => false); //return res.body['name']
         },
       );
     } catch (e) {
@@ -74,11 +69,7 @@ class AuthService {
           SharedPreferences prefs = await SharedPreferences.getInstance();
           //await prefs.setString('x-auth-token', jsonDecode(res.body)['token']);
           // ignore: use_build_context_synchronously
-          Navigator.pushNamedAndRemoveUntil(
-            context,
-            loginPage.routeName,
-            (route) => false,
-          );
+          Navigator.pushNamed( context, "/login");
         },
       );
     } catch (e) {

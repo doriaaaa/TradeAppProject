@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
 import 'package:trade_app/widgets/reusableWidget.dart';
 import 'package:trade_app/services/auth/connector.dart';
 
 class registerPage extends StatefulWidget {
+  static const String routeName = '/register';
   static String tag = 'register-page';
   const registerPage({super.key});
+  
   @override
-  _registerPageState createState() => new _registerPageState();
+  State<registerPage> createState() => _registerPageState();
 }
 
 class _registerPageState extends State<registerPage> {
@@ -26,31 +27,6 @@ class _registerPageState extends State<registerPage> {
 
   @override
   Widget build(BuildContext context) {
-    final slide = ImageSlideshow(
-      indicatorColor: Colors.blue,
-      onPageChanged: (value) {
-        debugPrint('Page changed: $value');
-      },
-      autoPlayInterval: 3000,
-      isLoop: true,
-      children: [
-        Image.network(
-            "http://books.google.com/books/content?id=-VfNSAAACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"),
-        Image.network(
-            "http://books.google.com/books/content?id=fltxyAEACAAJ&printsec=frontcover&img=1&zoom=5&source=gbs_api"),
-        Image.network(
-            "http://books.google.com/books/content?id=T929zgEACAAJ&printsec=frontcover&img=1&zoom=5&source=gbs_api"),
-      ],
-    );
-    // final logo = Hero(
-    //   tag: 'hero',
-    //   child: CircleAvatar(
-    //     backgroundColor: Colors.transparent,
-    //     radius: 48.0,
-    //     child: Image.network(
-    //         'http://books.google.com/books/content?id=-VfNSAAACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api'),
-    //   ),
-    // );
     final name = TextFormField(
       controller: nameController,
       enableSuggestions: false,
@@ -63,7 +39,7 @@ class _registerPageState extends State<registerPage> {
       },
       decoration: InputDecoration(
         hintText: 'Username',
-        contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
+        contentPadding: const EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
       ),
     );
@@ -79,7 +55,7 @@ class _registerPageState extends State<registerPage> {
       },
       decoration: InputDecoration(
         hintText: 'Registration Email',
-        contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
+        contentPadding: const EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
       ),
     );
@@ -98,7 +74,7 @@ class _registerPageState extends State<registerPage> {
       },
       decoration: InputDecoration(
         hintText: 'Password',
-        contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
+        contentPadding: const EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
       ),
     );
@@ -117,37 +93,30 @@ class _registerPageState extends State<registerPage> {
       },
       decoration: InputDecoration(
         hintText: 'Verify Password',
-        contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
+        contentPadding: const EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
       ),
     );
 
     final bg = SizedBox(
-        width: 300,
-        height: 200,
-        child: FittedBox(
-            fit: BoxFit.fitWidth,
-            child: Image.asset(
-                "assets/books.png") //add your image url if its from network if not change it to image.asset
-            ));
-
-    final heading = Text.rich(
-      TextSpan(
-        text: 'Register Account',
-        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 40),
-        // default text style
-      ),
+      width: 300,
+      height: 200,
+      child: FittedBox(
+        fit: BoxFit.fitWidth,
+        child: Image.asset("assets/books.png") //add your image url if its from network if not change it to image.asset
+      )
     );
+
+    const heading = Text.rich( TextSpan( text: 'Register Account', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 40)));
 
     final loginButton = ElevatedButton(
       style: ElevatedButton.styleFrom(
         shadowColor: Colors.lightBlueAccent.shade100,
         minimumSize: const Size(350, 50),
         elevation: 5.9,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10.0),
-        ),
+        shape: RoundedRectangleBorder( borderRadius: BorderRadius.circular(10.0)),
       ),
+      child: const Text('Register'),
       onPressed: () {
         if (_formKey.currentState!.validate()) {
           AuthService().signUpUser(
@@ -156,23 +125,10 @@ class _registerPageState extends State<registerPage> {
             password: passwordController.text,
             name: nameController.text,
           );
-
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-                content: Text('Registered successfully, please login')),
-          );
+          ScaffoldMessenger.of(context).showSnackBar( const SnackBar( content: Text('Registered successfully, please login')));
         }
       },
-      child: const Text('Register'),
     );
-
-    // final forgotLabel = FlatButton(
-    //   child: Text(
-    //     'Forgot password?',
-    //     style: TextStyle(color: Colors.black54),
-    //   ),
-    //   onPressed: () {},
-    // );
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -180,24 +136,21 @@ class _registerPageState extends State<registerPage> {
       body: Form(
         key: _formKey,
         child: ListView(
-          shrinkWrap: true,
-          padding: EdgeInsets.only(left: 24.0, right: 24.0),
+          padding: const EdgeInsets.only(left: 24.0, right: 24.0),
           children: <Widget>[
-            SizedBox(height: 60.0),
+            const SizedBox(height: 30.0),
             heading,
-            SizedBox(height: 25.0),
+            const SizedBox(height: 30.0),
             bg,
-            //logo,
-            //slide,
-            SizedBox(height: 48.0),
+            const SizedBox(height: 30.0),
             name,
-            SizedBox(height: 8.0),
+            const SizedBox(height: 15.0),
             email,
-            SizedBox(height: 8.0),
+            const SizedBox(height: 15.0),
             password,
-            SizedBox(height: 8.0),
+            const SizedBox(height: 15.0),
             password2,
-            SizedBox(height: 24.0),
+            const SizedBox(height: 25.0),
             loginButton,
           ],
         ),

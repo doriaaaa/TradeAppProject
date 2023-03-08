@@ -21,12 +21,9 @@ class _homePageState extends State<homePage> {
     autoPlayInterval: 3000,
     isLoop: true,
     children: [
-      Image.network(
-          "http://books.google.com/books/content?id=-VfNSAAACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"),
-      Image.network(
-          "http://books.google.com/books/content?id=fltxyAEACAAJ&printsec=frontcover&img=1&zoom=5&source=gbs_api"),
-      Image.network(
-          "http://books.google.com/books/content?id=T929zgEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"),
+      Image.network("http://books.google.com/books/content?id=-VfNSAAACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"),
+      Image.network("http://books.google.com/books/content?id=fltxyAEACAAJ&printsec=frontcover&img=1&zoom=5&source=gbs_api"),
+      Image.network("http://books.google.com/books/content?id=T929zgEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"),
     ],
   );
   final slide2 = ImageSlideshow(
@@ -37,10 +34,8 @@ class _homePageState extends State<homePage> {
     autoPlayInterval: 3000,
     isLoop: true,
     children: [
-      Image.network(
-          "http://books.google.com/books/content?id=gvB1DQAAQBAJ&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api"),
-      Image.network(
-          "http://books.google.com/books/content?id=ZRdbmjRjljkC&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api"),
+      Image.network("http://books.google.com/books/content?id=gvB1DQAAQBAJ&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api"),
+      Image.network("http://books.google.com/books/content?id=ZRdbmjRjljkC&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api"),
     ],
   );
   final bm = const Text.rich(

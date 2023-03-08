@@ -86,7 +86,7 @@ class _ChangePageState extends State<ChangePage> {
       ),
       onPressed: () {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Email/PAssword reseted!')),
+          const SnackBar(content: Text('Email/Password reseted!')),
         );
       },
       child: const Text('Reset'),

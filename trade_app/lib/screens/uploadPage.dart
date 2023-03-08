@@ -12,7 +12,7 @@ class uploadPage extends StatefulWidget {
   final String bookInfoDetails;
   final Function() screenClosed;
   
-  uploadPage({
+  const uploadPage({
     Key? key,
     required this.bookInfoDetails, // pass the json file? widget.value to access the information
     required this.screenClosed,
