@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:sizer/sizer.dart';
 import 'package:trade_app/screens/search.dart';
 import 'package:trade_app/screens/homePage.dart';
 import 'package:trade_app/screens/notificationPage.dart';
-import 'package:trade_app/screens/settingPage.dart';
+import 'package:trade_app/screens/settingsPage.dart';
 import 'package:trade_app/widgets/camera.dart';
 
 class NavBar extends StatefulWidget {
   const NavBar({Key? key}) : super(key: key);
-  static const String routeName = '/info';
+  static const String routeName = '/navBar';
 
   @override
   State<NavBar> createState() => _NavBarState();
@@ -21,62 +22,34 @@ class _NavBarState extends State<NavBar> {
     const SearchPage(),
     const Camera(),
     const notificationPage(),
-    const settingPage(),
+    const settingsPage(),
   ];
 
   @override
   Widget build(BuildContext context) {
-    // ButtonStyle buttonStyle = OutlinedButton.styleFrom(
-    //   foregroundColor: Colors.white,
-    //   side: const BorderSide(
-    //     color: Color.fromARGB(210, 10, 10, 10),
-    //     width: 3
-    //   ),
-    //   minimumSize: const Size(350, 50),
-    //   shape: RoundedRectangleBorder(
-    //     borderRadius: BorderRadius.circular(10.0),
-    //   ),
-    // );
-
-    // Text buttonText (String text) {
-    //   return Text(
-    //     text, 
-    //     style: const TextStyle(color: Color.fromARGB(210, 10, 10, 10))
-    //   );
-    // }
-
-    // final scanISBNButton = OutlinedButton(
-    //   style: buttonStyle,
-    //   onPressed: () {
-    //     //open camera widget
-    //     Navigator.push(context, MaterialPageRoute(builder: (context) => const Camera()));
-    //   },
-    //   child: buttonText("Scan ISBN"),
-    // );
-
     return Scaffold(
       body: _children.elementAt(_selectedindex),
       bottomNavigationBar: GNav(
-          onTabChange: (value) => {
-            setState(() {
-              _selectedindex = value;
-              print("pages: ${value.toString()}");
-            })
-          },
-          gap: 0.5,
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-          backgroundColor: Colors.black,
-          color: Colors.white,
-          activeColor: Colors.white,
-          tabs: const [
-            GButton( icon: Icons.home_outlined, text: 'home'),
-            GButton( icon: Icons.search, text: 'Search'),
-            GButton( icon: Icons.bookmark_outline, text: 'books'),
-            GButton( icon: Icons.notifications_outlined, text: 'news'),
-            GButton( icon: Icons.settings_outlined, text: 'settings'),
-          ]
-        )
-      );
+        onTabChange: (value) => {
+          setState(() {
+            _selectedindex = value;
+            print("pages: ${value.toString()}");
+          })
+        },
+        gap: 0.5,
+        padding: EdgeInsets.symmetric(horizontal: 3.w, vertical: 2.h),
+        backgroundColor: Colors.black,
+        color: Colors.white,
+        activeColor: Colors.white,
+        tabs: const [
+          GButton( icon: Icons.home_outlined, text: 'home'),
+          GButton( icon: Icons.search, text: 'Search'),
+          GButton( icon: Icons.bookmark_outline, text: 'books'),
+          GButton( icon: Icons.notifications_outlined, text: 'news'),
+          GButton( icon: Icons.settings_outlined, text: 'settings'),
+        ]
+      )
+    );
   }
 
   // void _slidingPanel() {

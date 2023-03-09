@@ -11,6 +11,7 @@ class InfoDetailPage extends StatefulWidget {
 }
 
 class _InfoDetailPageState extends State<InfoDetailPage> {
+  @override
   void initState() {
     super.initState();
     readJson();

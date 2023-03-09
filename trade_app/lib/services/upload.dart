@@ -19,7 +19,7 @@ class uploadService {
         body: jsonEncode({ "image": image }),
         headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8'}
       );
-      debugPrint(res.body); 
+      // debugPrint(res.body); 
       // ignore: use_build_context_synchronously
       uploadDB(context, jsonDecode(res.body)['result'], bookInfo, description);
     } catch (e) {
@@ -40,7 +40,7 @@ class uploadService {
           'Content-Type': 'application/json; charset=UTF-8',
         }
       );
-      debugPrint(res.body);
+      // debugPrint(res.body);
       // ignore: use_build_context_synchronously
       httpErrorHandle(
         response: res,

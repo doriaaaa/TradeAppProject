@@ -22,7 +22,7 @@ class AuthService {
         }),
         headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8'}
       );
-      debugPrint(res.body);
+      // debugPrint(res.body);
       httpErrorHandle(
         response: res,
         context: context,
@@ -31,7 +31,7 @@ class AuthService {
           SharedPreferences prefs = await SharedPreferences.getInstance();
           await prefs.setString('x-auth-token', jsonDecode(res.body)['token']);
           Provider.of<UserProvider>(context, listen: false).setUser(res.body);
-          Navigator.pushNamedAndRemoveUntil( context, NavBar.routeName, (route) => false); //return res.body['name']
+          Navigator.pushNamedAndRemoveUntil( context, "/navBar", (route) => false); //return res.body['name']
         },
       );
     } catch (e) {

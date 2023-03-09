@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:trade_app/widgets/reusableWidget.dart';
 
-class ChangePage extends StatefulWidget {
+class changePasswordPage extends StatefulWidget {
+  static const String routeName = '/changePassword';
   static String tag = 'change-page';
 
-  const ChangePage({super.key});
+  const changePasswordPage({super.key});
   @override
-  _ChangePageState createState() => new _ChangePageState();
+  _changePasswordState createState() => _changePasswordState();
 }
 
-class _ChangePageState extends State<ChangePage> {
+class _changePasswordState extends State<changePasswordPage> {
   final _formKey = GlobalKey<FormState>();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();

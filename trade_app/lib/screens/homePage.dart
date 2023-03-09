@@ -16,7 +16,7 @@ class homePage extends StatefulWidget {
 class _homePageState extends State<homePage> {
   final slide = ImageSlideshow(
     indicatorColor: Colors.white,
-    onPageChanged: (value) { debugPrint('Page changed: $value');},
+    // onPageChanged: (value) { debugPrint('Page changed: $value');},
     children: [
       Image.network("http://books.google.com/books/content?id=-VfNSAAACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"),
       Image.network("http://books.google.com/books/content?id=fltxyAEACAAJ&printsec=frontcover&img=1&zoom=5&source=gbs_api"),
@@ -32,8 +32,7 @@ class _homePageState extends State<homePage> {
     var username = context.watch<UserProvider>().user.name;
     return Scaffold(
       appBar: ReusableWidgets.persistentAppBar('Welcome back! $username'),
-      body: 
-      Scrollbar(
+      body: Scrollbar(
         thumbVisibility: true,
         controller: scollBarController,
         child: ListView(

@@ -6,7 +6,7 @@ class ReusableWidgets {
       title: Text(
         title,
         style: const TextStyle( color: Colors.white, fontSize: 25 ),
-        textAlign: TextAlign.left,
+        textAlign: TextAlign.center,
       ),
       flexibleSpace: const Image(
         image: AssetImage('assets/book_title.jpg'),
