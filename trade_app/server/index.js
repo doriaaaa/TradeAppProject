@@ -8,6 +8,7 @@ console.log("hello server");
 //IMPORT FROM OTHER FILES
 const authRouter = require('./routes/auth');
 const uploadBookRouter = require('./routes/upload_book');
+const imgurRouter = require('./routes/imgur_image_upload');
 
 //INIT
 const app = express();
@@ -16,6 +17,7 @@ const app = express();
 app.use(express.json());
 app.use(authRouter);
 app.use(uploadBookRouter);
+app.use(imgurRouter);
 app.use(bodyParser.json({limit: '16mb', extended: true}));     // Make sure you add these two lines
 app.use(bodyParser.urlencoded({limit: '16mb', extended: true}))
 

@@ -16,26 +16,22 @@ class uploadService {
   }) async {
     // call pass image value api first
     try {
-      // upload image to imgur
-      var request = http.MultipartRequest("POST", Uri.parse("https://api.imgur.com/3/upload")); //not sure about the endpoint
-      request.headers["Authorization"] = "Client-ID 236f2c1ca957230";
-      var file = await http.MultipartFile.fromPath( "image", image!.path);
-      request.files.add(file);
-      var response = await request.send();
-      var result = await http.Response.fromStream(response).then((value) => jsonDecode(value.body));
-      var imageURL = result["data"]['link'];
-      print(imageURL);
-      uploadDB(imageURL, bookInfo, description);
+      http.Response res = await http.post(Uri.parse('http://172.20.10.4:3000/api/uploadImage'),
+        body: jsonEncode({ "image": image }),
+        headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8'}
+      );
+      debugPrint(res.body); 
+      // ignore: use_build_context_synchronously
+      uploadDB(context, jsonDecode(res.body)['result'], bookInfo, description);
     } catch (e) {
       print(e.toString());
     }
   }
 
-  void uploadDB(String imageURL, String bookInfo, String description) async {
+  void uploadDB(BuildContext context, String imageURL, String bookInfo, String description) async {
     // store to db by calling backend server
     try {
-      http.Response res = 
-        await http.post(Uri.parse('http://172.20.10.4:3000/api/user/upload'),
+      http.Response res = await http.post(Uri.parse('http://172.20.10.4:3000/api/user/upload'),
           body: jsonEncode({
             "bookInfo": bookInfo,
             "image": imageURL,
@@ -43,8 +39,18 @@ class uploadService {
           }),
           headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
-        });
+        }
+      );
       debugPrint(res.body);
+      // ignore: use_build_context_synchronously
+      httpErrorHandle(
+        response: res,
+        context: context,
+        onSuccess: () {
+          print('Post is uploaded to database successfully');
+          Navigator.pushNamed( context, "/home");
+        },
+      );
     } catch (e) {
       print(e.toString());
     }
