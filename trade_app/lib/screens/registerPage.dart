@@ -29,23 +29,23 @@ class _registerPageState extends State<registerPage> {
   @override
   Widget build(BuildContext context) {
     final username = TextFormField(
+      textInputAction: TextInputAction.next,
       controller: nameController,
       enableSuggestions: false,
       autocorrect: false,
       validator: (value) {
-        if (value == null || value.isEmpty) {
-          return 'You need a brilliant username for your account!';
-        }
+        if (value == null || value.isEmpty) return 'You need a brilliant username for your account!';
         return null;
       },
       decoration: InputDecoration(
-        hintText: 'Username',
+        hintText: 'Enter your username',
         contentPadding: EdgeInsets.fromLTRB(4.w, 2.w, 4.w, 2.w),
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(30.0)),
       ),
     );
 
     final email = TextFormField(
+      textInputAction: TextInputAction.next,
       controller: emailController,
       keyboardType: TextInputType.emailAddress,
       validator: (value) {
@@ -56,12 +56,13 @@ class _registerPageState extends State<registerPage> {
       },
       decoration: InputDecoration(
         hintText: 'Enter your email',
-        contentPadding: const EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
+        contentPadding: EdgeInsets.fromLTRB(4.w, 2.w, 4.w, 2.w),
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(30.0)),
       ),
     );
 
     final password = TextFormField(
+      textInputAction: TextInputAction.next,
       controller: passwordController,
       obscureText: true,
       enableSuggestions: false,
@@ -73,12 +74,13 @@ class _registerPageState extends State<registerPage> {
       },
       decoration: InputDecoration(
         hintText: 'Enter your password',
-        contentPadding: const EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
+        contentPadding: EdgeInsets.fromLTRB(4.w, 2.w, 4.w, 2.w),
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(30.0)),
       ),
     );
 
     final verifyPassword = TextFormField(
+      textInputAction: TextInputAction.done,
       controller: _confirmPass,
       obscureText: true,
       enableSuggestions: false,
@@ -89,16 +91,16 @@ class _registerPageState extends State<registerPage> {
         return null;
       },
       decoration: InputDecoration(
-        hintText: 'Verify Password',
-        contentPadding: const EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
+        hintText: 'Re-enter your Password',
+        contentPadding: EdgeInsets.fromLTRB(4.w, 2.w, 4.w, 2.w),
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(30.0)),
       ),
     );
 
     final backgroundDisplayImg = SizedBox(
       width: 5.w,
       height: 20.h,
-      child: FittedBox( fit: BoxFit.fitWidth, child: Image.asset("assets/createAccount.jpg"))
+      child: FittedBox( fit: BoxFit.fitWidth, child: Image.asset("assets/create_account.jpg"))
     );
 
     final headerDisplayText = Text('Sign up', style: TextStyle(fontSize: 30.0.sp));
@@ -106,8 +108,8 @@ class _registerPageState extends State<registerPage> {
     final registerButton = ElevatedButton(
       style: ElevatedButton.styleFrom(
         shadowColor: Colors.lightBlueAccent.shade100,
-        minimumSize: const Size(350, 50),
-        elevation: 5.9,
+        minimumSize: Size(3.w, 5.h),
+        elevation: 6.0,
         shape: RoundedRectangleBorder( borderRadius: BorderRadius.circular(10.0)),
       ),
       child: const Text('Register'),
@@ -130,13 +132,15 @@ class _registerPageState extends State<registerPage> {
       body: Form(
         key: _formKey,
         child: ListView(
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
           padding: EdgeInsets.only(left: 7.0.w, right: 7.0.w),
           children: <Widget>[
             SizedBox(height: 3.h),
             headerDisplayText,
             SizedBox(height: 7.h),
             backgroundDisplayImg,
-            SizedBox(height: 5.h),
+            SizedBox(height: 7.h),
             username,
             SizedBox(height: 2.h),
             email,
