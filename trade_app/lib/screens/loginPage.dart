@@ -31,6 +31,8 @@ class _loginPageState extends State<loginPage> {
       textInputAction: TextInputAction.next,
       controller: emailController,
       keyboardType: TextInputType.emailAddress,
+      enableSuggestions: false,
+      autocorrect: false,
       validator: (value) {
         if (value == null || value.isEmpty) return 'Please enter your email';
         return null;

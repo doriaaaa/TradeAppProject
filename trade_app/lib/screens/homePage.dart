@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
+import 'package:sizer/sizer.dart';
 import 'package:trade_app/widgets/reusableWidget.dart';
 import 'package:trade_app/provider/user_provider.dart';
 import 'package:provider/provider.dart';
@@ -15,72 +16,44 @@ class homePage extends StatefulWidget {
 class _homePageState extends State<homePage> {
   final slide = ImageSlideshow(
     indicatorColor: Colors.white,
-    onPageChanged: (value) {
-      debugPrint('Page changed: $value');
-    },
-    autoPlayInterval: 3000,
-    isLoop: true,
+    onPageChanged: (value) { debugPrint('Page changed: $value');},
     children: [
       Image.network("http://books.google.com/books/content?id=-VfNSAAACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"),
       Image.network("http://books.google.com/books/content?id=fltxyAEACAAJ&printsec=frontcover&img=1&zoom=5&source=gbs_api"),
       Image.network("http://books.google.com/books/content?id=T929zgEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"),
     ],
   );
-  final slide2 = ImageSlideshow(
-    indicatorColor: Colors.white,
-    onPageChanged: (value) {
-      debugPrint('Page changed: $value');
-    },
-    autoPlayInterval: 3000,
-    isLoop: true,
-    children: [
-      Image.network("http://books.google.com/books/content?id=gvB1DQAAQBAJ&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api"),
-      Image.network("http://books.google.com/books/content?id=ZRdbmjRjljkC&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api"),
-    ],
-  );
-  final bm = const Text.rich(
-    TextSpan(
-      text: 'Books of the month! ',
-      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
-      // default text style
-    ),
-    textAlign: TextAlign.left,
-  );
-  final heading = const Text.rich(
-    TextSpan(
-      text: 'Our Latest Recommendations! ',
-      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
-      // default text style
-    ),
-  );
 
-  final category_text = const Text.rich(
-    TextSpan(
-      text: 'Recommended Categories',
-      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
-      // default text style
-    ),
-  );
-
+  final recommendationHeaderDisplayText = Text("Latest Recommendation", style: TextStyle(fontSize: 20.0.sp));
+  final bestBookHeaderDisplayText = Text("The best books that we choose for you", style: TextStyle(fontSize: 20.0.sp));
   @override
   Widget build(BuildContext context) {
+    final scollBarController = ScrollController(initialScrollOffset: 50.0);
     var username = context.watch<UserProvider>().user.name;
     return Scaffold(
       appBar: ReusableWidgets.persistentAppBar('Welcome back! $username'),
-      body: Column(
-        children: <Widget>[
-          const SizedBox(height: 70.0),
-          bm,
-          const SizedBox(height: 20.0),
-          slide,
-          const SizedBox(height: 70.0),
-          heading,
-          const SizedBox(height: 20.0),
-          slide2,
-          const SizedBox(height: 20.0),
-          //category_text,
-        ],
-      ),
+      body: 
+      Scrollbar(
+        thumbVisibility: true,
+        controller: scollBarController,
+        child: ListView(
+          shrinkWrap: true,
+          controller: scollBarController,
+          padding: EdgeInsets.only(left: 7.0.w, right: 7.0.w),
+          children: [
+            SizedBox(height: 3.h),
+            recommendationHeaderDisplayText,
+            SizedBox(height: 3.h),
+            slide,
+            SizedBox(height: 3.h),
+            bestBookHeaderDisplayText,
+            SizedBox(height: 3.h),
+            slide,
+            SizedBox(height: 3.h),
+            slide,
+          ],
+        ),
+      )
     );
   }
 }

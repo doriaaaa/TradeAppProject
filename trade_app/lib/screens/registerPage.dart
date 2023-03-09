@@ -45,6 +45,8 @@ class _registerPageState extends State<registerPage> {
     );
 
     final email = TextFormField(
+      enableSuggestions: false,
+      autocorrect: false,
       textInputAction: TextInputAction.next,
       controller: emailController,
       keyboardType: TextInputType.emailAddress,
