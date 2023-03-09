@@ -5,11 +5,7 @@ class ReusableWidgets {
     return AppBar(
       title: Text(
         title,
-        style: const TextStyle(
-          color: Colors.white,
-          height: 0.9,
-          fontSize: 25
-        ),
+        style: const TextStyle( color: Colors.white, fontSize: 25 ),
         textAlign: TextAlign.left,
       ),
       flexibleSpace: const Image(

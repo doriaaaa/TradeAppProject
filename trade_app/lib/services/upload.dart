@@ -14,7 +14,6 @@ class uploadService {
     required String bookInfo, // this is a json response, use Map extractedDetails = json.decode(widget.bookInfoDetails); // map json response
     required String description, // this is the book description, can be ""
   }) async {
-    // call pass image value api first
     try {
       http.Response res = await http.post(Uri.parse('http://172.20.10.4:3000/api/uploadImage'),
         body: jsonEncode({ "image": image }),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:trade_app/widgets/reusableWidget.dart';
 import 'package:trade_app/services/auth/connector.dart';
+import 'package:sizer/sizer.dart';
 
 class loginPage extends StatefulWidget {
   static String tag = 'login-page';
@@ -27,6 +28,7 @@ class _loginPageState extends State<loginPage> {
   Widget build(BuildContext context) {
 
     final email = TextFormField(
+      textInputAction: TextInputAction.next,
       controller: emailController,
       keyboardType: TextInputType.emailAddress,
       validator: (value) {
@@ -35,19 +37,20 @@ class _loginPageState extends State<loginPage> {
       },
       decoration: InputDecoration(
         hintText: 'Email',
-        contentPadding: const EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
+        contentPadding: EdgeInsets.fromLTRB(4.w, 2.w, 4.w, 2.w),
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(30.0)),
       ),
     );
     
-    final bg = SizedBox(
-        width: 300,
-        height: 200,
-        child: FittedBox( fit: BoxFit.fitWidth, child: Image.asset("assets/overlay.png") //add your image url if its from network if not change it to image.asset
+    final backgroundDisplayImg = SizedBox(
+        width: 5.w,
+        height: 20.h,
+        child: FittedBox( fit: BoxFit.fitWidth, child: Image.asset("assets/cover.jpg") //add your image url if its from network if not change it to image.asset
       )
     );
 
     final password = TextFormField(
+      textInputAction: TextInputAction.done,
       controller: passwordController,
       obscureText: true,
       enableSuggestions: false,
@@ -60,12 +63,12 @@ class _loginPageState extends State<loginPage> {
       },
       decoration: InputDecoration(
         hintText: 'Password',
-        contentPadding: const EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
+        contentPadding: EdgeInsets.fromLTRB(4.w, 2.w, 4.w, 2.w),
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(30.0)),
       ),
     );
 
-    const heading = Text.rich( TextSpan( text: 'Login', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 40)));
+    final headerDisplayText = Text('Login', style: TextStyle(fontSize: 30.0.sp));
 
     final registerButton = TextButton(
       onPressed: () { Navigator.pushNamed( context, "/register"); },
@@ -75,8 +78,8 @@ class _loginPageState extends State<loginPage> {
     final loginButton = ElevatedButton(
       style: ElevatedButton.styleFrom(
         shadowColor: Colors.lightBlueAccent.shade100,
-        minimumSize: const Size(350, 50),
-        elevation: 5.9,
+        minimumSize: Size(3.w, 5.h),
+        elevation: 6.0,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10.0),
         ),
@@ -107,19 +110,21 @@ class _loginPageState extends State<loginPage> {
       body: Form(
         key: _formKey,
         child: ListView(
-          padding: const EdgeInsets.only(left: 24.0, right: 24.0),
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          padding: EdgeInsets.only(left: 7.0.w, right: 7.0.w),
           children: <Widget>[
-            const SizedBox(height: 60.0),
-            heading,
-            const SizedBox(height: 75.0),
-            bg,
-            const SizedBox(height: 75.0),
+            SizedBox(height: 3.h),
+            headerDisplayText,
+            SizedBox(height: 7.h),
+            backgroundDisplayImg,
+            SizedBox(height: 7.h),
             email,
-            const SizedBox(height: 8.0),
+            SizedBox(height: 2.h),
             password,
-            const SizedBox(height: 24.0),
+            SizedBox(height: 3.h),
             loginButton,
-            const SizedBox(height: 5.0),
+            SizedBox(height: 1.h),
             registerButton
           ],
         ),

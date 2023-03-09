@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sizer/sizer.dart';
 import 'package:trade_app/widgets/reusableWidget.dart';
 import 'package:trade_app/services/auth/connector.dart';
 
@@ -27,20 +28,20 @@ class _registerPageState extends State<registerPage> {
 
   @override
   Widget build(BuildContext context) {
-    final name = TextFormField(
+    final username = TextFormField(
       controller: nameController,
       enableSuggestions: false,
       autocorrect: false,
       validator: (value) {
         if (value == null || value.isEmpty) {
-          return 'Please enter your username';
+          return 'You need a brilliant username for your account!';
         }
         return null;
       },
       decoration: InputDecoration(
         hintText: 'Username',
-        contentPadding: const EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
+        contentPadding: EdgeInsets.fromLTRB(4.w, 2.w, 4.w, 2.w),
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(30.0)),
       ),
     );
 
@@ -49,12 +50,12 @@ class _registerPageState extends State<registerPage> {
       keyboardType: TextInputType.emailAddress,
       validator: (value) {
         if (value == null || value.isEmpty) {
-          return 'Please enter your email';
+          return 'You need to have an email account to register!';
         }
         return null;
       },
       decoration: InputDecoration(
-        hintText: 'Registration Email',
+        hintText: 'Enter your email',
         contentPadding: const EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
       ),
@@ -66,28 +67,24 @@ class _registerPageState extends State<registerPage> {
       enableSuggestions: false,
       autocorrect: false,
       validator: (value) {
-        if (value == null || value.isEmpty) {
-          return 'Password';
-        }
+        if (value == null || value.isEmpty) return 'Password';
         if (value != _confirmPass.text) return 'Not Match';
         return null;
       },
       decoration: InputDecoration(
-        hintText: 'Password',
+        hintText: 'Enter your password',
         contentPadding: const EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
       ),
     );
 
-    final password2 = TextFormField(
+    final verifyPassword = TextFormField(
       controller: _confirmPass,
       obscureText: true,
       enableSuggestions: false,
       autocorrect: false,
       validator: (value) {
-        if (value == null || value.isEmpty) {
-          return 'Verify Password';
-        }
+        if (value == null || value.isEmpty) return 'Verify Password';
         if (value != passwordController.text) return 'Not Match';
         return null;
       },
@@ -98,18 +95,15 @@ class _registerPageState extends State<registerPage> {
       ),
     );
 
-    final bg = SizedBox(
-      width: 300,
-      height: 200,
-      child: FittedBox(
-        fit: BoxFit.fitWidth,
-        child: Image.asset("assets/books.png") //add your image url if its from network if not change it to image.asset
-      )
+    final backgroundDisplayImg = SizedBox(
+      width: 5.w,
+      height: 20.h,
+      child: FittedBox( fit: BoxFit.fitWidth, child: Image.asset("assets/createAccount.jpg"))
     );
 
-    const heading = Text.rich( TextSpan( text: 'Register Account', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 40)));
+    final headerDisplayText = Text('Sign up', style: TextStyle(fontSize: 30.0.sp));
 
-    final loginButton = ElevatedButton(
+    final registerButton = ElevatedButton(
       style: ElevatedButton.styleFrom(
         shadowColor: Colors.lightBlueAccent.shade100,
         minimumSize: const Size(350, 50),
@@ -125,33 +119,33 @@ class _registerPageState extends State<registerPage> {
             password: passwordController.text,
             name: nameController.text,
           );
-          ScaffoldMessenger.of(context).showSnackBar( const SnackBar( content: Text('Registered successfully, please login')));
+          ScaffoldMessenger.of(context).showSnackBar( const SnackBar( content: Text('Your account has been created successfully.')));
         }
       },
     );
 
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: ReusableWidgets.persistentAppBar('Welcome to Trade Book'),
+      appBar: ReusableWidgets.persistentAppBar('Create New Account'),
       body: Form(
         key: _formKey,
         child: ListView(
-          padding: const EdgeInsets.only(left: 24.0, right: 24.0),
+          padding: EdgeInsets.only(left: 7.0.w, right: 7.0.w),
           children: <Widget>[
-            const SizedBox(height: 30.0),
-            heading,
-            const SizedBox(height: 30.0),
-            bg,
-            const SizedBox(height: 30.0),
-            name,
-            const SizedBox(height: 15.0),
+            SizedBox(height: 3.h),
+            headerDisplayText,
+            SizedBox(height: 7.h),
+            backgroundDisplayImg,
+            SizedBox(height: 5.h),
+            username,
+            SizedBox(height: 2.h),
             email,
-            const SizedBox(height: 15.0),
+            SizedBox(height: 2.h),
             password,
-            const SizedBox(height: 15.0),
-            password2,
-            const SizedBox(height: 25.0),
-            loginButton,
+            SizedBox(height: 2.h),
+            verifyPassword,
+            SizedBox(height: 3.h),
+            registerButton,
           ],
         ),
       ),

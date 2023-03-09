@@ -1,12 +1,10 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
+import 'package:sizer/sizer.dart';
 import 'package:trade_app/screens/loginPage.dart';
-import 'package:trade_app/screens/uploadPage.dart';
 import 'package:trade_app/routes/router.dart';
 import 'package:provider/provider.dart';
 import 'package:trade_app/provider/user_provider.dart';
-// import '../widgets/nav_bar.dart';
 
 void main() {
   runApp(
@@ -72,27 +70,17 @@ class MyApp extends StatelessWidget {
       "infoLink": "http://books.google.com.hk/books?id=R6ZpAAAACAAJ&dq=isbn:9780747544074&hl=&source=gbs_api",
       "canonicalVolumeLink": "https://books.google.com/books/about/Harry_Potter_and_the_Chamber_of_Secrets.html?hl=&id=R6ZpAAAACAAJ"
     });
-
-    return MaterialApp(
-      title: 'Trade App',
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
-        primarySwatch: Colors.blue,
-      ),
-      home: const loginPage(),
-      // home: uploadPage(
-      //   screenClosed: () { false; }, 
-      //   bookInfoDetails: res
-      // ),
-      onGenerateRoute: (settings) => generateRoute(settings),
-    );
+    return Sizer(builder: (context, orientation, deviceType) {
+      return MaterialApp(
+        title: 'Trade App',
+        home: const loginPage(),
+        theme: ThemeData(fontFamily: 'Menlo'),
+        // home: uploadPage(
+        //   screenClosed: () { false; }, 
+        //   bookInfoDetails: res
+        // ),
+        onGenerateRoute: (settings) => generateRoute(settings),
+      );
+    });
   }
 }
