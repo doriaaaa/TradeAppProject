@@ -28,19 +28,20 @@ tradeApp@hku --> password
 ```
 ###### TODO: 
 1. upload page -- scan isbn button
-- [ ] information is fetched and store in a variable --> user can access the variable by clicking "view details"
+- [x] information is fetched and store in a variable --> user can access the variable by clicking "view details"
 2. upload page -- upload image
 - [x] clicking the grey button should appear an image picker
 - [x] after user selects the image, it should display in the image box
 3. upload page -- upload book
-- [ ] information should be stored in database
+- [x] information should be stored in database
 4. upload page -- cancel button
-- [ ] clear the form
+- [?] clear the form
+- replaced with back --> cancel button
 5. upload page -- beautify camera page
-- [ ] when barcode is found, use a sliding panel to display information
-- [ ] found barcode should redirect user to the upload page
+- [x] when barcode is found, use a sliding panel to display information
+- [x] found barcode should redirect user to the upload page
 6. upload page -- save information temporarily
-- [ ] create a form variable to store the photo path / book info
+- [x] create a form variable to store the photo path / book info
 
 ## add-ons:
 what extra features to add
@@ -52,5 +53,3 @@ what extra features to add
 
 - auto matching in a group 
 - create a community, knowledge exchange (reddit/futu)
-
-imgur 
