@@ -43,7 +43,7 @@ class _NavBarState extends State<NavBar> {
         activeColor: Colors.white,
         tabs: const [
           GButton( icon: Icons.home_outlined, text: 'home'),
-          GButton( icon: Icons.search, text: 'Search'),
+          GButton( icon: Icons.search, text: 'search'),
           GButton( icon: Icons.bookmark_outline, text: 'books'),
           GButton( icon: Icons.notifications_outlined, text: 'news'),
           GButton( icon: Icons.settings_outlined, text: 'settings'),

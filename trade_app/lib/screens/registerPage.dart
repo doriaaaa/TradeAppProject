@@ -100,18 +100,19 @@ class _registerPageState extends State<registerPage> {
     );
 
     final backgroundDisplayImg = SizedBox(
-      width: 5.w,
-      height: 20.h,
-      child: FittedBox( fit: BoxFit.fitWidth, child: Image.asset("assets/create_account.jpg"))
+      width: 40.w,
+      height: 40.h,
+      child: Center( child: Image.asset("assets/create_account.jpg"))
     );
 
-    final headerDisplayText = Text('Sign up', style: TextStyle(fontSize: 30.0.sp));
+    final headerDisplayText = Text('Sign up', style: TextStyle(fontSize: 15.0.sp));
 
     final registerButton = ElevatedButton(
       style: ElevatedButton.styleFrom(
         shadowColor: Colors.lightBlueAccent.shade100,
         minimumSize: Size(3.w, 5.h),
         elevation: 6.0,
+        padding: EdgeInsets.all(3.h),
         shape: RoundedRectangleBorder( borderRadius: BorderRadius.circular(10.0)),
       ),
       child: const Text('Register'),
@@ -140,9 +141,9 @@ class _registerPageState extends State<registerPage> {
           children: <Widget>[
             SizedBox(height: 3.h),
             headerDisplayText,
-            SizedBox(height: 7.h),
+            SizedBox(height: 3.h),
             backgroundDisplayImg,
-            SizedBox(height: 7.h),
+            SizedBox(height: 3.h),
             username,
             SizedBox(height: 2.h),
             email,
@@ -150,7 +151,7 @@ class _registerPageState extends State<registerPage> {
             password,
             SizedBox(height: 2.h),
             verifyPassword,
-            SizedBox(height: 3.h),
+            SizedBox(height: 2.h),
             registerButton,
           ],
         ),

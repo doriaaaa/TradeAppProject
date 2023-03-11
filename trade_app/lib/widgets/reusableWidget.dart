@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:sizer/sizer.dart';
 
 class ReusableWidgets {
   static persistentAppBar(String title) {
     return AppBar(
       title: Text(
         title,
-        style: const TextStyle( color: Colors.white, fontSize: 25 ),
+        style: TextStyle( color: Colors.white, fontSize: 18.0.sp ),
         textAlign: TextAlign.center,
       ),
       flexibleSpace: const Image(

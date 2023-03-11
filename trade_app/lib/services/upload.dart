@@ -31,14 +31,12 @@ class uploadService {
     // store to db by calling backend server
     try {
       http.Response res = await http.post(Uri.parse('http://172.20.10.4:3000/api/user/upload'),
-          body: jsonEncode({
-            "bookInfo": bookInfo,
-            "image": imageURL,
-            "description": description
-          }),
-          headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8',
-        }
+        body: jsonEncode({
+          "bookInfo": bookInfo,
+          "image": imageURL,
+          "description": description
+        }),
+        headers: <String, String>{ 'Content-Type': 'application/json; charset=UTF-8'}
       );
       // debugPrint(res.body);
       // ignore: use_build_context_synchronously
@@ -65,14 +63,12 @@ class uploadService {
         if (code != "---") {
           debugPrint('Barcode found! $code');
           _screenOpened = true;
-          http.Response res = 
-            await http.post(Uri.parse('http://172.20.10.4:3000/api/bookinfo'),
-              body: jsonEncode({
-                "book_isbn": code
-              }),
-              headers: <String, String>{
-              'Content-Type': 'application/json; charset=UTF-8',
-            });
+          http.Response res = await http.post(Uri.parse('http://172.20.10.4:3000/api/bookinfo'),
+            body: jsonEncode({
+              "book_isbn": code
+            }),
+            headers: <String, String>{ 'Content-Type': 'application/json; charset=UTF-8'}
+          );
           debugPrint(res.body);
           // ignore: use_build_context_synchronously
           httpErrorHandle(

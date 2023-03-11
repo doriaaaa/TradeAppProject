@@ -45,10 +45,9 @@ class _loginPageState extends State<loginPage> {
     );
     
     final backgroundDisplayImg = SizedBox(
-        width: 5.w,
-        height: 20.h,
-        child: FittedBox( fit: BoxFit.fitWidth, child: Image.asset("assets/cover.jpg") //add your image url if its from network if not change it to image.asset
-      )
+      width: 40.w,
+      height: 40.h,
+      child: Center( child: Image.asset("assets/cover.jpg"))
     );
 
     final password = TextFormField(
@@ -70,7 +69,7 @@ class _loginPageState extends State<loginPage> {
       ),
     );
 
-    final headerDisplayText = Text('Login', style: TextStyle(fontSize: 30.0.sp));
+    final headerDisplayText = Text('Login', style: TextStyle(fontSize: 20.0.sp));
 
     final registerButton = TextButton(
       onPressed: () { Navigator.pushNamed( context, "/register"); },
@@ -82,6 +81,7 @@ class _loginPageState extends State<loginPage> {
         shadowColor: Colors.lightBlueAccent.shade100,
         minimumSize: Size(3.w, 5.h),
         elevation: 6.0,
+        padding: EdgeInsets.all(2.h), // Add padding here
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10.0),
         ),
@@ -118,9 +118,9 @@ class _loginPageState extends State<loginPage> {
           children: <Widget>[
             SizedBox(height: 3.h),
             headerDisplayText,
-            SizedBox(height: 7.h),
+            SizedBox(height: 3.h),
             backgroundDisplayImg,
-            SizedBox(height: 7.h),
+            SizedBox(height: 2.h),
             email,
             SizedBox(height: 2.h),
             password,

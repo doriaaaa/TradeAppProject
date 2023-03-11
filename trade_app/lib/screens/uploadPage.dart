@@ -6,6 +6,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:image/image.dart' as ImageProcess;
+import 'package:sizer/sizer.dart';
 import '../services/upload.dart';
 
 class uploadPage extends StatefulWidget {
@@ -56,26 +57,28 @@ class _uploadPageState extends State<uploadPage> {
         }
       },
       child: Container(
-        width: 200,
-        height: 200,
+        width: 50.w,
+        height: 50.w,
         decoration: BoxDecoration( borderRadius: BorderRadius.circular(10.0), color: const Color.fromARGB(100, 217, 217, 217)),
-        child: isPicked ? Image.file( pickedImage!, width: 200.0, height: 200.0, fit: BoxFit.fitHeight)
+        child: isPicked ? Image.file( pickedImage!, width: 50.w, height: 50.w, fit: BoxFit.fill)
           : Container(
+              width: 50.w,
+              height: 50.w,
               decoration: BoxDecoration( borderRadius: BorderRadius.circular(10.0), color: const Color.fromARGB(100, 217, 217, 217)),
-              width: 200, height: 200, child: Icon( Icons.attachment, color: Colors.grey[800]),
+              child: Icon( Icons.attachment, color: Colors.grey[800]),
             ),
       )
     );
 
     final bookInfoDisplayBox = <Widget>[
       Row( children: <Widget>[ Flexible(child: Text("Title: ${extractedDetails['title']}"))]),
-      const SizedBox(height: 10),
+      SizedBox(height: 1.h),
       Row( children: <Widget>[ Flexible(child: Text("First Author: ${extractedDetails['authors'][0] ?? "not specified" }"))]),
-      const SizedBox(height: 10),
+      SizedBox(height: 1.h),
       Row( children: <Widget>[ Flexible(child: Text("Published Date: ${extractedDetails['publishedDate'] ?? "not specified" }"))]),
-      const SizedBox(height: 10),
+      SizedBox(height: 1.h),
       Row( children: <Widget>[ Flexible(child: Text("Publisher: ${extractedDetails['publisher'] ?? "not specified" }"))]),
-      const SizedBox(height: 10),
+      SizedBox(height: 1.h),
       Row( children: <Widget>[ Flexible(
         child: Text("Summary: ${ (extractedDetails['description'].length > 50 ? extractedDetails['description'].substring(0,50)+"..." : extractedDetails['description']) ?? "not specified" }")
       )]),
@@ -114,19 +117,19 @@ class _uploadPageState extends State<uploadPage> {
       body: Form(
         key: _formKey,
         child: ListView(
-          padding: const EdgeInsets.only(left: 20.0, right: 20.0),
+          padding: EdgeInsets.only(left: 4.w, right: 4.w),
           children: <Widget>[
-            const SizedBox(height: 30),
+            SizedBox(height: 4.h),
             // row need position the box
             Row( 
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget> [
                 Expanded(child: Column( children: <Widget>[uploadImageButton])),
-                const SizedBox(width:10),
+                SizedBox(width: 1.w),
                 Expanded(child: Column( children: bookInfoDisplayBox))
               ]
             ),
-            const SizedBox(height: 30),
+            SizedBox(height: 4.h),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget> [

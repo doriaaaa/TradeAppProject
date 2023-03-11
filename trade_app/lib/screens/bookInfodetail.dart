@@ -20,7 +20,7 @@ class _InfoDetailPageState extends State<InfoDetailPage> {
   List _items = [];
   // Fetch content from the json file
   Future<void> readJson() async {
-    //load  the json here!!
+    //load the json here!!
     final String response =
         await rootBundle.loadString('assets/singledata.json');
     final data = await json.decode(response);

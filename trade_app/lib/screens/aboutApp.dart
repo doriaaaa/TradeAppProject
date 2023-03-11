@@ -25,7 +25,7 @@ class _aboutAppPageState extends State<aboutAppPage> {
           child: Text( 
             desc, 
             textAlign: TextAlign.justify,
-            style: const TextStyle(height: 1.5),
+            style: TextStyle(fontSize: 12.0.sp, height: 1.5),
           )
         )
       ],

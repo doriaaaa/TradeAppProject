@@ -2,6 +2,7 @@
 // first user will be redirected to camera page to scan the book
 import 'package:flutter/material.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
+import 'package:sizer/sizer.dart';
 import 'package:trade_app/widgets/reusableWidget.dart';
 
 import '../services/upload.dart';
@@ -15,8 +16,6 @@ class Camera extends StatefulWidget {
 
 class _CameraState extends State<Camera> {
   MobileScannerController cameraController = MobileScannerController();
-  String serverResponse = 'Server response';
-  int counter = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -27,14 +26,11 @@ class _CameraState extends State<Camera> {
           MobileScanner( // need to show each barcode at a time, do not allow multiple codes
             allowDuplicates: false,
             controller: cameraController,
-            onDetect: // getBookData
-            (Barcode barcode, MobileScannerArguments? args) => {
-              uploadService().getBookData(context, barcode, args )
-            }
+            onDetect: (Barcode barcode, MobileScannerArguments? args) => { uploadService().getBookData(context, barcode, args )}
           ),
           Positioned(
-            bottom: 60,
-            right: 20,
+            bottom: 8.h,
+            right: 4.w,
             child: FloatingActionButton(
               heroTag: 1,
               onPressed: () => cameraController.switchCamera(),
@@ -50,8 +46,8 @@ class _CameraState extends State<Camera> {
             )
           ),
           Positioned(
-            bottom: 60, 
-            left: 20, 
+            bottom: 8.h, 
+            left: 4.w, 
             child: FloatingActionButton(
               heroTag: 1,
               onPressed: () => cameraController.toggleTorch(),

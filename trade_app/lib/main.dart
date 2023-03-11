@@ -5,6 +5,8 @@ import 'package:trade_app/screens/loginPage.dart';
 import 'package:trade_app/routes/router.dart';
 import 'package:provider/provider.dart';
 import 'package:trade_app/provider/user_provider.dart';
+import 'package:trade_app/screens/uploadPage.dart';
+import 'package:trade_app/widgets/camera.dart';
 
 void main() {
   runApp(
@@ -73,12 +75,13 @@ class MyApp extends StatelessWidget {
     return Sizer(builder: (context, orientation, deviceType) {
       return MaterialApp(
         title: 'Trade App',
-        home: const loginPage(),
+        // home: const loginPage(),
         theme: ThemeData(fontFamily: 'Menlo'),
         // home: uploadPage(
         //   screenClosed: () { false; }, 
         //   bookInfoDetails: res
         // ),
+        home: const Camera(),
         onGenerateRoute: (settings) => generateRoute(settings),
       );
     });
