@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:sizer/sizer.dart';
 import 'package:trade_app/screens/loginPage.dart';
 import 'package:trade_app/routes/router.dart';
@@ -8,7 +9,8 @@ import 'package:trade_app/provider/user_provider.dart';
 import 'package:trade_app/screens/uploadPage.dart';
 import 'package:trade_app/widgets/camera.dart';
 
-void main() {
+Future main() async {
+  await dotenv.load(fileName: ".env");
   runApp(
     MultiProvider(
       providers: [
