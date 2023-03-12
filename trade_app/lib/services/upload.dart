@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:mobile_scanner/mobile_scanner.dart';
+import 'package:trade_app/constants/constants.dart';
 import '../constants/error_handling.dart';
 import '../screens/uploadPage.dart';
 
@@ -15,7 +16,7 @@ class uploadService {
     required String description, // this is the book description, can be ""
   }) async {
     try {
-      http.Response res = await http.post(Uri.parse('http://172.20.10.4:3000/api/uploadImage'),
+      http.Response res = await http.post(Uri.parse('http://${Constants.ipAddr}:3000/api/uploadImage'),
         body: jsonEncode({ "image": image }),
         headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8'}
       );
@@ -30,7 +31,7 @@ class uploadService {
   void uploadDB(BuildContext context, String imageURL, String bookInfo, String description) async {
     // store to db by calling backend server
     try {
-      http.Response res = await http.post(Uri.parse('http://172.20.10.4:3000/api/user/upload'),
+      http.Response res = await http.post(Uri.parse('http://${Constants.ipAddr}:3000/api/user/upload'),
         body: jsonEncode({
           "bookInfo": bookInfo,
           "image": imageURL,
@@ -63,7 +64,7 @@ class uploadService {
         if (code != "---") {
           debugPrint('Barcode found! $code');
           _screenOpened = true;
-          http.Response res = await http.post(Uri.parse('http://172.20.10.4:3000/api/bookinfo'),
+          http.Response res = await http.post(Uri.parse('http://${Constants.ipAddr}:3000/api/bookinfo'),
             body: jsonEncode({
               "book_isbn": code
             }),
