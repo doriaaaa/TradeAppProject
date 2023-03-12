@@ -36,33 +36,35 @@ class _homePageState extends State<homePage> {
   }
 
   void _buildDisplayItemList() async {
-    final String res = await getUserInfo().getUploadedBookInfo(context: context);
+    final String res =
+        await getUserInfo().getUploadedBookInfo(context: context);
     Map uploadedBookList = jsonDecode(res);
-    print(uploadedBookList);
+    print(uploadedBookList['result'].length);
+    print("image link: ${uploadedBookList['result'][0]['image']}");
+    print("title: ${uploadedBookList['result'][0]['bookInfo']['title']}");
 
-    for (int count = 0; count < 5; count++) {
+    for (int count = 0; count < uploadedBookList['result'].length; count++) {
       displayItemList.add(gapBox);
-      displayItemList.add(displayItem);
+      displayItemList.add(GestureDetector(
+          onTap: () {
+            // redirect to next page for discussion
+          },
+          child: Card(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Image.network(uploadedBookList['result'][count]['image']),
+                Padding(
+                  padding: EdgeInsets.all(3.w),
+                  child: Text(uploadedBookList['result'][count]['bookInfo']['title'],
+                  style: TextStyle(fontSize: 12.0.sp, height: 1.0))
+                )
+              ],
+            ),
+          )));
     }
   }
-
-  var displayItem = GestureDetector(
-      onTap: () {
-        // redirect to next page for discussion
-      },
-      child: Card(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Image.asset("assets/avatar.jpg"),
-            Padding(
-                padding: EdgeInsets.all(3.w),
-                child: Text("test",
-                    style: TextStyle(fontSize: 12.0.sp, height: 1.0)))
-          ],
-        ),
-      ));
 
   // final recommendationHeaderDisplayText = Text("Latest Recommendation", style: TextStyle(fontSize: 20.0.sp));
   // final bestBookHeaderDisplayText = Text("The best books that we choose for you", style: TextStyle(fontSize: 20.0.sp));
