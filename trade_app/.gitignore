@@ -28,9 +28,10 @@ migrate_working_dir/
 .flutter-plugins
 .flutter-plugins-dependencies
 .packages
+.env
 .pub-cache/
 .pub/
-.node_modules
+/node_modules/
 /build/
 
 # Symbolication related
