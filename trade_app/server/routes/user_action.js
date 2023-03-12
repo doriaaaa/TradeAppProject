@@ -4,7 +4,7 @@ const userActionRouter = express.Router();
 const auth = require("../middleware/auth");
 
 // perform user actions
-userActionRouter.get('/api/user/getAllInfo', auth, async(req, res) => {
+userActionRouter.get('/api/user/getUploadedBookInfo', auth, async(req, res) => {
     try {
         const userInfo = await User.findOne({ _id: req.user });
         console.log(userInfo);
