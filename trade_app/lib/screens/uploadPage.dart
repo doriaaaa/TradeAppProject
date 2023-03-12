@@ -5,7 +5,6 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:image/image.dart' as ImageProcess;
 import 'package:sizer/sizer.dart';
 import '../services/upload.dart';
 

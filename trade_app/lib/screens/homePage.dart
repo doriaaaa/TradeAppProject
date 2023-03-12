@@ -1,7 +1,5 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
 import 'package:sizer/sizer.dart';
 import 'package:trade_app/services/getUserInfo.dart';
 import 'package:trade_app/widgets/reusableWidget.dart';
@@ -17,15 +15,7 @@ class homePage extends StatefulWidget {
 }
 
 class _homePageState extends State<homePage> {
-  // final slide = ImageSlideshow(
-  //   indicatorColor: Colors.white,
-  //   // onPageChanged: (value) { debugPrint('Page changed: $value');},
-  //   children: [
-  //     Image.network("http://books.google.com/books/content?id=-VfNSAAACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"),
-  //     Image.network("http://books.google.com/books/content?id=fltxyAEACAAJ&printsec=frontcover&img=1&zoom=5&source=gbs_api"),
-  //     Image.network("http://books.google.com/books/content?id=T929zgEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"),
-  //   ],
-  // );
+
   final gapBox = SizedBox(height: 2.h);
   List<Widget> displayItemList = [];
 
@@ -36,8 +26,7 @@ class _homePageState extends State<homePage> {
   }
 
   void _buildDisplayItemList() async {
-    final String res =
-        await getUserInfo().getUploadedBookInfo(context: context);
+    final String res = await getUserInfo().getUploadedBookInfo(context: context);
     Map uploadedBookList = jsonDecode(res);
     print(uploadedBookList['result'].length);
     print("image link: ${uploadedBookList['result'][0]['image']}");
@@ -46,23 +35,24 @@ class _homePageState extends State<homePage> {
     for (int count = 0; count < uploadedBookList['result'].length; count++) {
       displayItemList.add(gapBox);
       displayItemList.add(GestureDetector(
-          onTap: () {
-            // redirect to next page for discussion
-          },
-          child: Card(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Image.network(uploadedBookList['result'][count]['image']),
-                Padding(
-                  padding: EdgeInsets.all(3.w),
-                  child: Text(uploadedBookList['result'][count]['bookInfo']['title'],
-                  style: TextStyle(fontSize: 12.0.sp, height: 1.0))
-                )
-              ],
-            ),
-          )));
+        onTap: () {
+          // redirect to next page for discussion
+        },
+        child: Card(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Image.network(uploadedBookList['result'][count]['image']),
+              Padding(
+                padding: EdgeInsets.all(3.w),
+                child: Text(uploadedBookList['result'][count]['bookInfo']['title'],
+                style: TextStyle(fontSize: 12.0.sp, height: 1.0))
+              )
+            ],
+          ),
+        )
+      ));
     }
   }
 
@@ -78,21 +68,11 @@ class _homePageState extends State<homePage> {
           thumbVisibility: true,
           controller: scollBarController,
           child: ListView(
-              shrinkWrap: true,
-              controller: scollBarController,
-              padding: EdgeInsets.only(left: 7.0.w, right: 7.0.w),
-              children: displayItemList
-              // SizedBox(height: 3.h),
-              // recommendationHeaderDisplayText,
-              // SizedBox(height: 3.h),
-              // slide,
-              // SizedBox(height: 3.h),
-              // bestBookHeaderDisplayText,
-              // SizedBox(height: 3.h),
-              // slide,
-              // SizedBox(height: 3.h),
-              // slide,
-              ),
+            shrinkWrap: true,
+            controller: scollBarController,
+            padding: EdgeInsets.only(left: 7.0.w, right: 7.0.w),
+            children: displayItemList
+          ),
         ));
   }
 }

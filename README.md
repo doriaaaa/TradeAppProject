@@ -1,19 +1,5 @@
 # trade_app
-
-A new Flutter project.
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+CUHK final year project
 
 How to run the app:
 ```
@@ -26,6 +12,12 @@ Login as super@dmin:
 adminregister@gmail.com --> account
 tradeApp@hku --> password
 ```
+
+Minimum requirement for android: API 30 (in emulator and physical device)
+```
+flutter run
+```
+
 ###### TODO: 
 1. upload page -- scan isbn button
 - [x] information is fetched and store in a variable --> user can access the variable by clicking "view details"
@@ -35,7 +27,7 @@ tradeApp@hku --> password
 3. upload page -- upload book
 - [x] information should be stored in database
 4. upload page -- cancel button
-- [?] clear the form
+- [x] clear the form
 - replaced with back --> cancel button
 5. upload page -- beautify camera page
 - [x] when barcode is found, use a sliding panel to display information
