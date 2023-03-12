@@ -100,6 +100,8 @@ class _uploadPageState extends State<uploadPage> {
                   bookInfo: widget.bookInfoDetails,
                   description: descriptionController.text
                 );
+              } else {
+                ScaffoldMessenger.of(context).showSnackBar( const SnackBar(content: Text('Missing photo / description')));
               }
             }, 
             icon: const Icon( Icons.thumb_up_alt_outlined ),

@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
+import 'package:trade_app/screens/discussionPage.dart';
 import 'package:trade_app/services/getUserInfo.dart';
 import 'package:trade_app/widgets/reusableWidget.dart';
 import 'package:trade_app/provider/user_provider.dart';
@@ -36,7 +37,8 @@ class _homePageState extends State<homePage> {
       displayItemList.add(GestureDetector(
         onTap: () {
           // redirect to next page for discussion
-        },
+          Navigator.push( context, MaterialPageRoute( builder: (context) => discussionPage(book: uploadedBookList['result'][count])));
+        }, 
         child: Card(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -60,18 +62,19 @@ class _homePageState extends State<homePage> {
   @override
   Widget build(BuildContext context) {
     final scollBarController = ScrollController(initialScrollOffset: 50.0);
-    var username = context.watch<UserProvider>().user.name;
+    String username = context.watch<UserProvider>().user.name;
     return Scaffold(
-        appBar: ReusableWidgets.persistentAppBar('Welcome back! $username'),
-        body: Scrollbar(
-          thumbVisibility: true,
+      appBar: ReusableWidgets.persistentAppBar('Welcome back! $username'),
+      body: Scrollbar(
+        thumbVisibility: true,
+        controller: scollBarController,
+        child: ListView(
+          shrinkWrap: true,
           controller: scollBarController,
-          child: ListView(
-            shrinkWrap: true,
-            controller: scollBarController,
-            padding: EdgeInsets.only(left: 7.0.w, right: 7.0.w),
-            children: displayItemList
-          ),
-        ));
+          padding: EdgeInsets.only(left: 7.0.w, right: 7.0.w),
+          children: displayItemList
+        ),
+      )
+    );
   }
 }
