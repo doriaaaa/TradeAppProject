@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:trade_app/widgets/reusableWidget.dart';
 
 class notificationPage extends StatefulWidget {
-  static const String routeName = '/notification';
   const notificationPage({Key? key}) : super(key: key);
 
   @override

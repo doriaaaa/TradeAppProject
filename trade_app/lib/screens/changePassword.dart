@@ -24,16 +24,6 @@ class _changePasswordState extends State<changePasswordPage> {
 
   @override
   Widget build(BuildContext context) {
-    // final logo = Hero(
-    //   tag: 'hero',
-    //   child: CircleAvatar(
-    //     backgroundColor: Colors.transparent,
-    //     radius: 48.0,
-    //     child: Image.network(
-    //         'http://books.google.com/books/content?id=-VfNSAAACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api'),
-    //   ),
-    // );
-
     final email = TextFormField(
       controller: emailController,
       keyboardType: TextInputType.emailAddress,
@@ -92,14 +82,6 @@ class _changePasswordState extends State<changePasswordPage> {
       },
       child: const Text('Reset'),
     );
-
-    // final forgotLabel = FlatButton(
-    //   child: Text(
-    //     'Forgot password?',
-    //     style: TextStyle(color: Colors.black54),
-    //   ),
-    //   onPressed: () {},
-    // );
 
     return Scaffold(
       backgroundColor: Colors.white,

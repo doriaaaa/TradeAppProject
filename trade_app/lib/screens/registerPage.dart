@@ -5,7 +5,6 @@ import 'package:trade_app/services/auth/connector.dart';
 
 class registerPage extends StatefulWidget {
   static const String routeName = '/register';
-  static String tag = 'register-page';
   const registerPage({super.key});
 
   @override
@@ -34,8 +33,7 @@ class _registerPageState extends State<registerPage> {
       enableSuggestions: false,
       autocorrect: false,
       validator: (value) {
-        if (value == null || value.isEmpty)
-          return 'You need a brilliant username for your account!';
+        if (value == null || value.isEmpty) return 'You need a brilliant username for your account!';
         return null;
       },
       decoration: InputDecoration(

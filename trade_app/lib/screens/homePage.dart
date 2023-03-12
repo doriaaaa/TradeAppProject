@@ -7,7 +7,6 @@ import 'package:trade_app/provider/user_provider.dart';
 import 'package:provider/provider.dart';
 
 class homePage extends StatefulWidget {
-  static const String routeName = '/home';
   const homePage({Key? key}) : super(key: key);
 
   @override
