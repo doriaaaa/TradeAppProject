@@ -7,7 +7,7 @@ class registerPage extends StatefulWidget {
   static const String routeName = '/register';
   static String tag = 'register-page';
   const registerPage({super.key});
-  
+
   @override
   State<registerPage> createState() => _registerPageState();
 }
@@ -34,7 +34,8 @@ class _registerPageState extends State<registerPage> {
       enableSuggestions: false,
       autocorrect: false,
       validator: (value) {
-        if (value == null || value.isEmpty) return 'You need a brilliant username for your account!';
+        if (value == null || value.isEmpty)
+          return 'You need a brilliant username for your account!';
         return null;
       },
       decoration: InputDecoration(
@@ -100,20 +101,20 @@ class _registerPageState extends State<registerPage> {
     );
 
     final backgroundDisplayImg = SizedBox(
-      width: 40.w,
-      height: 40.h,
-      child: Center( child: Image.asset("assets/create_account.jpg"))
-    );
+        width: 40.w,
+        height: 40.h,
+        child: Center(child: Image.asset("assets/create_account.jpg")));
 
-    final headerDisplayText = Text('Sign up', style: TextStyle(fontSize: 15.0.sp));
+    final headerDisplayText = Text('Sign up', style: TextStyle(fontSize: 20.0.sp));
 
     final registerButton = ElevatedButton(
       style: ElevatedButton.styleFrom(
         shadowColor: Colors.lightBlueAccent.shade100,
         minimumSize: Size(3.w, 5.h),
         elevation: 6.0,
-        padding: EdgeInsets.all(3.h),
-        shape: RoundedRectangleBorder( borderRadius: BorderRadius.circular(10.0)),
+        padding: EdgeInsets.all(2.h),
+        shape:
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
       ),
       child: const Text('Register'),
       onPressed: () {
@@ -124,38 +125,44 @@ class _registerPageState extends State<registerPage> {
             password: passwordController.text,
             name: nameController.text,
           );
-          ScaffoldMessenger.of(context).showSnackBar( const SnackBar( content: Text('Your account has been created successfully.')));
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+              content: Text('Your account has been created successfully.')));
         }
       },
     );
 
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: ReusableWidgets.persistentAppBar('Create New Account'),
-      body: Form(
-        key: _formKey,
-        child: ListView(
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          padding: EdgeInsets.only(left: 7.0.w, right: 7.0.w),
-          children: <Widget>[
-            SizedBox(height: 3.h),
-            headerDisplayText,
-            SizedBox(height: 3.h),
-            backgroundDisplayImg,
-            SizedBox(height: 3.h),
-            username,
-            SizedBox(height: 2.h),
-            email,
-            SizedBox(height: 2.h),
-            password,
-            SizedBox(height: 2.h),
-            verifyPassword,
-            SizedBox(height: 2.h),
-            registerButton,
-          ],
+    return GestureDetector(
+      onTap: () {
+        FocusScope.of(context).unfocus();
+      },
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        appBar: ReusableWidgets.persistentAppBar('Create New Account'),
+        body: Form(
+          key: _formKey,
+          child: ListView(
+            shrinkWrap: true,
+            // physics: const NeverScrollableScrollPhysics(),
+            padding: EdgeInsets.only(left: 7.0.w, right: 7.0.w),
+            children: <Widget>[
+              SizedBox(height: 2.h),
+              headerDisplayText,
+              SizedBox(height: 1.h),
+              backgroundDisplayImg,
+              SizedBox(height: 1.h),
+              username,
+              SizedBox(height: 2.h),
+              email,
+              SizedBox(height: 2.h),
+              password,
+              SizedBox(height: 2.h),
+              verifyPassword,
+              SizedBox(height: 2.h),
+              registerButton,
+            ],
+          ),
         ),
-      ),
+      )
     );
   }
 }

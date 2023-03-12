@@ -106,31 +106,36 @@ class _loginPageState extends State<loginPage> {
       child: const Text('Login'),
     );
 
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: ReusableWidgets.persistentAppBar('Welcome to Trade Book'),
-      body: Form(
-        key: _formKey,
-        child: ListView(
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          padding: EdgeInsets.only(left: 7.0.w, right: 7.0.w),
-          children: <Widget>[
-            SizedBox(height: 3.h),
-            headerDisplayText,
-            SizedBox(height: 3.h),
-            backgroundDisplayImg,
-            SizedBox(height: 2.h),
-            email,
-            SizedBox(height: 2.h),
-            password,
-            SizedBox(height: 3.h),
-            loginButton,
-            SizedBox(height: 1.h),
-            registerButton
-          ],
+    return GestureDetector(
+      onTap: () {
+        FocusScope.of(context).unfocus();
+      },
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        appBar: ReusableWidgets.persistentAppBar('Welcome to Trade Book'),
+        body: Form(
+          key: _formKey,
+          child: ListView(
+            shrinkWrap: true,
+            // physics: const NeverScrollableScrollPhysics(),
+            padding: EdgeInsets.only(left: 7.0.w, right: 7.0.w),
+            children: <Widget>[
+              SizedBox(height: 2.h),
+              headerDisplayText,
+              SizedBox(height: 1.h),
+              backgroundDisplayImg,
+              SizedBox(height: 1.h),
+              email,
+              SizedBox(height: 2.h),
+              password,
+              SizedBox(height: 2.h),
+              loginButton,
+              SizedBox(height: 1.h),
+              registerButton
+            ],
+          ),
         ),
-      ),
+      )
     );
   }
 }
