@@ -75,13 +75,13 @@ class MyApp extends StatelessWidget {
     return Sizer(builder: (context, orientation, deviceType) {
       return MaterialApp(
         title: 'Trade App',
-        // home: const loginPage(),
+        home: const loginPage(),
         theme: ThemeData(fontFamily: 'Menlo'),
         // home: uploadPage(
         //   screenClosed: () { false; }, 
         //   bookInfoDetails: res
         // ),
-        home: const Camera(),
+        // home: const Camera(),
         onGenerateRoute: (settings) => generateRoute(settings),
       );
     });
