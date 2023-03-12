@@ -30,8 +30,10 @@ migrate_working_dir/
 .packages
 .pub-cache/
 .pub/
-/node_modules/
 /build/
+
+# node related
+/server/node_modules/
 
 # Symbolication related
 app.*.symbols
