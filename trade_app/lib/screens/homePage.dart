@@ -25,6 +25,7 @@ class _homePageState extends State<homePage> {
     _buildDisplayItemList();
   }
 
+  @override
   void _buildDisplayItemList() async {
     final String res = await getUserInfo().getUploadedBookInfo(context: context);
     Map uploadedBookList = jsonDecode(res);
@@ -37,7 +38,7 @@ class _homePageState extends State<homePage> {
       displayItemList.add(GestureDetector(
         onTap: () {
           // redirect to next page for discussion
-          Navigator.push( context, MaterialPageRoute( builder: (context) => discussionPage(book: uploadedBookList['result'][count])));
+          Navigator.push( context, MaterialPageRoute( builder: (context) => discussionPage(book: jsonEncode(uploadedBookList['result'][count]))));
         }, 
         child: Card(
           child: Column(
