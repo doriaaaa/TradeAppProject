@@ -47,6 +47,8 @@ dependencies:
   gallery_saver: ^2.3.2
   image: ^4.0.15
   sizer: ^2.0.15
+  network_info_plus: ^3.0.2
+  flutter_dotenv: ^5.0.2
   
 
 dev_dependencies:

@@ -1,9 +1,9 @@
 // ignore_for_file: use_build_context_synchronously
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
-import '../../constants/constants.dart';
 import '../../constants/error_handling.dart';
 import 'package:provider/provider.dart';
 import 'package:trade_app/provider/user_provider.dart';
@@ -15,7 +15,7 @@ class AuthService {
     required String password,
   }) async {
     try {
-      http.Response res = await http.post(Uri.parse('http://${Constants.ipAddr}:3000/api/signin'),
+      http.Response res = await http.post(Uri.parse('http://${dotenv.env['IP_ADDRESS']}:3000/api/signin'),
         body: jsonEncode({
           'email': email,
           'password': password,
@@ -23,6 +23,7 @@ class AuthService {
         headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8'}
       );
       // debugPrint(res.body);
+      debugPrint("ipaddress: ${dotenv.env['IP_ADDRESS']}");
       httpErrorHandle(
         response: res,
         context: context,
@@ -46,16 +47,14 @@ class AuthService {
     required String password,
   }) async {
     try {
-      http.Response res =
-        await http.post(Uri.parse('http://${Constants.ipAddr}:3000/api/signup'),
-            body: jsonEncode({
-              'name': name,
-              'email': email,
-              'password': password,
-            }),
-            headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8',
-        });
+      http.Response res = await http.post(Uri.parse('http://${dotenv.env['IP_ADDRESS']}:3000/api/signup'),
+        body: jsonEncode({
+          'name': name,
+          'email': email,
+          'password': password,
+        }),
+        headers: <String, String>{ 'Content-Type': 'application/json; charset=UTF-8'}
+      );
       httpErrorHandle(
         response: res,
         context: context,
