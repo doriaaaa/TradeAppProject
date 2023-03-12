@@ -33,7 +33,7 @@ migrate_working_dir/
 /build/
 
 # node related
-/server/node_modules/
+server/node_modules/
 
 # Symbolication related
 app.*.symbols

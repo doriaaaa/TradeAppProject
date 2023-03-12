@@ -1,5 +1,5 @@
 # trade_app
-Welcome to my CUHK final year project, and let's assume no one will read that
+Welcome to my CUHK final year project, and let's assume no one will read that lol
 
 ###### How-To...
 1. Run the backend server
@@ -7,10 +7,10 @@ Welcome to my CUHK final year project, and let's assume no one will read that
 cd trade_app/server
 npm run dev
 ```
-2. Run on iOS
+2. Run on iOS\
 The application is incompatible with iOS 16 or above.
 
-3. Run on Android Emulator
+3. Run on Android Emulator\
 The minimum requirement of Android API is 30.
 ```
 cd trade_app
