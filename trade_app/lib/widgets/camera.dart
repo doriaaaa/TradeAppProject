@@ -26,7 +26,7 @@ class _CameraState extends State<Camera> {
           MobileScanner( // need to show each barcode at a time, do not allow multiple codes
             allowDuplicates: false,
             controller: cameraController,
-            onDetect: (Barcode barcode, MobileScannerArguments? args) => { uploadService().getBookData(context, barcode, args )}
+            onDetect: (Barcode barcode, MobileScannerArguments? args) => { uploadService().getBookData(context, barcode, args)}
           ),
           Positioned(
             bottom: 8.h,
