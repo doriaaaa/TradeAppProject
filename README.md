@@ -1,47 +1,50 @@
 # trade_app
-CUHK final year project
+Welcome to my CUHK final year project, and let's assume no one will read that
 
-How to run the app:
+###### How-To...
+1. Run the backend server
 ```
-export PATH="$PATH:Desktop/flutter/bin"
-npm run dev --> in server folder
+cd trade_app/server
+npm run dev
 ```
+2. Run on iOS
+The application is incompatible with iOS 16 or above.
 
-Login as super@dmin: 
+3. Run on Android Emulator
+The minimum requirement of Android API is 30.
 ```
-adminregister@gmail.com --> account
-tradeApp@hku --> password
-```
-
-Minimum requirement for android: API 30 (in emulator and physical device)
-```
+cd trade_app
 flutter run
 ```
 
+###### Testing kit
+1. Login as super@dmin (this is a sample account)
+```
+adminregister@gmail.com
+tradeApp@hku
+```
+2. Changing the IP address in .env
+
+###### WORK:
+1. User login / logout
+2. User scan barcode and get the book information
+3. User upload the photo of the book to Imgur
+4. User upload the Imgur photo link, book information, description to write a post
+5. Retrieve the uploaded information
+6. Responsive design
+7. Implement environment variables for frontend and backend application
+
 ###### TODO: 
-1. upload page -- scan isbn button
-- [x] information is fetched and store in a variable --> user can access the variable by clicking "view details"
-2. upload page -- upload image
-- [x] clicking the grey button should appear an image picker
-- [x] after user selects the image, it should display in the image box
-3. upload page -- upload book
-- [x] information should be stored in database
-4. upload page -- cancel button
-- [x] clear the form
-- replaced with back --> cancel button
-5. upload page -- beautify camera page
-- [x] when barcode is found, use a sliding panel to display information
-- [x] found barcode should redirect user to the upload page
-6. upload page -- save information temporarily
-- [x] create a form variable to store the photo path / book info
-
-## add-ons:
-what extra features to add
---> forumlise the apps
-
-- google analytics --> search by keywords (filter by categories)
-- user A can add the categories --> user B can search by categories, or auto notifications
-- users can send a request --> allow other users to see that
-
-- auto matching in a group 
-- create a community, knowledge exchange (reddit/futu)
+1. User Management 
+- [ ] user can edit the profile picture
+- [ ] user can update the password
+- [ ] user can list out the category that they are interested in
+- [ ] user can send friend request --> notification system
+2. Google Analytics 
+- [ ] analyse what genres that user likes the most
+- [ ] make suggestions on books
+3. Comment section in the post
+- [ ] other user can comment on the book
+- [ ] other user can give ratings to the book
+4. Tag system
+- [ ] application track how many days that the user has logged in, assign name tag to them
