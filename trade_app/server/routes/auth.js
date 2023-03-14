@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const User = require("../models/user");
 const isbn = require('node-isbn');
@@ -37,7 +38,7 @@ authRouter.post("/api/signin", async(req, res) => {
                 msg: "incorrect password!"
             });
         }
-        const token = jwt.sign({id: user._id}, "passwordKey");
+        const token = jwt.sign({id: user._id}, process.env.SECRET_KEY);
         res.json({token, ...user._doc});
     } catch (e) {
         res.status(500).json( {
@@ -57,18 +58,13 @@ authRouter.post("/api/signup", async (req, res) => {
             });
         }
         const hashedPassword = await bcryptjs.hash(password, 8);
-        let user = new User({ //save to MongoDB
+        let user = new User({
             email,
             password: hashedPassword,
             name,
         })
         user = await user.save();
         res.json(user);
-
-        // 200 OK
-        // get the data from client, 
-        // post that data in db
-        // return that data to the user
     } catch (e) {
         res.status(500).json({ error: e.message });
     }
@@ -78,7 +74,7 @@ authRouter.post("/tokenIsValid", async (req, res) => {
     try {
         const token = req.header("x-auth-token");
         if (!token) return res.json(false);
-        const verified = jwt.verify(token, "passwordKey");
+        const verified = jwt.verify(token, process.env.SECRET_KEY);
         if (!verified) return res.json(false);
         const user = await User.findById(verified.id);
         if (!user) return res.json(false);

@@ -1,3 +1,4 @@
+require('dotenv').config();
 const jwt = require("jsonwebtoken");
 
 const auth = async (req, res, next) => {
@@ -6,7 +7,7 @@ const auth = async (req, res, next) => {
     if (!token)
       return res.status(401).json({ msg: "No auth token, access denied" });
 
-    const verified = jwt.verify(token, "passwordKey");
+    const verified = jwt.verify(token, process.env.SECRET_KEY);
     if (!verified)
       return res
         .status(401)

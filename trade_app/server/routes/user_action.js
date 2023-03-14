@@ -8,9 +8,7 @@ const auth = require("../middleware/auth");
 userActionRouter.get('/api/user/getUploadedBookInfo', auth, async(req, res) => {
     try {
         const userInfo = await User.findOne({ _id: req.user });
-        console.log(userInfo);
         if (userInfo) {
-            console.log(userInfo.uploadedBookList);
             res.status(200).json({
                 msg: "success",
                 result: userInfo.uploadedBookList
