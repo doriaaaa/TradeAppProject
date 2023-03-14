@@ -35,16 +35,21 @@ tradeApp@hku
 7. Implement environment variables for frontend and backend application
 
 ###### TODO: 
-1. User Management 
+1. User Management API
 - [ ] user can edit the profile picture
-- [ ] user can update the password
+- [x] user can update the password
 - [ ] user can list out the category that they are interested in
 - [ ] user can send friend request --> notification system
+- [ ] assign special name tag to user
 2. Google Analytics 
 - [ ] analyse what genres that user likes the most
 - [ ] make suggestions on books
-3. Comment section in the post
-- [ ] other user can comment on the book
-- [ ] other user can give ratings to the book
-4. Tag system
-- [ ] application track how many days that the user has logged in, assign name tag to them
+3. Book review API
+- [ ] Database: set up a book review model
+- [ ] create review for the book with specified bookID / bookname
+- [ ] get all reviews
+- [ ] get one review entry
+- [ ] edit the review
+- [ ] delete the review
+4. Book search API
+- [ ] allows users to search for books in the exchange by title, author, genre, or other criteria (simply call google book search api)
