@@ -33,7 +33,7 @@ class _NavBarState extends State<NavBar> {
         onTabChange: (value) => {
           setState(() {
             _selectedindex = value;
-            print("pages: ${value.toString()}");
+            debugPrint("pages: ${value.toString()}");
           })
         },
         gap: 0.5,

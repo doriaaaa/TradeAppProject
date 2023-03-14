@@ -21,7 +21,7 @@ class getUserInfo {
       // debugPrint(res.body);
       return res.body;
     } catch (e) {
-      print(e.toString());
+      debugPrint(e.toString());
       throw Exception("Failed to load user data");
     }
   }

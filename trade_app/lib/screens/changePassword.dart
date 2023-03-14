@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:sizer/sizer.dart';
 import 'package:trade_app/widgets/reusableWidget.dart';
+
+import '../services/auth/connector.dart';
 
 class changePasswordPage extends StatefulWidget {
   static const String routeName = '/changePassword';
-  static String tag = 'change-page';
 
   const changePasswordPage({super.key});
   @override
@@ -12,96 +14,93 @@ class changePasswordPage extends StatefulWidget {
 
 class _changePasswordState extends State<changePasswordPage> {
   final _formKey = GlobalKey<FormState>();
-  final emailController = TextEditingController();
-  final passwordController = TextEditingController();
+  final oldPasswordController = TextEditingController();
+  final newPasswordController = TextEditingController();
 
   @override
   void dispose() {
-    emailController.dispose();
-    passwordController.dispose();
+    oldPasswordController.dispose();
+    newPasswordController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    final email = TextFormField(
-      controller: emailController,
-      keyboardType: TextInputType.emailAddress,
+    final oldPassword = TextFormField(
+      textInputAction: TextInputAction.next,
+      controller: oldPasswordController,
+      obscureText: true,
       validator: (value) {
-        if (value == null || value.isEmpty) {
-          return 'Please enter your email';
-        }
+        if (value == null || value.isEmpty) return 'You need to enter your old password for verification.';
         return null;
       },
       decoration: InputDecoration(
-        hintText: 'new email',
-        contentPadding: const EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
+        hintText: 'Old Password',
+        contentPadding: EdgeInsets.fromLTRB(4.w, 2.w, 4.w, 2.w),
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(30.0)),
       ),
     );
 
-    final password = TextFormField(
-      controller: passwordController,
+    final newPassword = TextFormField(
+      textInputAction: TextInputAction.done,
+      controller: newPasswordController,
       obscureText: true,
       enableSuggestions: false,
       autocorrect: false,
       validator: (value) {
-        if (value == null || value.isEmpty) {
-          return 'Please enter the password';
-        }
+        if (value == null || value.isEmpty) return 'You need to enter a new password';
         return null;
       },
       decoration: InputDecoration(
-        hintText: 'new password',
-        contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
+        hintText: 'New Password',
+        contentPadding: EdgeInsets.fromLTRB(4.w, 2.w, 4.w, 2.w),
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(30.0)),
       ),
     );
 
-    final heading = Text.rich(
-      TextSpan(
-        text: 'Reset email and password',
-        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 40),
-        // default text style
-      ),
-    );
+    final headerDisplayText = Text('Reset Password', style: TextStyle(fontSize: 20.0.sp), textAlign: TextAlign.center);
 
-    final loginButton = ElevatedButton(
+    final resetButton = ElevatedButton(
       style: ElevatedButton.styleFrom(
         shadowColor: Colors.lightBlueAccent.shade100,
-        minimumSize: const Size(350, 50),
-        elevation: 5.9,
+        minimumSize: Size(3.w, 5.h),
+        elevation: 6.0,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10.0),
         ),
       ),
       onPressed: () {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Email/Password reseted!')),
-        );
+        if (_formKey.currentState!.validate()) {
+          // If the form is valid, display a snackbar. In the real world,
+          // you'd often call a server or save the information in a database.
+          AuthService().changeUserPassword(
+            context: context,
+            oldPassword: oldPasswordController.text,
+            newPassword: newPasswordController.text
+          );
+          ScaffoldMessenger.of(context).showSnackBar( const SnackBar( content: Text('Your password has updated. Please login again')));
+        }
       },
-      child: const Text('Reset'),
+      child: const Text('Reset Password'),
     );
 
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: ReusableWidgets.persistentAppBar('Settings'),
+      appBar: ReusableWidgets.persistentAppBar('Reset Password'),
       body: Form(
         key: _formKey,
         child: ListView(
           shrinkWrap: true,
-          padding: EdgeInsets.only(left: 24.0, right: 24.0),
+          padding: EdgeInsets.only(left: 7.0.w, right: 7.0.w),
           children: <Widget>[
-            SizedBox(height: 60.0),
-            heading,
-            //logo,
-            //slide,
-            SizedBox(height: 48.0),
-            email,
-            SizedBox(height: 8.0),
-            password,
-            SizedBox(height: 24.0),
-            loginButton,
+            SizedBox(height: 2.h),
+            headerDisplayText,
+            SizedBox(height: 1.h),
+            oldPassword,
+            SizedBox(height: 1.h),
+            newPassword,
+            SizedBox(height: 1.h),
+            resetButton,
           ],
         ),
       ),

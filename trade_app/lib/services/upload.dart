@@ -16,20 +16,19 @@ class uploadService {
     required String bookInfo, // this is a json response, use Map extractedDetails = json.decode(widget.bookInfoDetails); // map json response
     required String description, // this is the book description, can be ""
   }) async {
-    final userProvider = Provider.of<UserProvider>(context, listen: false);
+    // final userProvider = Provider.of<UserProvider>(context, listen: false);
     try {
       http.Response res = await http.post(Uri.parse('http://${dotenv.env['IP_ADDRESS']}:3000/api/uploadImage'),
         body: jsonEncode({ "image": image }),
         headers: {
           'Content-Type': 'application/json; charset=UTF-8',
-          'x-auth-token': userProvider.user.token
         }
       );
       // debugPrint(res.body); 
       // ignore: use_build_context_synchronously
       uploadDB(context, jsonDecode(res.body)['result'], bookInfo, description);
     } catch (e) {
-      print(e.toString());
+      debugPrint(e.toString());
     }
   }
 
@@ -54,25 +53,25 @@ class uploadService {
         response: res,
         context: context,
         onSuccess: () {
-          print('Post is uploaded to database successfully');
+          debugPrint('Post is uploaded to database successfully');
           Navigator.pushNamedAndRemoveUntil( context, "/navBar", (route) => false); //return to home page
         },
       );
     } catch (e) {
-      print(e.toString());
+      debugPrint(e.toString());
     }
   }
 
   Future<String> getBookData( BuildContext context, Barcode barcode, MobileScannerArguments? args) async {
     bool _screenOpened = false;
-    final userProvider = Provider.of<UserProvider>(context, listen: false);
+    // final userProvider = Provider.of<UserProvider>(context, listen: false);
     void _screenWasClosed() { _screenOpened = false; }
 
     if (!_screenOpened) {
       final String code = barcode.rawValue ?? "---";
       try {
         if (code != "---") {
-          debugPrint('Barcode found! $code');
+          debugPrint('Barcode found: $code');
           _screenOpened = true;
           http.Response res = await http.post(Uri.parse('http://${dotenv.env['IP_ADDRESS']}:3000/api/bookinfo'),
             body: jsonEncode({
@@ -80,7 +79,7 @@ class uploadService {
             }),
             headers: { 
               'Content-Type': 'application/json; charset=UTF-8',
-              'x-auth-token': userProvider.user.token
+              // 'x-auth-token': userProvider.user.token
             }
           );
           debugPrint(res.body);
@@ -89,13 +88,13 @@ class uploadService {
             response: res,
             context: context,
             onSuccess: () {
-              debugPrint(code);
+              debugPrint("isbn code: $code");
               Navigator.push( context, MaterialPageRoute( builder: (context) => uploadPage(screenClosed: _screenWasClosed, bookInfoDetails: res.body)));
             },
           );
         }
       } catch (e) {
-        print(e.toString());
+        debugPrint(e.toString());
       }
     }
     return "Success!";

@@ -6,7 +6,10 @@ import '../widgets/reusableWidget.dart';
 class discussionPage extends StatefulWidget {
   final String book;
 
-  discussionPage({Key? key, required this.book}) : super(key: key);
+  const discussionPage({
+    Key? key, 
+    required this.book
+  }) : super(key: key);
 
   @override
   State<discussionPage> createState() => _discussionPageState();
@@ -16,8 +19,9 @@ class _discussionPageState extends State<discussionPage> {
   @override
   Widget build(BuildContext context) {
     Map bookDetails = json.decode(widget.book);
-    // print(bookDetails['bookInfo']);
+    debugPrint(bookDetails['bookInfo']);
     final scollBarController = ScrollController(initialScrollOffset: 50.0);
+    
 
     return Scaffold(
       appBar: ReusableWidgets.persistentAppBar(bookDetails['bookInfo']['title']),

@@ -29,9 +29,9 @@ class _homePageState extends State<homePage> {
   void _buildDisplayItemList() async {
     final String res = await getUserInfo().getUploadedBookInfo(context: context);
     Map uploadedBookList = jsonDecode(res);
-    print(uploadedBookList['result'].length);
-    print("image link: ${uploadedBookList['result'][0]['image']}");
-    print("title: ${uploadedBookList['result'][0]['bookInfo']['title']}");
+    // print(uploadedBookList['result'].length);
+    // print("image link: ${uploadedBookList['result'][0]['image']}");
+    // print("title: ${uploadedBookList['result'][0]['bookInfo']['title']}");
 
     for (int count = 0; count < uploadedBookList['result'].length; count++) {
       displayItemList.add(gapBox);
