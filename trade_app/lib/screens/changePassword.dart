@@ -9,7 +9,7 @@ class changePasswordPage extends StatefulWidget {
 
   const changePasswordPage({super.key});
   @override
-  _changePasswordState createState() => _changePasswordState();
+  State<changePasswordPage> createState() => _changePasswordState();
 }
 
 class _changePasswordState extends State<changePasswordPage> {

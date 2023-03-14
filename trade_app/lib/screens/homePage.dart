@@ -25,7 +25,6 @@ class _homePageState extends State<homePage> {
     _buildDisplayItemList();
   }
 
-  @override
   void _buildDisplayItemList() async {
     final String res = await getUserInfo().getUploadedBookInfo(context: context);
     Map uploadedBookList = jsonDecode(res);
