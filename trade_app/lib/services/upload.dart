@@ -12,7 +12,7 @@ import '../screens/uploadPage.dart';
 class uploadService {
   void uploadPost({
     required BuildContext context,
-    required File? image, // this is a base64 image string
+    required File? image, 
     required String bookInfo, // this is a json response, use Map extractedDetails = json.decode(widget.bookInfoDetails); // map json response
     required String description, // this is the book description, can be ""
   }) async {

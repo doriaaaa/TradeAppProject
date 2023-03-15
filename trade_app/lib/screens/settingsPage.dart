@@ -23,7 +23,10 @@ class _settingsPageState extends State<settingsPage> {
       body: ListView(
         padding: EdgeInsets.only(left: 7.0.w, right: 7.0.w),
         children: <Widget> [
-          SimpleUserCard( userName: username, userProfilePic: const AssetImage("assets/avatar.jpg")),
+          SimpleUserCard( 
+            userName: username, 
+            userProfilePic: const AssetImage("assets/avatar.jpg")
+          ),
           SettingsGroup(
             items: [
               SettingsItem(

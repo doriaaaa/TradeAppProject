@@ -13,8 +13,8 @@ class aboutAppPage extends StatefulWidget {
 
 class _aboutAppPageState extends State<aboutAppPage> {
 
-  final headerDisplayText = Text('CUHK FYP project', style: TextStyle(fontSize: 20.0.sp), textAlign: TextAlign.center,);
-  static String desc = "Passing reading material such as UGFN/H books from senior to junior years is always a tradition in CUHK, but due to COVID-19, it's harder now to meet new friends. Most of them after finishing the course will just simply throw the textbooks away as they have no one to pass them on to. It will become a waste of paper and money since those books are quite thick and consumed lots of paper to print instead. To address the waste and encourage students in CUHK to meet each other, we decided to develop an application, which lets people trade stuff that they won't need for something useful while promising them social interactions, letting them have a chance to meet some new friends.";
+  final headerDisplayText = Text('ChatGPT writes this', style: TextStyle(fontSize: 20.0.sp), textAlign: TextAlign.center,);
+  static String desc = "A book exchange app is a platform that allows users to exchange books with each other. The app typically allows users to create listings for the books they have available for exchange, search for listings of books they want to acquire, and communicate with other users to arrange the exchange process. A book exchange app can be a valuable resource for book lovers who want to share their books with others and discover new books to read. By providing a platform for book exchanges, the app can also help to reduce waste and promote sustainability by encouraging the reuse of books. Additionally, a book exchange app can provide a community for book enthusiasts to connect and share their passion for reading.";
 
   final about = Card(
     child: Column(
@@ -41,7 +41,7 @@ class _aboutAppPageState extends State<aboutAppPage> {
         children: <Widget>[
           SizedBox(height: 7.h),
           headerDisplayText,
-          SizedBox(height: 5.h),
+          SizedBox(height: 4.h),
           about
         ],
       ),

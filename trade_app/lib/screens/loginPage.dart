@@ -98,9 +98,7 @@ class _loginPageState extends State<loginPage> {
             email: emailController.text,
             password: passwordController.text
           );
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Logging in...')),
-          );
+          ScaffoldMessenger.of(context).showSnackBar( const SnackBar(content: Text('Logging in...')));
         }
       },
       child: const Text('Login'),

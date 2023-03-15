@@ -58,7 +58,7 @@ class _changePasswordState extends State<changePasswordPage> {
       ),
     );
 
-    final headerDisplayText = Text('Reset Password', style: TextStyle(fontSize: 20.0.sp), textAlign: TextAlign.center);
+    // final headerDisplayText = Text('Reset Password', style: TextStyle(fontSize: 20.0.sp), textAlign: TextAlign.center);
 
     final resetButton = ElevatedButton(
       style: ElevatedButton.styleFrom(
@@ -94,7 +94,7 @@ class _changePasswordState extends State<changePasswordPage> {
           padding: EdgeInsets.only(left: 7.0.w, right: 7.0.w),
           children: <Widget>[
             SizedBox(height: 2.h),
-            headerDisplayText,
+            // headerDisplayText,
             SizedBox(height: 1.h),
             oldPassword,
             SizedBox(height: 1.h),
