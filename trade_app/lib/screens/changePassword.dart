@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import 'package:trade_app/widgets/reusableWidget.dart';
 
-import '../services/auth/connector.dart';
+import '../services/userAction.dart';
 
 class changePasswordPage extends StatefulWidget {
   static const String routeName = '/changePassword';
