@@ -18,10 +18,10 @@ flutter run
 ```
 
 ###### Testing kit
-1. Login as super@dmin (this is a sample account)
+1. Login as super@dmin (this is a sample account), and I changed the password lol
 ```
 adminregister@gmail.com
-tradeApp@hku
+tradeApp@hku / TestingDummy
 ```
 2. Changing the IP address in .env
 

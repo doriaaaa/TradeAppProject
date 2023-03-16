@@ -70,6 +70,10 @@ flutter:
   assets:
     - assets/
     - .env
+  fonts:
+    - family: Menlo
+      fonts: 
+      - asset: fonts/Menlo-Regular.ttf
    
 
   # The following line ensures that the Material Icons font is

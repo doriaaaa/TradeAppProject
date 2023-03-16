@@ -14,7 +14,7 @@ const userActionRouter = require('./routes/user_action');
 const app = express();
 
 //middleware
-app.use(express.json({limit: '10mb'}));
+app.use(express.json({limit: '10mb'})); // allow image string to send to nodejs server
 app.use(bodyParser.json({limit : '10mb'}));  
 app.use(express.json());
 app.use(authRouter);
