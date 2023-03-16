@@ -8,6 +8,7 @@ import 'package:provider/provider.dart';
 import 'package:trade_app/provider/user_provider.dart';
 import '../constants/error_handling.dart';
 import '../screens/uploadPage.dart';
+import 'package:image/image.dart' as image_process;
 
 class uploadService {
   void uploadPost({
@@ -18,13 +19,20 @@ class uploadService {
   }) async {
     // final userProvider = Provider.of<UserProvider>(context, listen: false);
     try {
+      List<int> imageBytes = image!.readAsBytesSync();
+      String base64Image = base64Encode(imageBytes);
+      // print(base64Image);
       http.Response res = await http.post(Uri.parse('http://${dotenv.env['IP_ADDRESS']}:3000/api/uploadImage'),
-        body: jsonEncode({ "image": image }),
+        body: jsonEncode({ 
+          "image": base64Image
+        }),
         headers: {
           'Content-Type': 'application/json; charset=UTF-8',
         }
       );
       // debugPrint(res.body); 
+      // ignore: use_build_context_synchronously
+      debugPrint(res.body);
       // ignore: use_build_context_synchronously
       uploadDB(context, jsonDecode(res.body)['result'], bookInfo, description);
     } catch (e) {
@@ -35,10 +43,11 @@ class uploadService {
   void uploadDB(BuildContext context, String imageURL, String bookInfo, String description) async {
     // store to db by calling backend server
     final userProvider = Provider.of<UserProvider>(context, listen: false);
+    Map bookDetails = jsonDecode(bookInfo);
     try {
       http.Response res = await http.post(Uri.parse('http://${dotenv.env['IP_ADDRESS']}:3000/api/user/upload'),
         body: jsonEncode({
-          "bookInfo": bookInfo,
+          "bookInfo": bookDetails,
           "image": imageURL,
           "description": description
         }),

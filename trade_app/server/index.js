@@ -14,13 +14,12 @@ const userActionRouter = require('./routes/user_action');
 const app = express();
 
 //middleware
+app.use(express.json({limit: '10mb'}));
+app.use(bodyParser.json({limit : '10mb'}));  
 app.use(express.json());
 app.use(authRouter);
 app.use(imgurRouter);
 app.use(userActionRouter);
-app.use(bodyParser.json({limit: '16mb', extended: true}));     // Make sure you add these two lines
-app.use(bodyParser.urlencoded({limit: '16mb', extended: true}))
-
 //create API
 // app.get("/hello-world", (req, res) => {
 //     res.json({

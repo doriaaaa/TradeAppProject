@@ -48,10 +48,9 @@ class _uploadPageState extends State<uploadPage> {
           pickedImage = File(image.path);
           debugPrint(image.path);
           // get base64 image
-          // final _imageFile = ImageProcess.decodeImage( pickedImage!.readAsBytesSync());
-          // base64Image = base64Encode(ImageProcess.encodePng(_imageFile!));
+          // final _imageFile = image_process.decodeImage( pickedImage!.readAsBytesSync());
+          // base64Image = base64Encode(image_process.encodePng(_imageFile!));
           // debugPrint(base64Image);
-          // print(base64Image);
           setState(() { isPicked = true; });
         }
       },

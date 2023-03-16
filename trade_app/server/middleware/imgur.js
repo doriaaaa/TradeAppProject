@@ -6,10 +6,13 @@ const axios = require('axios');
 const fs = require('fs');
 const FormData = require('form-data');
 
-imgurRouter.post('/uploadImage', async (req, res, next) => { 
+imgurRouter.post('/api/uploadImage', async (req, res, next) => { 
     // console.log(req.body);
     try {
-        const imageData = fs.readFileSync(req.body['image'], {encoding: 'base64'});
+        // console.log(JSON.stringify(res.body));
+        // console.log("image string from backend: " + req.body["image"]);
+        const imageData = await req.body["image"];
+        // const imageData = fs.readFileSync(req.body["image"], {encoding: 'base64'});
         const formData = new FormData();
         const imgurURL = process.env.IMGUR_UPLOAD_URL;
         formData.append("image", imageData);
