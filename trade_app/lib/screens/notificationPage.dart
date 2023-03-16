@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sizer/sizer.dart';
 import 'package:trade_app/widgets/reusableWidget.dart';
 
 class notificationPage extends StatefulWidget {
@@ -17,9 +18,13 @@ class _notificationPageState extends State<notificationPage> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Center(
-            child: Image.asset('assets/notification.png'),
+            child: Image.asset(
+              'assets/notification.png',
+              width: 50.w,
+              height: 50.h,
+            ),
           ),
-          const Text( 'No notification so far', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25))
+          Text( 'No notification so far', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12.0.sp))
         ],
       ),
     );

@@ -156,6 +156,7 @@ class _registerPageState extends State<registerPage> {
               verifyPassword,
               SizedBox(height: 2.h),
               registerButton,
+              SizedBox(height: 2.h)
             ],
           ),
         ),

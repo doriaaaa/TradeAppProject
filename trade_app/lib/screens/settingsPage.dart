@@ -30,7 +30,9 @@ class _settingsPageState extends State<settingsPage> {
           SettingsGroup(
             items: [
               SettingsItem(
-                onTap: () {}, // wait for implementation
+                onTap: () async {
+                  // calling upload image api
+                }, 
                 icons: CupertinoIcons.person,
                 iconStyle: IconStyle(),
                 title: 'Appearance',
@@ -45,7 +47,7 @@ class _settingsPageState extends State<settingsPage> {
                   backgroundColor: Colors.black54,
                 ),
                 title: 'Dark mode',
-                subtitle: "Automatic",
+                subtitle: "TODO",
                 trailing: Switch.adaptive(
                   value: false,
                   onChanged: (value) {},
@@ -60,7 +62,7 @@ class _settingsPageState extends State<settingsPage> {
                 icons: Icons.info_rounded,
                 iconStyle: IconStyle( backgroundColor: Colors.purple),
                 title: 'About',
-                subtitle: "Learn more Trade Books",
+                subtitle: "More details",
               ),
             ],
           ),
@@ -76,12 +78,13 @@ class _settingsPageState extends State<settingsPage> {
               SettingsItem(
                 onTap: () { Navigator.pushNamed(context, '/changePassword'); },
                 icons: CupertinoIcons.repeat,
-                title: "Change email / password",
+                title: "Change Password",
               ),
               SettingsItem(
                 onTap: () {},
                 icons: CupertinoIcons.delete_solid,
                 title: "Delete account",
+                subtitle: "Wait for implementation",
                 titleStyle: const TextStyle(
                   color: Colors.red,
                   fontWeight: FontWeight.bold,

@@ -119,21 +119,22 @@ class AuthService {
     String updatedImage = '';
     // upload the image, fetch the link, update user profile
     try {
-      http.Response res = await http.post(
-          Uri.parse('http://${dotenv.env['IP_ADDRESS']}:3000/api/uploadImage'),
-          body: jsonEncode({"image": image}),
-          headers: {
-            'Content-Type': 'application/json; charset=UTF-8',
-          });
+      List<int> imageBytes = image!.readAsBytesSync();
+      String base64Image = base64Encode(imageBytes);
+      http.Response res = await http.post(Uri.parse('http://${dotenv.env['IP_ADDRESS']}:3000/api/uploadImage'),
+        body: jsonEncode({"image": base64Image}),
+        headers: {
+          'Content-Type': 'application/json; charset=UTF-8',
+        }
+      );
       var imageUrl = jsonDecode(res.body)['result'];
-      http.Response result = await http.post(
-          Uri.parse(
-              'http://${dotenv.env['IP_ADDRESS']}:3000/api/user/updateProfilePicture'),
-          body: jsonEncode({"profilePicture": imageUrl}),
-          headers: <String, String>{
-            'Content-Type': 'application/json; charset=UTF-8',
-            'x-auth-token': userProvider.user.token
-          });
+      http.Response result = await http.post(Uri.parse('http://${dotenv.env['IP_ADDRESS']}:3000/api/user/updateProfilePicture'),
+        body: jsonEncode({"profilePicture": imageUrl}),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+          'x-auth-token': userProvider.user.token
+        }
+      );
       updatedImage = jsonDecode(result.body)['result'];
     } catch (e) {
       debugPrint(e.toString());
