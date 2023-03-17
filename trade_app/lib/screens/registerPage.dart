@@ -132,7 +132,6 @@ class _registerPageState extends State<registerPage> {
         FocusScope.of(context).unfocus();
       },
       child: Scaffold(
-        backgroundColor: Colors.white,
         appBar: ReusableWidgets.persistentAppBar('Create New Account'),
         body: Form(
           key: _formKey,

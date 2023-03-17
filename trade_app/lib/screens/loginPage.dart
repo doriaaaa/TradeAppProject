@@ -109,7 +109,6 @@ class _loginPageState extends State<loginPage> {
         FocusScope.of(context).unfocus();
       },
       child: Scaffold(
-        backgroundColor: Colors.white,
         appBar: ReusableWidgets.persistentAppBar('Welcome to Trade Book'),
         body: Form(
           key: _formKey,

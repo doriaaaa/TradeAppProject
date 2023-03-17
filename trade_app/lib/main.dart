@@ -8,36 +8,47 @@ import 'package:trade_app/provider/user_provider.dart';
 
 Future main() async {
   await dotenv.load(fileName: ".env");
-  runApp(
-    MultiProvider(
-      providers: [
-        ChangeNotifierProvider(
-          create: (context) => UserProvider(),
-        ),
-      ], 
-    child: const MyApp()
-    )
-  );
+  runApp(MultiProvider(providers: [
+    ChangeNotifierProvider(
+      create: (context) => UserProvider(),
+    ),
+  ], child: MyApp()));
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class MyApp extends StatefulWidget {
+  @override
+  _MyAppState createState() => _MyAppState();
 
-  // This widget is the root of your application.
+  /// InheritedWidget style accessor to our State object.
+  /// We can call this static method from any descendant context to find our
+  /// State object and switch the themeMode field value & call for a rebuild.
+  static _MyAppState of(BuildContext context) =>
+      context.findAncestorStateOfType<_MyAppState>()!;
+}
+
+class _MyAppState extends State<MyApp> {
+  /// 1) our themeMode "state" field
+  ThemeMode _themeMode = ThemeMode.system;
+
   @override
   Widget build(BuildContext context) {
     return Sizer(builder: (context, orientation, deviceType) {
       return MaterialApp(
         title: 'Trade App',
-        home: const loginPage(),
         theme: ThemeData(fontFamily: 'Menlo'),
-        // home: uploadPage(
-        //   screenClosed: () { false; }, 
-        //   bookInfoDetails: res
-        // ),
-        // home: const Camera(),
+        darkTheme: ThemeData.dark(),
+        themeMode: _themeMode, // 2) ← ← ← use "state" field here //////////////
+        home: const loginPage(),
         onGenerateRoute: (settings) => generateRoute(settings),
       );
+    });
+  }
+  /// 3) Call this to change theme from any context using "of" accessor
+  /// e.g.:
+  /// MyApp.of(context).changeTheme(ThemeMode.dark);
+  void changeTheme(ThemeMode themeMode) {
+    setState(() {
+      _themeMode = themeMode;
     });
   }
 }

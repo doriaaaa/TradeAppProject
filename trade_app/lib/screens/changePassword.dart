@@ -84,7 +84,6 @@ class _changePasswordState extends State<changePasswordPage> {
     );
 
     return Scaffold(
-      backgroundColor: Colors.white,
       appBar: ReusableWidgets.persistentAppBar('Reset Password'),
       body: Form(
         key: _formKey,

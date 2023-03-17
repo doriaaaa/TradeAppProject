@@ -84,7 +84,6 @@ class _uploadPageState extends State<uploadPage> {
 
     return Scaffold(
       // allow user to go back to previous page
-      backgroundColor: Colors.white,
       appBar: AppBar(
         centerTitle: true,
         actions: <Widget>[

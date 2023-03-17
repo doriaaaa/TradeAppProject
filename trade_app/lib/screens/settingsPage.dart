@@ -10,6 +10,8 @@ import 'package:trade_app/widgets/reusableWidget.dart';
 import 'package:trade_app/provider/user_provider.dart';
 import 'package:provider/provider.dart';
 
+import '../main.dart';
+
 class settingsPage extends StatefulWidget {
   const settingsPage({Key? key}) : super(key: key);
 
@@ -18,8 +20,8 @@ class settingsPage extends StatefulWidget {
 }
 
 class _settingsPageState extends State<settingsPage> {
-  
   File? pickedImage;
+  bool _isToggled = false;
 
   @override
   void initState() {
@@ -37,7 +39,7 @@ class _settingsPageState extends State<settingsPage> {
 
     return Scaffold(
       appBar: ReusableWidgets.persistentAppBar('Settings'),
-      backgroundColor: Colors.white.withOpacity(.94),
+      // backgroundColor: Colors.white.withOpacity(.94),
       body: ListView(
         padding: EdgeInsets.only(left: 7.0.w, right: 7.0.w),
         children: <Widget>[
@@ -52,7 +54,8 @@ class _settingsPageState extends State<settingsPage> {
               SettingsItem(
                 onTap: () async {
                   ImagePicker picker = ImagePicker();
-                  XFile? image = await picker.pickImage(source: ImageSource.gallery);
+                  XFile? image =
+                      await picker.pickImage(source: ImageSource.gallery);
                   if (image != null) {
                     pickedImage = File(image.path);
                     // debugPrint(image.path);
@@ -75,8 +78,18 @@ class _settingsPageState extends State<settingsPage> {
                 title: 'Dark mode',
                 subtitle: "TODO",
                 trailing: Switch.adaptive(
-                  value: false,
-                  onChanged: (value) {},
+                  value: _isToggled,
+                  onChanged: (value) {
+                    setState(() {
+                      _isToggled = value;
+                    });
+                    if (_isToggled) {
+                      MyApp.of(context).changeTheme(ThemeMode.dark);
+                    } else {
+                      MyApp.of(context).changeTheme(ThemeMode.light);
+                    }
+                    // MyApp.of(context).changeTheme(ThemeMode.dark);
+                  },
                 ),
               ),
             ],
@@ -99,12 +112,16 @@ class _settingsPageState extends State<settingsPage> {
             settingsGroupTitle: "Account",
             items: [
               SettingsItem(
-                onTap: () { AuthService().userLogout(context); },
+                onTap: () {
+                  AuthService().userLogout(context);
+                },
                 icons: Icons.exit_to_app_rounded,
                 title: "Sign Out",
               ),
               SettingsItem(
-                onTap: () { Navigator.pushNamed(context, '/changePassword'); },
+                onTap: () {
+                  Navigator.pushNamed(context, '/changePassword');
+                },
                 icons: CupertinoIcons.repeat,
                 title: "Change Password",
               ),

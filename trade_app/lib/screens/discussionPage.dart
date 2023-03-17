@@ -21,15 +21,17 @@ class _discussionPageState extends State<discussionPage> {
     final scollBarController = ScrollController(initialScrollOffset: 50.0);
 
     return Scaffold(
-        appBar: ReusableWidgets.persistentAppBar(bookDetails['bookInfo']['title']),
-        body: Scrollbar(
-          thumbVisibility: true,
+      appBar: ReusableWidgets.persistentAppBar(bookDetails['bookInfo']['title']),
+      body: Scrollbar(
+        thumbVisibility: true,
+        controller: scollBarController,
+        child: ListView(
+          shrinkWrap: true,
           controller: scollBarController,
-          child: ListView(
-            shrinkWrap: true,
-            controller: scollBarController,
-            padding: EdgeInsets.only(left: 7.0.w, right: 7.0.w),
-            children: <Widget>[]),
-        ));
+          padding: EdgeInsets.only(left: 7.0.w, right: 7.0.w),
+          children: <Widget>[]
+        ),
+      )
+    );
   }
 }
