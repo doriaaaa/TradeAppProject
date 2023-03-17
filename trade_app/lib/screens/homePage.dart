@@ -30,9 +30,11 @@ class _homePageState extends State<homePage> {
     Map uploadedBookList = jsonDecode(res);
     // print(uploadedBookList['result'].length);
     // print("image link: ${uploadedBookList['result'][0]['image']}");
-    // print("title: ${uploadedBookList['result'][0]['bookInfo']['title']}");
+    // print("title: ${uploadedBookList['result'][0]['bookInfo']['title']}")
 
     for (int count = 0; count < uploadedBookList['result'].length; count++) {
+      String summary = uploadedBookList['result'][count]['bookInfo']['description'];
+      // print(summary);
       displayItemList.add(gapBox);
       displayItemList.add(GestureDetector(
         onTap: () {
@@ -40,17 +42,58 @@ class _homePageState extends State<homePage> {
           Navigator.push( context, MaterialPageRoute( builder: (context) => discussionPage(book: jsonEncode(uploadedBookList['result'][count]))));
         }, 
         child: Card(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Image.network(uploadedBookList['result'][count]['image']),
-              Padding(
-                padding: EdgeInsets.all(3.w),
-                child: Text(uploadedBookList['result'][count]['bookInfo']['title'],
-                style: TextStyle(fontSize: 12.0.sp, height: 1.0))
-              )
-            ],
+          elevation: 3,
+          shape: OutlineInputBorder(borderRadius: BorderRadius.circular(20.0)),
+          child: Container(
+            margin: EdgeInsets.all(5.w),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Flexible(child: Text(uploadedBookList['result'][count]['bookInfo']['title'], style: TextStyle(fontSize: 10.sp, fontWeight: FontWeight.bold))),
+                SizedBox(height: 2.h),
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(10.0),
+                      child: Image.network(
+                        uploadedBookList['result'][count]['image'],
+                        height: 15.h,
+                        width: 30.w,
+                        fit: BoxFit.fill
+                      ),
+                    ),
+                    SizedBox(width: 3.w),
+                    Expanded(
+                      child: SizedBox(
+                        width: 30.w, 
+                        child: Text(
+                          summary.length > 120 
+                          ? "${summary.substring(0,120)}..."
+                          : summary,
+                          style: TextStyle(fontSize: 10.sp)
+                        )
+                      ),
+                    )
+                  ],
+                ),
+                gapBox,
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    Icon( Icons.remove_red_eye_outlined, color: Colors.grey[700]),
+                    SizedBox(width: 2.0.w),
+                    Text("0", style: TextStyle(fontSize: 10.sp, fontWeight: FontWeight.bold)), // dummy data
+                    const Spacer(),
+                    Icon( Icons.thumb_up_alt_outlined, color: Colors.grey[700]),
+                    SizedBox(width: 2.0.w),
+                    Text("0", style: TextStyle(fontSize: 10.sp, fontWeight: FontWeight.bold)) // dummy data
+                  ],
+                )
+              ],
+            )
           ),
         )
       ));

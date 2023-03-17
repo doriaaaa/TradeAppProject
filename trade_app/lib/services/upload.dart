@@ -92,15 +92,16 @@ class uploadService {
             }
           );
           debugPrint(res.body);
-          // ignore: use_build_context_synchronously
-          httpErrorHandle(
-            response: res,
-            context: context,
-            onSuccess: () {
-              debugPrint("isbn code: $code");
-              Navigator.push( context, MaterialPageRoute( builder: (context) => uploadPage(screenClosed: _screenWasClosed, bookInfoDetails: res.body)));
-            },
-          );
+          if (context.mounted) {
+            httpErrorHandle(
+              response: res,
+              context: context,
+              onSuccess: () {
+                debugPrint("isbn code: $code");
+                Navigator.push( context, MaterialPageRoute( builder: (context) => uploadPage(screenClosed: _screenWasClosed, bookInfoDetails: res.body)));
+              },
+            );
+          }
         }
       } catch (e) {
         debugPrint(e.toString());
