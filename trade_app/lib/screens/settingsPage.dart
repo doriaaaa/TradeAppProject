@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:babstrap_settings_screen/babstrap_settings_screen.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 import 'package:trade_app/services/userAction.dart';
 import 'package:trade_app/widgets/reusableWidget.dart';
@@ -23,9 +24,23 @@ class _settingsPageState extends State<settingsPage> {
   File? pickedImage;
   bool _isToggled = false;
 
+  Future<bool> saveSwitchState(bool value) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setBool("switchState", value);
+    return prefs.setBool("switchState", value);
+  }
+
+  Future<bool> getSwitchState() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    _isToggled = prefs.getBool("switchState")!;
+    setState(() {});
+    return _isToggled;
+  }
+
   @override
   void initState() {
     super.initState();
+    getSwitchState();
   }
 
   @override
@@ -82,13 +97,13 @@ class _settingsPageState extends State<settingsPage> {
                   onChanged: (value) {
                     setState(() {
                       _isToggled = value;
+                      saveSwitchState(value);
                     });
                     if (_isToggled) {
                       MyApp.of(context).changeTheme(ThemeMode.dark);
                     } else {
                       MyApp.of(context).changeTheme(ThemeMode.light);
                     }
-                    // MyApp.of(context).changeTheme(ThemeMode.dark);
                   },
                 ),
               ),
