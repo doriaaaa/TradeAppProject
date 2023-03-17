@@ -36,7 +36,7 @@ tradeApp@hku / TestingDummy
 
 ###### TODO: 
 1. User Management API
-- [ ] user can edit the profile picture
+- [x] user can edit the profile picture
 - [x] user can update the password
 - [ ] user can list out the category that they are interested in
 - [ ] user can send friend request --> notification system
@@ -53,3 +53,7 @@ tradeApp@hku / TestingDummy
 - [ ] delete the review
 4. Book search API
 - [ ] allows users to search for books in the exchange by title, author, genre, or other criteria (simply call google book search api)
+
+###### BACKEND:
+1. Build Post Schema (linked to user) --> adjust the existing book schema
+2. Build Comment Schema
