@@ -7,6 +7,7 @@ import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:provider/provider.dart';
 import 'package:trade_app/provider/user_provider.dart';
 import '../constants/error_handling.dart';
+import '../constants/utils.dart';
 import '../screens/uploadPage.dart';
 import 'package:image/image.dart' as image_process;
 
@@ -31,10 +32,8 @@ class uploadService {
         }
       );
       // debugPrint(res.body); 
-      // ignore: use_build_context_synchronously
       debugPrint(res.body);
-      // ignore: use_build_context_synchronously
-      uploadDB(context, jsonDecode(res.body)['result'], bookInfo, description);
+      if (context.mounted) uploadDB(context, jsonDecode(res.body)['result'], bookInfo, description);
     } catch (e) {
       debugPrint(e.toString());
     }
@@ -57,15 +56,16 @@ class uploadService {
         }
       );
       // debugPrint(res.body);
-      // ignore: use_build_context_synchronously
-      httpErrorHandle(
-        response: res,
-        context: context,
-        onSuccess: () {
-          debugPrint('Post is uploaded to database successfully');
-          Navigator.pushNamedAndRemoveUntil( context, "/navBar", (route) => false); //return to home page
-        },
-      );
+      if (context.mounted) {
+        httpErrorHandle(
+          response: res,
+          context: context,
+          onSuccess: () {
+            showSnackBar(context, 'Post is uploaded to database successfully');
+            Navigator.pushNamedAndRemoveUntil( context, "/navBar", (route) => false); //return to home page
+          },
+        );
+      }
     } catch (e) {
       debugPrint(e.toString());
     }

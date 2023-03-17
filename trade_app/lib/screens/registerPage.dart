@@ -123,7 +123,6 @@ class _registerPageState extends State<registerPage> {
             password: passwordController.text,
             name: nameController.text,
           );
-          ScaffoldMessenger.of(context).showSnackBar( const SnackBar( content: Text('Your account has been created successfully.')));
         }
       },
     );

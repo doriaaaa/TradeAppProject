@@ -99,17 +99,12 @@ class _settingsPageState extends State<settingsPage> {
             settingsGroupTitle: "Account",
             items: [
               SettingsItem(
-                onTap: () {
-                  Navigator.pushNamedAndRemoveUntil(
-                      context, '/login', (route) => false);
-                },
+                onTap: () { AuthService().userLogout(context); },
                 icons: Icons.exit_to_app_rounded,
                 title: "Sign Out",
               ),
               SettingsItem(
-                onTap: () {
-                  Navigator.pushNamed(context, '/changePassword');
-                },
+                onTap: () { Navigator.pushNamed(context, '/changePassword'); },
                 icons: CupertinoIcons.repeat,
                 title: "Change Password",
               ),

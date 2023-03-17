@@ -78,7 +78,6 @@ class _changePasswordState extends State<changePasswordPage> {
             oldPassword: oldPasswordController.text,
             newPassword: newPasswordController.text
           );
-          ScaffoldMessenger.of(context).showSnackBar( const SnackBar( content: Text('Your password has updated. Please login again')));
         }
       },
       child: const Text('Reset Password'),
