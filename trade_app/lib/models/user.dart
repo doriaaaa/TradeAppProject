@@ -5,6 +5,7 @@ class User {
   final String name;
   final String email;
   final String password;
+  final String profilePicture;
   final String type;
   final String token;
 
@@ -13,6 +14,7 @@ class User {
     required this.name,
     required this.email,
     required this.password,
+    required this.profilePicture,
     required this.type,
     required this.token,
   });
@@ -23,6 +25,7 @@ class User {
       'name': name,
       'email': email,
       'password': password,
+      'profilePicture': profilePicture,
       'type': type,
       'token': token,
     };
@@ -34,6 +37,7 @@ class User {
       name: map['name'] ?? '',
       email: map['email'] ?? '',
       password: map['password'] ?? '',
+      profilePicture: map['profilePicture'],
       type: map['type'] ?? '',
       token: map['token'] ?? '',
     );
@@ -48,6 +52,7 @@ class User {
     String? name,
     String? email,
     String? password,
+    String? profilePicture,
     String? type,
     String? token,
   }) {
@@ -56,6 +61,7 @@ class User {
       name: name ?? this.name,
       email: email ?? this.email,
       password: password ?? this.password,
+      profilePicture: profilePicture ?? this.profilePicture,
       type: type ?? this.type,
       token: token ?? this.token,
     );

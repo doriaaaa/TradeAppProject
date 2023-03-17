@@ -1,7 +1,11 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:babstrap_settings_screen/babstrap_settings_screen.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:sizer/sizer.dart';
+import 'package:trade_app/services/userAction.dart';
 import 'package:trade_app/widgets/reusableWidget.dart';
 import 'package:trade_app/provider/user_provider.dart';
 import 'package:provider/provider.dart';
@@ -14,29 +18,51 @@ class settingsPage extends StatefulWidget {
 }
 
 class _settingsPageState extends State<settingsPage> {
+  
+  File? pickedImage;
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     var username = context.watch<UserProvider>().user.name;
+    String profilePicture = context.watch<UserProvider>().user.profilePicture;
+
+    void _updateProfilePicture(File? pickedImage) {
+      AuthService().updateProfilePicture(context: context, image: pickedImage);
+    }
+
     return Scaffold(
       appBar: ReusableWidgets.persistentAppBar('Settings'),
       backgroundColor: Colors.white.withOpacity(.94),
       body: ListView(
         padding: EdgeInsets.only(left: 7.0.w, right: 7.0.w),
-        children: <Widget> [
-          SimpleUserCard( 
-            userName: username, 
-            userProfilePic: const AssetImage("assets/avatar.jpg")
+        children: <Widget>[
+          SimpleUserCard(
+            userName: username,
+            userProfilePic: profilePicture == ""
+                ? const AssetImage('assets/default.jpg') as ImageProvider
+                : NetworkImage(profilePicture),
           ),
           SettingsGroup(
             items: [
               SettingsItem(
                 onTap: () async {
-                  // calling upload image api
-                }, 
+                  ImagePicker picker = ImagePicker();
+                  XFile? image = await picker.pickImage(source: ImageSource.gallery);
+                  if (image != null) {
+                    pickedImage = File(image.path);
+                    // debugPrint(image.path);
+                    _updateProfilePicture(pickedImage);
+                  }
+                },
                 icons: CupertinoIcons.person,
                 iconStyle: IconStyle(),
                 title: 'Appearance',
-                subtitle: "Change your avatar!",
+                subtitle: "Change profile picture",
               ),
               SettingsItem(
                 onTap: () {},
@@ -58,9 +84,11 @@ class _settingsPageState extends State<settingsPage> {
           SettingsGroup(
             items: [
               SettingsItem(
-                onTap: () {  Navigator.pushNamed(context, '/about'); },
+                onTap: () {
+                  Navigator.pushNamed(context, '/about');
+                },
                 icons: Icons.info_rounded,
-                iconStyle: IconStyle( backgroundColor: Colors.purple),
+                iconStyle: IconStyle(backgroundColor: Colors.purple),
                 title: 'About',
                 subtitle: "More details",
               ),
@@ -71,12 +99,17 @@ class _settingsPageState extends State<settingsPage> {
             settingsGroupTitle: "Account",
             items: [
               SettingsItem(
-                onTap: () { Navigator.pushNamedAndRemoveUntil(context, '/login', (route) => false);},
+                onTap: () {
+                  Navigator.pushNamedAndRemoveUntil(
+                      context, '/login', (route) => false);
+                },
                 icons: Icons.exit_to_app_rounded,
                 title: "Sign Out",
               ),
               SettingsItem(
-                onTap: () { Navigator.pushNamed(context, '/changePassword'); },
+                onTap: () {
+                  Navigator.pushNamed(context, '/changePassword');
+                },
                 icons: CupertinoIcons.repeat,
                 title: "Change Password",
               ),

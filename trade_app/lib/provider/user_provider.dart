@@ -7,6 +7,7 @@ class UserProvider extends ChangeNotifier {
     name: '',
     email: '',
     password: '',
+    profilePicture: '',
     type: '',
     token: '',
   );

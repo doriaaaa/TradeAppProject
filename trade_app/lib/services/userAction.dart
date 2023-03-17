@@ -8,6 +8,8 @@ import '../constants/error_handling.dart';
 import 'package:provider/provider.dart';
 import 'package:trade_app/provider/user_provider.dart';
 
+import '../models/user.dart';
+
 class AuthService {
   void signInUser({
     required BuildContext context,
@@ -111,34 +113,46 @@ class AuthService {
     }
   }
 
-  Future<String> updateProfilePicture({
+  void updateProfilePicture({
     required BuildContext context,
     required File? image,
   }) async {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
     String updatedImage = '';
+
     // upload the image, fetch the link, update user profile
     try {
       List<int> imageBytes = image!.readAsBytesSync();
       String base64Image = base64Encode(imageBytes);
-      http.Response res = await http.post(Uri.parse('http://${dotenv.env['IP_ADDRESS']}:3000/api/uploadImage'),
-        body: jsonEncode({"image": base64Image}),
-        headers: {
-          'Content-Type': 'application/json; charset=UTF-8',
-        }
-      );
+      http.Response res = await http.post(
+          Uri.parse('http://${dotenv.env['IP_ADDRESS']}:3000/api/uploadImage'),
+          body: jsonEncode({"image": base64Image}),
+          headers: {
+            'Content-Type': 'application/json; charset=UTF-8',
+          });
       var imageUrl = jsonDecode(res.body)['result'];
-      http.Response result = await http.post(Uri.parse('http://${dotenv.env['IP_ADDRESS']}:3000/api/user/updateProfilePicture'),
-        body: jsonEncode({"profilePicture": imageUrl}),
-        headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8',
-          'x-auth-token': userProvider.user.token
-        }
-      );
+      http.Response result = await http.post(
+          Uri.parse(
+              'http://${dotenv.env['IP_ADDRESS']}:3000/api/user/updateProfilePicture'),
+          body: jsonEncode({"profilePicture": imageUrl}),
+          headers: {
+            'Content-Type': 'application/json; charset=UTF-8',
+            'x-auth-token': userProvider.user.token
+          });
       updatedImage = jsonDecode(result.body)['result'];
+      // ignore: use_build_context_synchronously
+      httpErrorHandle(
+        response: res,
+        context: context,
+        onSuccess: () {
+          User user = userProvider.user
+              .copyWith(profilePicture: jsonDecode(result.body)['result']);
+          userProvider.setUserFromModel(user);
+        },
+      );
     } catch (e) {
+      print(e);
       debugPrint(e.toString());
     }
-    return updatedImage;
   }
 }
