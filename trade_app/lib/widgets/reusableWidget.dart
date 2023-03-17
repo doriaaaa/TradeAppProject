@@ -12,7 +12,6 @@ class ReusableWidgets {
         image: AssetImage('assets/book_title.jpg'),
         fit: BoxFit.cover,
       ),
-      backgroundColor: Colors.transparent,
       centerTitle: true,
     );
   }
