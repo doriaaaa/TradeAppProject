@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:trade_app/screens/changePassword.dart';
+import 'package:trade_app/screens/createThreadPage.dart';
 import 'package:trade_app/screens/registerPage.dart';
 import 'package:trade_app/screens/search.dart';
 import 'package:trade_app/widgets/navBar.dart';
@@ -23,6 +24,8 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
       return MaterialPageRoute( settings: routeSettings, builder: (_) => const changePasswordPage());
     case Camera.routeName:
       return MaterialPageRoute( settings: routeSettings, builder: (_) => const Camera());
+    case createThreadPage.routeName:
+      return MaterialPageRoute( settings: routeSettings, builder: (_) => const createThreadPage());
     default:
       return MaterialPageRoute( settings: routeSettings, builder: (_) => const Scaffold( body: Center( child: Text('Screen does not exist!'))));
   }

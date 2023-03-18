@@ -46,7 +46,9 @@ class _uploadSelectionPageState extends State<uploadSelectionPage> {
         elevation: 6.0,
         shape: RoundedRectangleBorder( borderRadius: BorderRadius.circular(20.0)),
       ),
-      onPressed: () {}, 
+      onPressed: () {
+        Navigator.pushNamed(context, '/createNewThread');
+      }, 
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
@@ -58,7 +60,7 @@ class _uploadSelectionPageState extends State<uploadSelectionPage> {
     );
 
     return Scaffold(
-      appBar: ReusableWidgets.persistentAppBar('Upload'),
+      appBar: ReusableWidgets.persistentAppBar('Choose upload options'),
       body: Center(
         child: Padding(
           padding: EdgeInsets.only(left: 20.0.w, right: 20.0.w),
