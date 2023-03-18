@@ -6,6 +6,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:sizer/sizer.dart';
+import '../constants/utils.dart';
 import '../services/upload.dart';
 
 class uploadPage extends StatefulWidget {
@@ -99,7 +100,7 @@ class _uploadPageState extends State<uploadPage> {
                   description: descriptionController.text
                 );
               } else {
-                ScaffoldMessenger.of(context).showSnackBar( const SnackBar(content: Text('Missing photo / description')));
+                showSnackBar( context,'Missing photo / description');
               }
             }, 
             icon: const Icon( Icons.thumb_up_alt_outlined ),

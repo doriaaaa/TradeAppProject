@@ -8,6 +8,7 @@ import 'package:trade_app/widgets/reusableWidget.dart';
 import '../services/upload.dart';
 
 class Camera extends StatefulWidget {
+  static const String routeName = '/camera';
   const Camera({Key? key}) : super(key: key);
 
   @override

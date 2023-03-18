@@ -22,26 +22,62 @@ class _uploadSelectionPageState extends State<uploadSelectionPage> {
   Widget build(BuildContext) {
 
     final uploadBookButton = ElevatedButton(
-      onPressed: () {}, 
-      child: const Text("Upload a new book")
+      style: ElevatedButton.styleFrom(
+        backgroundColor: const Color(0xE6ED764D),
+        elevation: 6.0,
+        shape: RoundedRectangleBorder( borderRadius: BorderRadius.circular(20.0)),
+      ),
+      onPressed: () {
+        Navigator.pushNamed(context, '/camera');
+      }, 
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Icon( Icons.library_books_outlined, size: 30.sp),
+          SizedBox(height: 3.h),
+          const Text("Upload a new book")
+        ]
+      )
     );
 
     final createThreadButton = ElevatedButton(
+      style: ElevatedButton.styleFrom(
+        backgroundColor: const Color(0xE6925375),
+        elevation: 6.0,
+        shape: RoundedRectangleBorder( borderRadius: BorderRadius.circular(20.0)),
+      ),
       onPressed: () {}, 
-      child: const Text("Create a new thread")
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Icon( Icons.add_box_outlined, size: 30.sp),
+          SizedBox(height: 3.h),
+          const Text("Create a new thread")
+        ]
+      )
     );
 
     return Scaffold(
       appBar: ReusableWidgets.persistentAppBar('Upload'),
-      body: ListView(
-        padding: EdgeInsets.only(left: 7.0.w, right: 7.0.w),
-        physics: const NeverScrollableScrollPhysics(),
-        children: <Widget>[
-          SizedBox(height: 2.h),
-          uploadBookButton,
-          SizedBox(height: 2.h),
-          createThreadButton
-        ],
+      body: Center(
+        child: Padding(
+          padding: EdgeInsets.only(left: 20.0.w, right: 20.0.w),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+              SizedBox(height: 10.0.h),
+              Expanded(
+                child: uploadBookButton,
+              ),
+              SizedBox(height: 10.0.h),
+              Expanded(
+                child: createThreadButton,
+              ),
+              SizedBox(height: 10.0.h),
+            ],
+          ),
+        )
       )
     );
   }

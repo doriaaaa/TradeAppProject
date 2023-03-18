@@ -5,6 +5,7 @@ import 'package:trade_app/screens/search.dart';
 import 'package:trade_app/widgets/navBar.dart';
 import 'package:trade_app/screens/loginPage.dart';
 import '../screens/aboutApp.dart';
+import '../widgets/camera.dart';
 
 Route<dynamic> generateRoute(RouteSettings routeSettings) {
   switch (routeSettings.name) {
@@ -20,6 +21,8 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
       return MaterialPageRoute( settings: routeSettings, builder: (_) => const aboutAppPage());
     case changePasswordPage.routeName:
       return MaterialPageRoute( settings: routeSettings, builder: (_) => const changePasswordPage());
+    case Camera.routeName:
+      return MaterialPageRoute( settings: routeSettings, builder: (_) => const Camera());
     default:
       return MaterialPageRoute( settings: routeSettings, builder: (_) => const Scaffold( body: Center( child: Text('Screen does not exist!'))));
   }

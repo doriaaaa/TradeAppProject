@@ -7,6 +7,8 @@ import 'package:trade_app/screens/notificationPage.dart';
 import 'package:trade_app/screens/settingsPage.dart';
 import 'package:trade_app/widgets/camera.dart';
 
+import '../screens/uploadSelectionPage.dart';
+
 class NavBar extends StatefulWidget {
   const NavBar({Key? key}) : super(key: key);
   static const String routeName = '/navBar';
@@ -20,7 +22,7 @@ class _NavBarState extends State<NavBar> {
   final List<Widget> _children = [
     const homePage(),
     const SearchPage(),
-    const Camera(),
+    const uploadSelectionPage(),
     const notificationPage(),
     const settingsPage(),
   ];

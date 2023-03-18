@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../widgets/reusableWidget.dart';
 
 class SearchPage extends StatefulWidget {
-  static const String routeName = '/Search';
+  static const String routeName = '/search';
   const SearchPage({Key? key}) : super(key: key);
 
   @override

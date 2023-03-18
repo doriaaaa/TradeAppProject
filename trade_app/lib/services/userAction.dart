@@ -34,6 +34,7 @@ class AuthService {
           response: res,
           context: context,
           onSuccess: () async {
+            showSnackBar( context, 'You have logged in successfully.');
             //store token in app memory
             SharedPreferences prefs = await SharedPreferences.getInstance();
             await prefs.setString('x-auth-token', jsonDecode(res.body)['token']);
