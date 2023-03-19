@@ -33,7 +33,7 @@ class threadService {
           context: context,
           onSuccess: () async {
             showSnackBar(context, "Thread created.");
-            Navigator.pushNamed(context, "/home");
+            Navigator.pushNamedAndRemoveUntil( context, "/navBar", (route) => false);
           },
         );
       }

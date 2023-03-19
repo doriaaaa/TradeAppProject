@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import 'package:trade_app/screens/discussionPage.dart';
-import 'package:trade_app/services/getUserInfo.dart';
 import 'package:trade_app/services/thread/threadService.dart';
 import 'package:trade_app/widgets/reusableWidget.dart';
 import 'package:trade_app/provider/user_provider.dart';
@@ -31,8 +30,13 @@ class _homePageState extends State<homePage> {
     Map threadList = jsonDecode(res);
 
     // list starts with the latest one first
-    for (int count = threadList['result'].length; count < 0; count--) {
+    for (int count = threadList['result'].length-1; count >= 0; count--) {
       String title = threadList['result'][count]['title'];
+      String author = threadList['result'][count]['author'];
+      int threadId = threadList['result'][count]['thread_id'];
+      int likes = threadList['result'][count]['likes'];
+      int views = threadList['result'][count]['views'];
+
       displayItemList.add(gapBox);
       displayItemList.add(GestureDetector(
         onTap: () {
@@ -48,28 +52,16 @@ class _homePageState extends State<homePage> {
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Flexible(child: Text(threadList['result'][count]['author'], style: TextStyle(fontSize: 10.sp, fontWeight: FontWeight.bold))),
+                Flexible(child: Text('#$threadId\t$author', style: TextStyle(fontSize: 10.sp, fontWeight: FontWeight.bold))),
                 SizedBox(height: 2.h),
                 Row(
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    // ClipRRect(
-                    //   borderRadius: BorderRadius.circular(10.0),
-                    //   child: Image.network(
-                    //     uploadedBookList['result'][count]['image'],
-                    //     height: 15.h,
-                    //     width: 30.w,
-                    //     fit: BoxFit.fill
-                    //   ),
-                    // ),
-                    // SizedBox(width: 3.w),
                     Expanded(
                       child: SizedBox(
                         width: 30.w, 
-                        child: Text(threadList['result'][count]['title'],
-                          style: TextStyle(fontSize: 10.sp)
-                        )
+                        child: Text(title, style: TextStyle(fontSize: 12.sp))
                       ),
                     )
                   ],
@@ -80,11 +72,11 @@ class _homePageState extends State<homePage> {
                   children: <Widget>[
                     Icon( Icons.remove_red_eye_outlined, color: Colors.grey[700]),
                     SizedBox(width: 2.0.w),
-                    Text("0", style: TextStyle(fontSize: 10.sp, fontWeight: FontWeight.bold)), // dummy data
+                    Text('$likes', style: TextStyle(fontSize: 10.sp, fontWeight: FontWeight.bold)), // dummy data
                     const Spacer(),
                     Icon( Icons.thumb_up_alt_outlined, color: Colors.grey[700]),
                     SizedBox(width: 2.0.w),
-                    Text("0", style: TextStyle(fontSize: 10.sp, fontWeight: FontWeight.bold)) // dummy data
+                    Text('$views', style: TextStyle(fontSize: 10.sp, fontWeight: FontWeight.bold)) // dummy data
                   ],
                 )
               ],

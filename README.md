@@ -33,6 +33,10 @@ tradeApp@hku / TestingDummy
 5. Retrieve the uploaded information
 6. Responsive design
 7. Implement environment variables for frontend and backend application
+8. Light / Dark mode
+9. User change password
+10. Home Page UI
+11. User upload profile pic
 
 ###### TODO: 
 1. User Management API
@@ -40,7 +44,7 @@ tradeApp@hku / TestingDummy
 - [x] user can update the password
 - [ ] user can list out the category that they are interested in
 - [ ] user can send friend request --> notification system
-- [ ] assign special name tag to user
+- [ ] assign special name tag to user 
 2. Google Analytics 
 - [ ] analyse what genres that user likes the most
 - [ ] make suggestions on books
@@ -62,7 +66,7 @@ tradeApp@hku / TestingDummy
 1. User
 - [x] POST /api/user/changePassword
 - [x] POST /api/user/updateProfilePicture
-- [x] GET /api/user/bookList
+- [x] GET  /api/user/bookList
 
 2. Auth
 - [x] POST /api/signin
@@ -71,7 +75,8 @@ tradeApp@hku / TestingDummy
 3. Thread related
 - [x] POST /api/upload/createThread
 - [x] POST /api/upload/createComment
-- [x] GET /api/upload/showAllThreads
+- [x] GET  /api/upload/showAllThreads
+- [x] GET  /api/upload/showAllComments/thread/:threadId
 
 4. Book
 - [x] POST /api/book/info
