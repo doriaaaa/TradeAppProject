@@ -12,10 +12,12 @@ Future main() async {
     ChangeNotifierProvider(
       create: (context) => UserProvider(),
     ),
-  ], child: MyApp()));
+  ], child: const MyApp()));
 }
 
 class MyApp extends StatefulWidget {
+  const MyApp({super.key});
+
   @override
   _MyAppState createState() => _MyAppState();
 

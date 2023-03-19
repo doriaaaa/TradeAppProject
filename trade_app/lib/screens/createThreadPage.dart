@@ -48,81 +48,75 @@ class _createThreadPageState extends State<createThreadPage> {
       ),
     );
     
-    return Scaffold(
-      appBar:AppBar(
-        title: const Text("New Post"),
-        centerTitle: true,
-        actions: <Widget>[
-          IconButton( 
-            onPressed: () {
-              if (_formKey.currentState!.validate()) { 
-                threadService().createNewThread(
-                  context: context,
-                  title: titleInputFieldController.text, 
-                  content: contentInputFieldController.text
-                );
-              } else {
-                showSnackBar( context,'Missing title / description');
-              }
-            }, 
-            icon: const Icon( Icons.check ),
-          )
-        ],
-        leading: IconButton(
-          onPressed: () { Navigator.pop(context);},
-          icon: const Icon( Icons.arrow_back_outlined ),
-        ),
-        flexibleSpace: const Image( image: AssetImage('assets/book_title.jpg'), fit: BoxFit.cover),
-      ),
-      body: SafeArea(
-        maintainBottomViewPadding: true,
-          child: FooterLayout(
-            footer: KeyboardAttachableFooter(),
-            child:Form(
-              key: _formKey,
-              child: ListView(
-                padding: EdgeInsets.only(left: 7.w, right: 7.w),
-                children: <Widget>[
-                  SizedBox(height: 2.h),
-                  titleInputField,
-                  SizedBox(height: 1.h),
-                  contentInputField
-                ],
-              )
-            ) ,
+    return GestureDetector(
+      onTap: () {
+        FocusScope.of(context).unfocus();
+      },
+      child: Scaffold(
+        appBar:AppBar(
+          title: const Text("New Post"),
+          centerTitle: true,
+          actions: <Widget>[
+            IconButton( 
+              onPressed: () {
+                if (_formKey.currentState!.validate()) { 
+                  threadService().createNewThread(
+                    context: context,
+                    title: titleInputFieldController.text, 
+                    content: contentInputFieldController.text
+                  );
+                } else {
+                  showSnackBar( context,'Missing title / description');
+                }
+              }, 
+              icon: const Icon( Icons.check ),
+            )
+          ],
+          leading: IconButton(
+            onPressed: () { Navigator.pop(context);},
+            icon: const Icon( Icons.arrow_back_outlined ),
           ),
+          flexibleSpace: const Image( image: AssetImage('assets/book_title.jpg'), fit: BoxFit.cover),
+        ),
+        body: SafeArea(
+          maintainBottomViewPadding: true,
+            child: FooterLayout(
+              footer: const KeyboardAttachableFooter(),
+              child:Form(
+                key: _formKey,
+                child: ListView(
+                  padding: EdgeInsets.only(left: 7.w, right: 7.w),
+                  children: <Widget>[
+                    SizedBox(height: 2.h),
+                    titleInputField,
+                    SizedBox(height: 1.h),
+                    contentInputField
+                  ],
+                )
+              ) ,
+            ),
+        )
       )
-      // Form(
-      //   key: _formKey,
-      //   child: ListView(
-      //     padding: EdgeInsets.only(left: 7.w, right: 7.w),
-      //     children: <Widget>[
-      //       SizedBox(height: 2.h),
-      //       titleInputField,
-      //       SizedBox(height: 1.h),
-      //       contentInputField
-      //     ],
-      //   )
-      // )
     );
   }
 }
 
 class KeyboardAttachableFooter extends StatelessWidget {
+  const KeyboardAttachableFooter({super.key});
+
   @override
   Widget build(BuildContext context) => KeyboardAttachable(
-    backgroundColor: Colors.blue,
     child: Container(
-      padding: const EdgeInsets.all(16),
-      color: Colors.blue,
-      child: const TextField(
-        decoration: InputDecoration(
-          hintText: "Tap me!",
-          fillColor: Colors.white,
-          filled: true,
-          border: OutlineInputBorder(),
-        ),
-      ),
+      padding: EdgeInsets.all(5.w),
+      child: Container()
+      // TODO: add custom buttons
+      // const TextField(
+      //   decoration: InputDecoration(
+      //     hintText: "Tap me!",
+      //     filled: true,
+      //     border: OutlineInputBorder(),
+      //   ),
+      // ),
     ),
   );
 }

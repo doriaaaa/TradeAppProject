@@ -17,7 +17,8 @@ class threadService {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
     try {
       http.Response res = await http.post(
-          Uri.parse('http://${dotenv.env['IP_ADDRESS']}:3000/api/upload/createThread'),
+          Uri.parse(
+              'http://${dotenv.env['IP_ADDRESS']}:3000/api/upload/createThread'),
           body: jsonEncode({
             'title': title,
             'content': content,
@@ -38,6 +39,18 @@ class threadService {
       }
     } catch (e) {
       debugPrint(e.toString());
+    }
+  }
+
+  Future<String> displayAllThreads({
+    required BuildContext context,
+  }) async {
+    try {
+      http.Response res = await http.get(Uri.parse('http://${dotenv.env['IP_ADDRESS']}:3000/api/upload/showAllThreads'));
+      return res.body;
+    } catch (e) {
+      debugPrint(e.toString());
+      throw Exception("Failed to load user data");
     }
   }
 }

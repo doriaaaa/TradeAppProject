@@ -3,9 +3,6 @@
 // this page only consists of two buttons
 // first one is uploading a book button
 // second one is uploading a post
-import 'dart:convert';
-import 'dart:io';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import 'package:trade_app/widgets/reusableWidget.dart';
