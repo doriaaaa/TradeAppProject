@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:keyboard_attachable/keyboard_attachable.dart';
 import 'package:sizer/sizer.dart';
 import 'package:trade_app/services/thread/threadService.dart';
 import '../constants/utils.dart';
@@ -73,18 +74,55 @@ class _createThreadPageState extends State<createThreadPage> {
         ),
         flexibleSpace: const Image( image: AssetImage('assets/book_title.jpg'), fit: BoxFit.cover),
       ),
-      body: Form(
-        key: _formKey,
-        child: ListView(
-          padding: EdgeInsets.only(left: 7.w, right: 7.w),
-          children: <Widget>[
-            SizedBox(height: 2.h),
-            titleInputField,
-            SizedBox(height: 1.h),
-            contentInputField
-          ],
-        )
+      body: SafeArea(
+        maintainBottomViewPadding: true,
+          child: FooterLayout(
+            footer: KeyboardAttachableFooter(),
+            child:Form(
+              key: _formKey,
+              child: ListView(
+                padding: EdgeInsets.only(left: 7.w, right: 7.w),
+                children: <Widget>[
+                  SizedBox(height: 2.h),
+                  titleInputField,
+                  SizedBox(height: 1.h),
+                  contentInputField
+                ],
+              )
+            ) ,
+          ),
       )
+      // Form(
+      //   key: _formKey,
+      //   child: ListView(
+      //     padding: EdgeInsets.only(left: 7.w, right: 7.w),
+      //     children: <Widget>[
+      //       SizedBox(height: 2.h),
+      //       titleInputField,
+      //       SizedBox(height: 1.h),
+      //       contentInputField
+      //     ],
+      //   )
+      // )
     );
   }
+}
+
+class KeyboardAttachableFooter extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) => KeyboardAttachable(
+    backgroundColor: Colors.blue,
+    child: Container(
+      padding: const EdgeInsets.all(16),
+      color: Colors.blue,
+      child: const TextField(
+        decoration: InputDecoration(
+          hintText: "Tap me!",
+          fillColor: Colors.white,
+          filled: true,
+          border: OutlineInputBorder(),
+        ),
+      ),
+    ),
+  );
 }

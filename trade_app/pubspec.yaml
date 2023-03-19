@@ -49,6 +49,7 @@ dependencies:
   sizer: ^2.0.15
   network_info_plus: ^3.0.2
   flutter_dotenv: ^5.0.2
+  keyboard_attachable: ^2.1.0
   
 
 dev_dependencies:
