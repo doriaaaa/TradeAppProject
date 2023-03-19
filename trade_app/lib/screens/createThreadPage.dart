@@ -1,10 +1,6 @@
-import 'dart:convert';
-import 'dart:io';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
-import 'package:trade_app/widgets/reusableWidget.dart';
-
+import 'package:trade_app/services/thread/threadService.dart';
 import '../constants/utils.dart';
 
 class createThreadPage extends StatefulWidget {
@@ -21,7 +17,7 @@ class _createThreadPageState extends State<createThreadPage> {
   final contentInputFieldController = TextEditingController();
 
   @override
-  Widget build(BuildContext) {
+  Widget build(BuildContext context) {
 
     final titleInputField = TextFormField(
       textInputAction: TextInputAction.next,
@@ -59,9 +55,13 @@ class _createThreadPageState extends State<createThreadPage> {
           IconButton( 
             onPressed: () {
               if (_formKey.currentState!.validate()) { 
-                // TODO: implement POST thread
+                threadService().createNewThread(
+                  context: context,
+                  title: titleInputFieldController.text, 
+                  content: contentInputFieldController.text
+                );
               } else {
-                showSnackBar( context,'Missing photo / description');
+                showSnackBar( context,'Missing title / description');
               }
             }, 
             icon: const Icon( Icons.check ),
