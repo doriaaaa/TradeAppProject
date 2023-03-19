@@ -23,7 +23,7 @@ class uploadService {
       List<int> imageBytes = image!.readAsBytesSync();
       String base64Image = base64Encode(imageBytes);
       // print(base64Image);
-      http.Response res = await http.post(Uri.parse('http://${dotenv.env['IP_ADDRESS']}:3000/api/uploadImage'),
+      http.Response res = await http.post(Uri.parse('http://${dotenv.env['IP_ADDRESS']}:3000/api/upload/image'),
         body: jsonEncode({ 
           "image": base64Image
         }),
@@ -33,22 +33,21 @@ class uploadService {
       );
       // debugPrint(res.body); 
       debugPrint(res.body);
-      if (context.mounted) uploadDB(context, jsonDecode(res.body)['result'], bookInfo, description);
+      if (context.mounted) uploadDB(context, jsonDecode(res.body)['result'], bookInfo);
     } catch (e) {
       debugPrint(e.toString());
     }
   }
 
-  void uploadDB(BuildContext context, String imageURL, String bookInfo, String description) async {
+  void uploadDB(BuildContext context, String imageURL, String bookInfo) async {
     // store to db by calling backend server
     final userProvider = Provider.of<UserProvider>(context, listen: false);
     Map bookDetails = jsonDecode(bookInfo);
     try {
-      http.Response res = await http.post(Uri.parse('http://${dotenv.env['IP_ADDRESS']}:3000/api/user/upload'),
+      http.Response res = await http.post(Uri.parse('http://${dotenv.env['IP_ADDRESS']}:3000/api/book/upload'),
         body: jsonEncode({
           "bookInfo": bookDetails,
           "image": imageURL,
-          "description": description
         }),
         headers: { 
           'Content-Type': 'application/json; charset=UTF-8',
@@ -82,7 +81,7 @@ class uploadService {
         if (code != "---") {
           debugPrint('Barcode found: $code');
           _screenOpened = true;
-          http.Response res = await http.post(Uri.parse('http://${dotenv.env['IP_ADDRESS']}:3000/api/bookinfo'),
+          http.Response res = await http.post(Uri.parse('http://${dotenv.env['IP_ADDRESS']}:3000/api/book/info'),
             body: jsonEncode({
               "book_isbn": code
             }),

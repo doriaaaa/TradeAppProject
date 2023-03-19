@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import 'package:trade_app/screens/discussionPage.dart';
 import 'package:trade_app/services/getUserInfo.dart';
+import 'package:trade_app/services/thread/threadService.dart';
 import 'package:trade_app/widgets/reusableWidget.dart';
 import 'package:trade_app/provider/user_provider.dart';
 import 'package:provider/provider.dart';
@@ -26,20 +27,17 @@ class _homePageState extends State<homePage> {
   }
 
   void _buildDisplayItemList() async {
-    final String res = await getUserInfo().getUploadedBookInfo(context: context);
-    Map uploadedBookList = jsonDecode(res);
-    // print(uploadedBookList['result'].length);
-    // print("image link: ${uploadedBookList['result'][0]['image']}");
-    // print("title: ${uploadedBookList['result'][0]['bookInfo']['title']}")
+    final String res = await threadService().displayAllThreads(context: context);
+    Map threadList = jsonDecode(res);
 
-    for (int count = 0; count < uploadedBookList['result'].length; count++) {
-      String summary = uploadedBookList['result'][count]['bookInfo']['description'];
-      // print(summary);
+    // list starts with the latest one first
+    for (int count = threadList['result'].length; count < 0; count--) {
+      String title = threadList['result'][count]['title'];
       displayItemList.add(gapBox);
       displayItemList.add(GestureDetector(
         onTap: () {
           // redirect to next page for discussion
-          Navigator.push( context, MaterialPageRoute( builder: (context) => discussionPage(book: jsonEncode(uploadedBookList['result'][count]))));
+          Navigator.push( context, MaterialPageRoute( builder: (context) => discussionPage(thread: jsonEncode(threadList['result'][count]))));
         }, 
         child: Card(
           elevation: 3,
@@ -50,29 +48,26 @@ class _homePageState extends State<homePage> {
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Flexible(child: Text(uploadedBookList['result'][count]['bookInfo']['title'], style: TextStyle(fontSize: 10.sp, fontWeight: FontWeight.bold))),
+                Flexible(child: Text(threadList['result'][count]['author'], style: TextStyle(fontSize: 10.sp, fontWeight: FontWeight.bold))),
                 SizedBox(height: 2.h),
                 Row(
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(10.0),
-                      child: Image.network(
-                        uploadedBookList['result'][count]['image'],
-                        height: 15.h,
-                        width: 30.w,
-                        fit: BoxFit.fill
-                      ),
-                    ),
-                    SizedBox(width: 3.w),
+                    // ClipRRect(
+                    //   borderRadius: BorderRadius.circular(10.0),
+                    //   child: Image.network(
+                    //     uploadedBookList['result'][count]['image'],
+                    //     height: 15.h,
+                    //     width: 30.w,
+                    //     fit: BoxFit.fill
+                    //   ),
+                    // ),
+                    // SizedBox(width: 3.w),
                     Expanded(
                       child: SizedBox(
                         width: 30.w, 
-                        child: Text(
-                          summary.length > 120 
-                          ? "${summary.substring(0,120)}..."
-                          : summary,
+                        child: Text(threadList['result'][count]['title'],
                           style: TextStyle(fontSize: 10.sp)
                         )
                       ),

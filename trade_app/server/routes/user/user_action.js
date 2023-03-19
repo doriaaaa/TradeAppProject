@@ -1,17 +1,18 @@
 const express = require('express');
-const User = require("../models/user");
+const User = require("../../models/user");
 const bcryptjs = require('bcryptjs');
 const userActionRouter = express.Router();
-const auth = require("../middleware/auth");
+const auth = require("../../middleware/auth");
 
 // perform user actions
-userActionRouter.get('/api/user/getUploadedBookInfo', auth, async(req, res) => {
+// user get info for whole book list
+userActionRouter.get('/api/user/bookList', auth, async(req, res) => {
     try {
         const userInfo = await User.findOne({ _id: req.user });
         if (userInfo) {
             res.status(200).json({
                 msg: "success",
-                result: userInfo.uploadedBookList
+                result: userInfo.bookList
             });
         } else {
             console.log("failed");
@@ -25,6 +26,7 @@ userActionRouter.get('/api/user/getUploadedBookInfo', auth, async(req, res) => {
     }
 });
 
+// user change password
 userActionRouter.post('/api/user/changePassword', auth, async(req, res) => {
     try {
         const { oldPassword, newPassword} = req.body;
@@ -60,6 +62,7 @@ userActionRouter.post('/api/user/changePassword', auth, async(req, res) => {
     }
 });
 
+// user update profile picture
 userActionRouter.post('/api/user/updateProfilePicture', auth, async(req, res) => {
     try {
         const { profilePicture } = req.body;
@@ -72,34 +75,6 @@ userActionRouter.post('/api/user/updateProfilePicture', auth, async(req, res) =>
             res.status(200).json({
                 msg: "success",
                 result: updateProfilePicture.profilePicture
-            });
-        } else {
-            console.log("failed");
-            res.status(400).json({
-                msg: "failed",
-                result: "unknown error occured"
-            });
-        }
-    } catch (e) {
-        return res.status(500).json({ error: e.message });
-    }
-});
-
-userActionRouter.post("/api/user/upload", auth, async (req, res) => {
-    // const { title, author, publisher, pics_url, description } = req.body;
-    const bookToAdd = req.body;
-    // console.log(bookToAdd);
-    // console.log(bookToAdd);
-    // let user = await User.findById(req.user);
-    // console.log(req.user);
-    try {
-        const uploadedBook = await User.findOneAndUpdate({_id: req.user}, { $push: { uploadedBookList: bookToAdd } }, {new: true});
-        console.log(uploadedBook);
-        if (uploadedBook) {
-            console.log("book uploaded successfully");
-            res.status(200).json({
-                msg: "success",
-                result: uploadedBook
             });
         } else {
             console.log("failed");

@@ -3,16 +3,11 @@ require('dotenv').config();
 const express = require('express');
 const imgurRouter = express.Router();
 const axios = require('axios');
-const fs = require('fs');
 const FormData = require('form-data');
 
-imgurRouter.post('/api/uploadImage', async (req, res, next) => { 
-    // console.log(req.body);
+imgurRouter.post('/api/upload/image', async (req, res, next) => { 
     try {
-        // console.log(JSON.stringify(res.body));
-        // console.log("image string from backend: " + req.body["image"]);
         const imageData = await req.body["image"];
-        // const imageData = fs.readFileSync(req.body["image"], {encoding: 'base64'});
         const formData = new FormData();
         const imgurURL = process.env.IMGUR_UPLOAD_URL;
         formData.append("image", imageData);
@@ -39,11 +34,8 @@ imgurRouter.post('/api/uploadImage', async (req, res, next) => {
                 result: "unknown error occured"
             });
         }
-        // console.log(res.status(200).send(result.data));
-        // return result.data;
     } catch (e) {
         res.status(500).json({ error: e.message });
-        // return res.status(500).json({ error: e.message });
     }
 });
 module.exports = imgurRouter;

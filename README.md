@@ -57,3 +57,25 @@ tradeApp@hku / TestingDummy
 ###### BACKEND:
 1. Build Post Schema (linked to user) --> adjust the existing book schema
 2. Build Comment Schema
+
+###### API ENDPOINTS:
+1. User
+- [x] POST /api/user/changePassword
+- [x] POST /api/user/updateProfilePicture
+- [x] GET /api/user/bookList
+
+2. Auth
+- [x] POST /api/signin
+- [x] POST /api/signup
+
+3. Thread related
+- [x] POST /api/upload/createThread
+- [x] POST /api/upload/createComment
+- [x] GET /api/upload/showAllThreads
+
+4. Book
+- [x] POST /api/book/info
+- [x] POST /api/book/upload
+
+5. Universal
+- [x] POST /api/upload/image

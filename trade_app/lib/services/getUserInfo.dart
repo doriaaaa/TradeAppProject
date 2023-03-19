@@ -12,7 +12,7 @@ class getUserInfo {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
     try {
       http.Response res = await http.get(
-        Uri.parse('http://${dotenv.env['IP_ADDRESS']}:3000/api/user/getUploadedBookInfo'),
+        Uri.parse('http://${dotenv.env['IP_ADDRESS']}:3000/api/user/bookList'),
         headers: {
           'Content-Type': 'application/json; charset=UTF-8',
           'x-auth-token': userProvider.user.token

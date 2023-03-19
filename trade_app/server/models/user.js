@@ -1,8 +1,11 @@
 const mongoose = require('mongoose');
-const upload_bookSchema = require("./upload_book");
+const Book = require("./book");
+const Thread = require("./thread");
+const Comment = require("./comment");
 
 // set user model
 // link the booklist to user
+// suppose to fetch things from user, you dont associate user with other things
 
 const userSchema = mongoose.Schema({
     name: {
@@ -41,10 +44,14 @@ const userSchema = mongoose.Schema({
         type: String,
         default: 'user',
     },
-    uploadedBookList: {
-        type: Array,
-        of: upload_bookSchema
-    }
+    bookList: [{ 
+        type: mongoose.Schema.Types.ObjectId, 
+        ref: "Book"
+    }],
+    threads: [{ 
+        type: mongoose.Schema.Types.ObjectId, 
+        ref: "Thread"
+    }],
 });
 const User = mongoose.model("User", userSchema);
 module.exports = User; // allow public access

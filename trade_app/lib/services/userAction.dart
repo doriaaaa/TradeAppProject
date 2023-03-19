@@ -82,10 +82,11 @@ class AuthService {
     }
   }
 
-  void changeUserPassword(
-      {required BuildContext context,
-      required String oldPassword,
-      required String newPassword}) async {
+  void changeUserPassword({
+    required BuildContext context,
+    required String oldPassword,
+    required String newPassword
+  }) async {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
     try {
       http.Response res = await http.post(
@@ -124,7 +125,7 @@ class AuthService {
       List<int> imageBytes = image!.readAsBytesSync();
       String base64Image = base64Encode(imageBytes);
       http.Response res = await http.post(
-          Uri.parse('http://${dotenv.env['IP_ADDRESS']}:3000/api/uploadImage'),
+          Uri.parse('http://${dotenv.env['IP_ADDRESS']}:3000/api/upload/image'),
           body: jsonEncode({"image": base64Image}),
           headers: {
             'Content-Type': 'application/json; charset=UTF-8',

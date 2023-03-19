@@ -2,13 +2,16 @@
 require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
-const bodyParser = require('body-parser')
+const bodyParser = require('body-parser');
 console.log("hello server");
 
 //IMPORT FROM OTHER FILES
 const authRouter = require('./routes/auth');
-const imgurRouter = require('./middleware/imgur');
-const userActionRouter = require('./routes/user_action');
+const bookInfoRouter = require('./routes/book/book');
+const imgurRouter = require('./routes/upload/image');
+const userActionRouter = require('./routes/user/user_action');
+const postRouter = require('./routes/upload/thread');
+const commentRouter = require('./routes/upload/comment');
 
 //INIT
 const app = express();
@@ -18,16 +21,11 @@ app.use(express.json({limit: '10mb'})); // allow image string to send to nodejs 
 app.use(bodyParser.json({limit : '10mb'}));  
 app.use(express.json());
 app.use(authRouter);
+app.use(bookInfoRouter);
 app.use(imgurRouter);
 app.use(userActionRouter);
-//create API
-// app.get("/hello-world", (req, res) => {
-//     res.json({
-//         hi: "hello world"
-//     });
-// })
-// a get request sample
-//GET, PUT, POST, DELETE, UPDATE -> CRUD 
+app.use(postRouter);
+app.use(commentRouter);
 
 // connections
 

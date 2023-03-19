@@ -1,7 +1,6 @@
 require('dotenv').config();
 const express = require('express');
 const User = require("../models/user");
-const isbn = require('node-isbn');
 const bcryptjs = require('bcryptjs');
 const jwt = require("jsonwebtoken");
 const authRouter = express.Router();
@@ -10,16 +9,6 @@ const auth = require("../middleware/auth");
 authRouter.get("/test", (req, res) => {
     res.json({
         test: "this is the testing api"
-    });
-});
-
-authRouter.post("/api/bookinfo", async (req, res) => {
-    const { book_isbn } = req.body;
-
-    isbn.resolve(book_isbn).then(function (book) {
-        return res.json(book);
-    }).catch(function (err) {
-        res.status(401).json({ error: err });
     });
 });
 
