@@ -50,6 +50,7 @@ dependencies:
   network_info_plus: ^3.0.2
   flutter_dotenv: ^5.0.2
   keyboard_attachable: ^2.1.0
+  flutter_rating_bar: ^4.0.1
   
 
 dev_dependencies:

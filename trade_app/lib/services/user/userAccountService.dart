@@ -7,7 +7,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:trade_app/constants/utils.dart';
 import 'package:provider/provider.dart';
 import 'package:trade_app/provider/user_provider.dart';
-
 import '../../constants/error_handling.dart';
 import '../../models/user.dart';
 
@@ -134,14 +133,14 @@ class userAccountService {
             'Content-Type': 'application/json; charset=UTF-8',
           });
       var imageUrl = jsonDecode(res.body)['result'];
-      print(imageUrl);
-      http.Response result = await http.post(
-          Uri.parse('http://${dotenv.env['IP_ADDRESS']}:3000/api/user/account/updateProfilePicture'),
-          body: jsonEncode({"profilePicture": imageUrl}),
-          headers: {
-            'Content-Type': 'application/json; charset=UTF-8',
-            'x-auth-token': userProvider.user.token
-          });
+      if (imageUrl!) imageUrl = "";
+      http.Response result = await http.post( Uri.parse('http://${dotenv.env['IP_ADDRESS']}:3000/api/user/account/updateProfilePicture'),
+        body: jsonEncode({"profilePicture": imageUrl}),
+        headers: {
+          'Content-Type': 'application/json; charset=UTF-8',
+          'x-auth-token': userProvider.user.token
+        }
+      );
       if (context.mounted) {
         httpErrorHandle(
           response: res,
@@ -160,17 +159,10 @@ class userAccountService {
   void logout(BuildContext context) async {
     try {
       Navigator.pushNamedAndRemoveUntil(context, '/login', (route) => false);
-      SharedPreferences sharedPreferences =
-          await SharedPreferences.getInstance();
-      await sharedPreferences.setString(
-          'x-auth-token', ''); // reset the auth token
+      SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+      await sharedPreferences.setString('x-auth-token', ''); // reset the auth token
     } catch (e) {
       debugPrint(e.toString());
     }
   }
-
-  void changeUserPassword(
-      {required BuildContext context,
-      required String oldPassword,
-      required String newPassword}) {}
 }

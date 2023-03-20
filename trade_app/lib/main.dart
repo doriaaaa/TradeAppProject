@@ -45,6 +45,7 @@ class _MyAppState extends State<MyApp> {
         darkTheme: ThemeData.dark(),
         themeMode: _themeMode, // 2) ← ← ← use "state" field here //////////////
         home: const loginPage(),
+        // home: const BookPage(),
         onGenerateRoute: (settings) => generateRoute(settings),
       );
     });

@@ -9,21 +9,21 @@ import 'package:sizer/sizer.dart';
 import 'package:trade_app/services/book/bookService.dart';
 import '../constants/utils.dart';
 
-class uploadPage extends StatefulWidget {
+class uploadBookPage extends StatefulWidget {
   final String bookInfoDetails;
   final Function() screenClosed;
   
-  const uploadPage({
+  const uploadBookPage({
     Key? key,
     required this.bookInfoDetails, // pass the json file? widget.value to access the information
     required this.screenClosed,
   }) : super(key: key);
 
   @override
-  State<uploadPage> createState() => _uploadPageState();
+  State<uploadBookPage> createState() => _uploadBookPageState();
 }
 
-class _uploadPageState extends State<uploadPage> {
+class _uploadBookPageState extends State<uploadBookPage> {
 
   File? pickedImage;
   bool isPicked = false;
@@ -97,7 +97,6 @@ class _uploadPageState extends State<uploadPage> {
                   context: context,
                   image: pickedImage, // should pass image value
                   bookInfo: widget.bookInfoDetails,
-                  description: descriptionController.text
                 );
               } else {
                 showSnackBar( context,'Missing photo / description');

@@ -59,8 +59,8 @@ tradeApp@hku / TestingDummy
 - [ ] allows users to search for books in the exchange by title, author, genre, or other criteria (simply call google book search api)
 
 ###### BACKEND:
-1. Build Post Schema (linked to user) --> adjust the existing book schema
-2. Build Comment Schema
+1. [x] Build Post Schema (linked to user) --> adjust the existing book schema
+2. [x] Build Comment Schema
 
 ###### API ENDPOINTS:
 1. User

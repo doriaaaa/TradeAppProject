@@ -6,18 +6,15 @@ import 'package:http/http.dart' as http;
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:provider/provider.dart';
 import 'package:trade_app/provider/user_provider.dart';
-import 'package:image/image.dart' as image_process;
-
 import '../../constants/error_handling.dart';
 import '../../constants/utils.dart';
-import '../../screens/uploadPage.dart';
+import '../../screens/uploadBookPage_obsolete.dart';
 
 class bookService {
   void universalImage({
     required BuildContext context,
     required File? image, 
     required String bookInfo, // this is a json response, use Map extractedDetails = json.decode(widget.bookInfoDetails); // map json response
-    required String description, // this is the book description, can be ""
   }) async {
     // final userProvider = Provider.of<UserProvider>(context, listen: false);
     try {
@@ -98,7 +95,7 @@ class bookService {
               context: context,
               onSuccess: () {
                 debugPrint("isbn code: $code");
-                Navigator.push( context, MaterialPageRoute( builder: (context) => uploadPage(screenClosed: _screenWasClosed, bookInfoDetails: res.body)));
+                Navigator.push( context, MaterialPageRoute( builder: (context) => uploadBookPage(screenClosed: _screenWasClosed, bookInfoDetails: res.body)));
               },
             );
           }
