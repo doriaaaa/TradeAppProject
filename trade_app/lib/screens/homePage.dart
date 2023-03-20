@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
-import 'package:trade_app/screens/discussionPage.dart';
+import 'package:trade_app/services/comment/commentService.dart';
 import 'package:trade_app/services/thread/threadService.dart';
 import 'package:trade_app/widgets/reusableWidget.dart';
 import 'package:trade_app/provider/user_provider.dart';
@@ -33,15 +33,25 @@ class _homePageState extends State<homePage> {
     for (int count = threadList['result'].length-1; count >= 0; count--) {
       String title = threadList['result'][count]['title'];
       String author = threadList['result'][count]['author'];
+      String content = threadList['result'][count]['content'];
       int threadId = threadList['result'][count]['thread_id'];
       int likes = threadList['result'][count]['likes'];
       int views = threadList['result'][count]['views'];
+      String createdAt = threadList['result'][count]['createdAt'];
 
       displayItemList.add(gapBox);
       displayItemList.add(GestureDetector(
-        onTap: () {
-          // redirect to next page for discussion
-          Navigator.push( context, MaterialPageRoute( builder: (context) => discussionPage(thread: jsonEncode(threadList['result'][count]))));
+        onTap: () async {
+          commentService().displayAllCommentsInThread(
+            context: context, 
+            title: title,
+            author: author,
+            content: content,
+            threadId: threadId,
+            likes: likes,
+            views: views,
+            createdAt: createdAt
+          );
         }, 
         child: Card(
           elevation: 3,

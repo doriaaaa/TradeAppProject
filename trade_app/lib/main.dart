@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:sizer/sizer.dart';
+import 'package:trade_app/provider/comment_provider.dart';
 import 'package:trade_app/screens/loginPage.dart';
 import 'package:trade_app/routes/router.dart';
 import 'package:provider/provider.dart';
@@ -11,6 +12,9 @@ Future main() async {
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider(
       create: (context) => UserProvider(),
+    ),
+    ChangeNotifierProvider(
+      create: (context) => CommentProvider(),
     ),
   ], child: const MyApp()));
 }

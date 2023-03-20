@@ -1,24 +1,70 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:keyboard_attachable/keyboard_attachable.dart';
+import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
-import '../widgets/reusableWidget.dart';
+import 'package:trade_app/models/comment.dart';
+import '../provider/comment_provider.dart';
 
 class discussionPage extends StatefulWidget {
-  final String thread;
+  final String title;
+  final String author;
+  final String content;
+  final int threadId;
+  final int likes;
+  final int views;
+  final String createdAt;
 
-  const discussionPage({Key? key, required this.thread}) : super(key: key);
+  const discussionPage({
+    Key? key,
+    required this.title,
+    required this.author,
+    required this.content,
+    required this.threadId,
+    required this.likes,
+    required this.views,
+    required this.createdAt
+  }) : super(key: key);
 
   @override
   State<discussionPage> createState() => _discussionPageState();
 }
 
 class _discussionPageState extends State<discussionPage> {
+  final _commentPageKey = GlobalKey<_discussionPageState>();
+  List<Widget> displayItemList = [];
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _buildDisplayItemList();
+  }
+
+  void _buildDisplayItemList() async {
+    List<Comment> comments = Provider.of<CommentProvider>(context, listen: false).comments;
+    // List<Comment> comments = context.watch<CommentProvider>().comments;
+    print('**************************************');
+    print('comments.length: ${comments.length}');
+    for (int i=0; i<comments.length; i++) {
+      String body = comments[i].body; // access the body of the first comment in the list
+      String username = comments[i].username;
+      String date = comments[i].date;
+      print('body_$i: $body');
+      print('username_$i: $username');
+      print('date_$i: $date');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     // debugPrint(widget.thread);
-    Map fullThread = json.decode(widget.thread);
-    String title = fullThread['title'];
-    String timestamp = fullThread['createdAt'];
+
+    String title = widget.title;
+    String timestamp = widget.createdAt;
 
     final scollBarController = ScrollController(initialScrollOffset: 50.0);
     // thread content always display above
@@ -29,26 +75,27 @@ class _discussionPageState extends State<discussionPage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
-          Row(
-            children: <Widget>[
-              Container(
-                width: 10.w,
-                height: 10.h,
-                decoration: const BoxDecoration(
-                  shape: BoxShape.circle,
-                  image: DecorationImage(
-                    image: AssetImage('assets/avatar.jpg'), //dummy image
-                    fit: BoxFit.scaleDown
-                  )
-                ),
+          Row(children: <Widget>[
+            Container(
+              width: 10.w,
+              height: 10.h,
+              decoration: const BoxDecoration(
+                shape: BoxShape.circle,
+                image: DecorationImage(
+                  image: AssetImage('assets/avatar.jpg'), //dummy image
+                  fit: BoxFit.scaleDown
+                )
               ),
-              SizedBox(width: 2.w),
-              Text(fullThread['author'], style: TextStyle(fontSize: 12.sp),),
-              const Spacer(),
-              Text(timestamp.substring(0, timestamp.indexOf('T')))
-            ]
-          ),
-          Text(fullThread['content']),
+            ),
+            SizedBox(width: 2.w),
+            Text(
+              widget.author,
+              style: TextStyle(fontSize: 12.sp),
+            ),
+            const Spacer(),
+            Text(timestamp.substring(0, timestamp.indexOf('T')))
+          ]),
+          Text(widget.content),
           SizedBox(height: 2.h),
           Row(
             mainAxisSize: MainAxisSize.max,
@@ -64,32 +111,71 @@ class _discussionPageState extends State<discussionPage> {
       )
     );
 
-    //build commentlists
-    
-    final commentsDisplayList = Container(
-      
-    );
-
-    return Scaffold(
-      appBar: ReusableWidgets.persistentAppBar(title),
-      body: Scrollbar(
-        thumbVisibility: true,
-        controller: scollBarController,
-        child: ListView(
-          shrinkWrap: true,
-          controller: scollBarController,
-          // padding: EdgeInsets.only(left: 7.0.w, right: 7.0.w),
-          children: <Widget>[
-            threadContentDisplayBox,
-            Divider(
-              color: Colors.grey.withOpacity(0.5),
-              thickness: 1,
-            ),
-            SizedBox(height: 2.h),
-          ]
-          // display comments
+    return WillPopScope(
+      onWillPop: () async {
+        Provider.of<CommentProvider>(context, listen: false).clearComments();
+        return true;
+      },
+      child: Scaffold(
+        key: _commentPageKey,
+        appBar: AppBar(
+          centerTitle: true,
+          leading: IconButton(
+            onPressed: () { 
+              Provider.of<CommentProvider>(context, listen: false).clearComments();
+              Navigator.pop(context);
+            },
+            icon: const Icon( Icons.arrow_back_outlined ),
+          ),
+          flexibleSpace: const Image( image: AssetImage('assets/book_title.jpg'), fit: BoxFit.cover),
         ),
+        body: SafeArea(
+          maintainBottomViewPadding: true,
+          child: FooterLayout(
+            footer: const KeyboardAttachableFooter(),
+            child:Scrollbar(
+              thumbVisibility: true,
+              controller: scollBarController,
+              child: ListView(
+                shrinkWrap: true,
+                controller: scollBarController,
+                // padding: EdgeInsets.only(left: 7.0.w, right: 7.0.w),
+                children: <Widget>[
+                  threadContentDisplayBox,
+                  Divider(
+                    color: Colors.grey.withOpacity(0.5),
+                    thickness: 1,
+                  ),
+                  SizedBox(height: 2.h),
+                ]
+                // display comments
+              ),
+            )
+          ),
+        )
       )
     );
   }
+}
+
+class KeyboardAttachableFooter extends StatelessWidget {
+  const KeyboardAttachableFooter({super.key});
+
+  @override
+  Widget build(BuildContext context) => KeyboardAttachable(
+    child: Container(
+      padding: EdgeInsets.all(5.w),
+      child: Container(
+        child: const TextField(
+          decoration: InputDecoration(
+            hintText: "Tap me!",
+            filled: true,
+            border: OutlineInputBorder(),
+          ),
+        )
+      )
+      // TODO: add custom buttons
+      ,
+    ),
+  );
 }

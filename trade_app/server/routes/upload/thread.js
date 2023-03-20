@@ -23,7 +23,7 @@ postRouter.post('/api/upload/createThread', auth, async(req, res) => {
         savedThread = user.threads.push(newThread._id);
         const result = await user.save();
         if (result) {
-            res.status(201).json({
+            res.status(200).json({
                 msg: "success",
                 result: newThread
             });
@@ -47,6 +47,7 @@ postRouter.post('/api/upload/createThread', auth, async(req, res) => {
 postRouter.get('/api/upload/showAllThreads', async(req, res) => {
     try {
         const threads = await Thread.find({});
+        console.log(threads);
         var threadsMap = [];
 
         const promises = threads.map(async (thread) => {

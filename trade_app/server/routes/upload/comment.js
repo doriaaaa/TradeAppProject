@@ -3,6 +3,7 @@ const commentRouter = express.Router();
 const Comment = require("../../models/comment");
 const auth = require("../../middleware/auth");
 const Thread = require('../../models/thread');
+const User = require('../../models/user');
 
 // user create comment
 commentRouter.post("/api/upload/createComment", auth, async (req, res) => {
@@ -30,7 +31,7 @@ commentRouter.post("/api/upload/createComment", auth, async (req, res) => {
         thread.comments.push(newComment); 
         const threadResult = await thread.save();
         if (threadResult) {
-            res.status(201).json({
+            res.status(200).json({
                 msg: "success",
                 result: newComment
             });
@@ -55,6 +56,7 @@ commentRouter.get('/api/upload/showAllComments/thread/:thread_id', async (req, r
             const res = await findCommentById(commentObjId);
             return res;
         });
+        console.log(res);
         commentsMap = await Promise.all(promises); 
 
         if (commentsMap) {
@@ -76,9 +78,10 @@ commentRouter.get('/api/upload/showAllComments/thread/:thread_id', async (req, r
 
 async function findCommentById(commentObjId) {
     const comment = await Comment.findOne({ _id: commentObjId});
+    const user = await User.findOne({_id: comment.user_id});
     const res = {
         "body": comment.body,
-        "user_id": comment.user_id,
+        "username": user.name,
         "comment_id": comment.coment_id,
         "date": comment.date
     }
