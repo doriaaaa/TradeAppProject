@@ -26,7 +26,7 @@ class _homePageState extends State<homePage> {
   }
 
   void _buildDisplayItemList() async {
-    final String res = await threadService().displayAllThreads(context: context);
+    final String res = await threadService().showAllThreads(context: context);
     Map threadList = jsonDecode(res);
 
     // list starts with the latest one first
@@ -42,7 +42,7 @@ class _homePageState extends State<homePage> {
       displayItemList.add(gapBox);
       displayItemList.add(GestureDetector(
         onTap: () async {
-          commentService().displayAllCommentsInThread(
+          commentService().showAllCommentsInThread(
             context: context, 
             title: title,
             author: author,

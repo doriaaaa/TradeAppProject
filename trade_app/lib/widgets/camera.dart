@@ -4,8 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:sizer/sizer.dart';
 import 'package:trade_app/widgets/reusableWidget.dart';
-
-import '../services/upload.dart';
+import '../services/book/bookService.dart';
 
 class Camera extends StatefulWidget {
   static const String routeName = '/camera';
@@ -27,7 +26,7 @@ class _CameraState extends State<Camera> {
           MobileScanner( // need to show each barcode at a time, do not allow multiple codes
             allowDuplicates: false,
             controller: cameraController,
-            onDetect: (Barcode barcode, MobileScannerArguments? args) => { uploadService().getBookData(context, barcode, args)}
+            onDetect: (Barcode barcode, MobileScannerArguments? args) => { bookService().bookInfo(context, barcode, args)}
           ),
           Positioned(
             bottom: 8.h,

@@ -6,8 +6,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:sizer/sizer.dart';
+import 'package:trade_app/services/book/bookService.dart';
 import '../constants/utils.dart';
-import '../services/upload.dart';
 
 class uploadPage extends StatefulWidget {
   final String bookInfoDetails;
@@ -93,7 +93,7 @@ class _uploadPageState extends State<uploadPage> {
               // send request to backend server
               // only need to validate the photo?
               if (_formKey.currentState!.validate()) { 
-                uploadService().uploadPost(
+                bookService().universalImage(
                   context: context,
                   image: pickedImage, // should pass image value
                   bookInfo: widget.bookInfoDetails,

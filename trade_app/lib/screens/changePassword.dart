@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import 'package:trade_app/widgets/reusableWidget.dart';
-
-import '../services/userAction.dart';
+import '../services/user/userAccountService.dart';
 
 class changePasswordPage extends StatefulWidget {
   static const String routeName = '/changePassword';
@@ -73,7 +72,7 @@ class _changePasswordState extends State<changePasswordPage> {
         if (_formKey.currentState!.validate()) {
           // If the form is valid, display a snackbar. In the real world,
           // you'd often call a server or save the information in a database.
-          AuthService().changeUserPassword(
+          userAccountService().changePassword(
             context: context,
             oldPassword: oldPasswordController.text,
             newPassword: newPasswordController.text

@@ -5,36 +5,36 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:trade_app/constants/utils.dart';
-import '../constants/error_handling.dart';
 import 'package:provider/provider.dart';
 import 'package:trade_app/provider/user_provider.dart';
 
-import '../models/user.dart';
+import '../../constants/error_handling.dart';
+import '../../models/user.dart';
 
-class AuthService {
-  void signInUser({
+class userAccountService {
+  void signIn({
     required BuildContext context,
     required String email,
     required String password,
   }) async {
     try {
-      http.Response res = await http.post(
-          Uri.parse('http://${dotenv.env['IP_ADDRESS']}:3000/api/signin'),
-          body: jsonEncode({
-            'email': email,
-            'password': password,
-          }),
-          headers: <String, String>{
-            'Content-Type': 'application/json; charset=UTF-8'
-          });
-      // debugPrint(res.body);
+      http.Response res = await http.post(Uri.parse('http://${dotenv.env['IP_ADDRESS']}:3000/api/user/account/signIn'),
+        body: jsonEncode({
+          'email': email,
+          'password': password,
+        }),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8'
+        }
+      );
+      debugPrint(res.body);
       debugPrint("ipaddress: ${dotenv.env['IP_ADDRESS']}");
       if (context.mounted) {
         httpErrorHandle(
           response: res,
           context: context,
           onSuccess: () async {
-            showSnackBar( context, 'You have logged in successfully.');
+            showSnackBar(context, 'You have logged in successfully.');
             //store token in app memory
             SharedPreferences prefs = await SharedPreferences.getInstance();
             await prefs.setString('x-auth-token', jsonDecode(res.body)['token']);
@@ -50,7 +50,7 @@ class AuthService {
     }
   }
 
-  void signUpUser({
+  void signUp({
     required BuildContext context,
     required String name,
     required String email,
@@ -58,7 +58,8 @@ class AuthService {
   }) async {
     try {
       http.Response res = await http.post(
-          Uri.parse('http://${dotenv.env['IP_ADDRESS']}:3000/api/signup'),
+          Uri.parse(
+              'http://${dotenv.env['IP_ADDRESS']}:3000/api/account/signUp'),
           body: jsonEncode({
             'name': name,
             'email': email,
@@ -72,7 +73,8 @@ class AuthService {
           response: res,
           context: context,
           onSuccess: () async {
-            showSnackBar(context, "Your account has been created successfully. Please login.");
+            showSnackBar(context,
+                "Your account has been created successfully. Please login.");
             Navigator.pushNamed(context, "/login");
           },
         );
@@ -82,16 +84,15 @@ class AuthService {
     }
   }
 
-  void changeUserPassword({
-    required BuildContext context,
-    required String oldPassword,
-    required String newPassword
-  }) async {
+  void changePassword(
+      {required BuildContext context,
+      required String oldPassword,
+      required String newPassword}) async {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
     try {
       http.Response res = await http.post(
           Uri.parse(
-              'http://${dotenv.env['IP_ADDRESS']}:3000/api/user/changePassword'),
+              'http://${dotenv.env['IP_ADDRESS']}:3000/api/user/account/changePassword'),
           body: jsonEncode({
             'oldPassword': oldPassword,
             'newPassword': newPassword,
@@ -105,8 +106,9 @@ class AuthService {
           response: res,
           context: context,
           onSuccess: () async {
-            showSnackBar(context, 'Your password has updated. Please login again');
-            userLogout(context);
+            showSnackBar(
+                context, 'Your password has updated. Please login again');
+            logout(context);
           },
         );
       }
@@ -125,15 +127,16 @@ class AuthService {
       List<int> imageBytes = image!.readAsBytesSync();
       String base64Image = base64Encode(imageBytes);
       http.Response res = await http.post(
-          Uri.parse('http://${dotenv.env['IP_ADDRESS']}:3000/api/upload/image'),
+          Uri.parse(
+              'http://${dotenv.env['IP_ADDRESS']}:3000/api/universal/image'),
           body: jsonEncode({"image": base64Image}),
           headers: {
             'Content-Type': 'application/json; charset=UTF-8',
           });
       var imageUrl = jsonDecode(res.body)['result'];
+      print(imageUrl);
       http.Response result = await http.post(
-          Uri.parse(
-              'http://${dotenv.env['IP_ADDRESS']}:3000/api/user/updateProfilePicture'),
+          Uri.parse('http://${dotenv.env['IP_ADDRESS']}:3000/api/user/account/updateProfilePicture'),
           body: jsonEncode({"profilePicture": imageUrl}),
           headers: {
             'Content-Type': 'application/json; charset=UTF-8',
@@ -154,13 +157,20 @@ class AuthService {
     }
   }
 
-  void userLogout(BuildContext context) async {
+  void logout(BuildContext context) async {
     try {
-      Navigator.pushNamedAndRemoveUntil( context, '/login', (route) => false);
-      SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-      await sharedPreferences.setString('x-auth-token', ''); // reset the auth token
+      Navigator.pushNamedAndRemoveUntil(context, '/login', (route) => false);
+      SharedPreferences sharedPreferences =
+          await SharedPreferences.getInstance();
+      await sharedPreferences.setString(
+          'x-auth-token', ''); // reset the auth token
     } catch (e) {
       debugPrint(e.toString());
     }
   }
+
+  void changeUserPassword(
+      {required BuildContext context,
+      required String oldPassword,
+      required String newPassword}) {}
 }

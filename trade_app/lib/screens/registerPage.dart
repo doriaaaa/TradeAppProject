@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import 'package:trade_app/widgets/reusableWidget.dart';
-import 'package:trade_app/services/userAction.dart';
+import '../services/user/userAccountService.dart';
 
 class registerPage extends StatefulWidget {
   static const String routeName = '/register';
@@ -117,7 +117,7 @@ class _registerPageState extends State<registerPage> {
       child: const Text('Register'),
       onPressed: () {
         if (_formKey.currentState!.validate()) {
-          AuthService().signUpUser(
+          userAccountService().signUp(
             context: context,
             email: emailController.text,
             password: passwordController.text,

@@ -51,7 +51,7 @@ tradeApp@hku / TestingDummy
 3. Book review API
 - [ ] Database: set up a book review model
 - [ ] create review for the book with specified bookID / bookname
-- [ ] get all reviews
+- [x] get all reviews
 - [ ] get one review entry
 - [ ] edit the review
 - [ ] delete the review
@@ -64,23 +64,27 @@ tradeApp@hku / TestingDummy
 
 ###### API ENDPOINTS:
 1. User
-- [x] POST /api/user/changePassword
-- [x] POST /api/user/updateProfilePicture
-- [x] GET  /api/user/bookList
+- [x] POST /api/user/account/signIn
+- [x] POST /api/user/account/signUp
+- [x] POST /api/user/account/changePassword
+- [x] POST /api/user/account/updateProfilePicture
+- [x] GET  /api/user/book/bookList
+- [x] GET  /api/user/info/:username
 
 2. Auth
-- [x] POST /api/signin
-- [x] POST /api/signup
+- [x] POST /api/auth/tokenIsValid
 
-3. Thread related
-- [x] POST /api/upload/createThread
-- [x] POST /api/upload/createComment
-- [x] GET  /api/upload/showAllThreads
-- [x] GET  /api/upload/showAllComments/thread/:threadId
+3. Thread
+- [x] POST /api/thread/createThread
+- [x] GET  /api/thread/showAllThreads
+
+4. Comment
+- [x] POST /api/comment/createComment
+- [x] GET  /api/comment/showAllComments/thread/:threadId
 
 4. Book
 - [x] POST /api/book/info
 - [x] POST /api/book/upload
 
 5. Universal
-- [x] POST /api/upload/image
+- [x] POST /api/universal/image

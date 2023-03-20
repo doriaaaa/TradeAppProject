@@ -7,11 +7,11 @@ console.log("hello server");
 
 //IMPORT FROM OTHER FILES
 const authRouter = require('./routes/auth');
-const bookInfoRouter = require('./routes/book/book');
-const imgurRouter = require('./routes/upload/image');
-const userActionRouter = require('./routes/user/user_action');
-const postRouter = require('./routes/upload/thread');
-const commentRouter = require('./routes/upload/comment');
+const bookRouter = require('./routes/book');
+const universalRouter = require('./routes/universal/image');
+const threadRouter = require('./routes/thread');
+const commentRouter = require('./routes/comment');
+const userRouter = require('./routes/user');
 
 //INIT
 const app = express();
@@ -21,11 +21,11 @@ app.use(express.json({limit: '10mb'})); // allow image string to send to nodejs 
 app.use(bodyParser.json({limit : '10mb'}));  
 app.use(express.json());
 app.use(authRouter);
-app.use(bookInfoRouter);
-app.use(imgurRouter);
-app.use(userActionRouter);
-app.use(postRouter);
+app.use(bookRouter);
+app.use(universalRouter);
+app.use(threadRouter);
 app.use(commentRouter);
+app.use(userRouter);
 
 // connections
 

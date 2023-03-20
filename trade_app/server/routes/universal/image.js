@@ -1,11 +1,11 @@
 // imgur upload api
 require('dotenv').config();
 const express = require('express');
-const imgurRouter = express.Router();
+const universalRouter = express.Router();
 const axios = require('axios');
 const FormData = require('form-data');
 
-imgurRouter.post('/api/upload/image', async (req, res, next) => { 
+universalRouter.post('/api/universal/image', async (req, res, next) => { 
     try {
         const imageData = await req.body["image"];
         const formData = new FormData();
@@ -35,7 +35,8 @@ imgurRouter.post('/api/upload/image', async (req, res, next) => {
             });
         }
     } catch (e) {
+        console.log(e.message);
         res.status(500).json({ error: e.message });
     }
 });
-module.exports = imgurRouter;
+module.exports = universalRouter;

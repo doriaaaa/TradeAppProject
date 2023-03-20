@@ -9,15 +9,14 @@ import '../../provider/comment_provider.dart';
 import '../../provider/user_provider.dart';
 
 class commentService {
-  Future<bool> createNewComment({
+  Future<bool> createComment({
     required BuildContext context,
     required String body,
     required int threadId
   }) async {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
-    final commentProvider = Provider.of<CommentProvider>(context, listen: false);
     try {
-      http.Response res = await http.post(Uri.parse('http://${dotenv.env['IP_ADDRESS']}:3000/api/upload/createComment'),
+      http.Response res = await http.post(Uri.parse('http://${dotenv.env['IP_ADDRESS']}:3000/api/comment/createComment'),
         body: jsonEncode({
           'body': body,
           'thread_id': threadId,
@@ -27,7 +26,7 @@ class commentService {
           'x-auth-token': userProvider.user.token
         }
       );
-      print('res: ${res.body}');
+      // print('res: ${res.body}');
       Map comment = jsonDecode(res.body);
       // update ui
       if (context.mounted) {
@@ -41,7 +40,7 @@ class commentService {
               "date": comment["result"]["date"]
             });
             Provider.of<CommentProvider>(context, listen: false).setComment(newComment);
-            print(commentProvider.comments);
+            // print(commentProvider.comments);
           },
         );
       }
@@ -51,7 +50,7 @@ class commentService {
     return true;
   }
 
-  void displayAllCommentsInThread({
+  void showAllCommentsInThread({
     required BuildContext context,
     required String title,
     required String author,
@@ -62,11 +61,10 @@ class commentService {
     required String createdAt
   }) async {
     try {
-      http.Response res = await http.get(Uri.parse('http://${dotenv.env['IP_ADDRESS']}:3000/api/upload/showAllComments/thread/$threadId'));
+      http.Response res = await http.get(Uri.parse('http://${dotenv.env['IP_ADDRESS']}:3000/api/comment/showAllComments/thread/$threadId'));
       // print('res: ${res.body}');
       Map commentList = jsonDecode(res.body);
       // print('comments_1: ${commentList['result'][0]}');
-      // print('comments_2: ${commentList['result'][1]}');
       if (context.mounted) {
         httpErrorHandle(
           response: res,

@@ -1,13 +1,13 @@
 const express = require('express');
 const isbn = require('node-isbn');
-const bookInfoRouter = express.Router();
-const User = require("../../models/user");
-const Book = require("../../models/book");
-const auth = require("../../middleware/auth");
+const bookRouter = express.Router();
+const User = require("../models/user");
+const Book = require("../models/book");
+const auth = require("../middleware/auth");
 // for uploading books to bookshelf
 
 // get book info
-bookInfoRouter.post("/api/book/info", async (req, res) => {
+bookRouter.post("/api/book/info", async (req, res) => {
     const { book_isbn } = req.body;
 
     isbn.resolve(book_isbn).then(function (book) {
@@ -18,7 +18,7 @@ bookInfoRouter.post("/api/book/info", async (req, res) => {
 });
 
 // upload book to bookshelf
-bookInfoRouter.post("/api/book/upload", auth, async (req, res) => {
+bookRouter.post("/api/book/upload", auth, async (req, res) => {
     // req.body only consists of book json from /api/book/info and image link
     const { bookInfo, image } = req.body;
     try {
@@ -49,4 +49,4 @@ bookInfoRouter.post("/api/book/upload", auth, async (req, res) => {
 
 // delete a book in bookshelf
 
-module.exports = bookInfoRouter;
+module.exports = bookRouter;

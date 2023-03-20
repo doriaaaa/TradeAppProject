@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 import 'package:trade_app/models/comment.dart';
 import '../provider/comment_provider.dart';
+import '../provider/user_provider.dart';
 import '../services/comment/commentService.dart';
 
 class discussionPage extends StatefulWidget {
@@ -118,6 +119,7 @@ class _discussionPageState extends State<discussionPage> {
     String timestamp = widget.createdAt;
     final commentController = TextEditingController();
     final _formKey = GlobalKey<FormState>();
+    String profilePicture = context.watch<UserProvider>().user.profilePicture;
     
     final scollBarController = ScrollController(initialScrollOffset: 50.0);
     // thread content always display above
@@ -174,10 +176,14 @@ class _discussionPageState extends State<discussionPage> {
     ];
 
     List<Widget> threadCommentList = displayItemList + displayCommentList;
+
+    final _focusNode = FocusNode();
     
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
+        FocusScope.of(context).requestFocus(FocusNode());
+        // FocusScope.of(context).unfocus();
       },
       child:WillPopScope(
         onWillPop: () async {
@@ -223,7 +229,7 @@ class _discussionPageState extends State<discussionPage> {
                           icon: const Icon(Icons.send),
                           onPressed: () {
                             if (_formKey.currentState!.validate()) {
-                              commentService().createNewComment(
+                              commentService().createComment(
                                 context: context,
                                 body: commentController.text,
                                 threadId: widget.threadId

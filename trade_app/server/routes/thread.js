@@ -1,11 +1,11 @@
 const express = require('express');
-const User = require("../../models/user");
-const postRouter = express.Router();
-const auth = require("../../middleware/auth");
-const Thread = require('../../models/thread');
+const User = require("../models/user");
+const threadRouter = express.Router();
+const auth = require("../middleware/auth");
+const Thread = require('../models/thread');
 
 // user create a post
-postRouter.post('/api/upload/createThread', auth, async(req, res) => {
+threadRouter.post('/api/thread/createThread', auth, async(req, res) => {
     // req body: title, content
     const { title, content } = req.body;
     try {
@@ -44,7 +44,7 @@ postRouter.post('/api/upload/createThread', auth, async(req, res) => {
 // user edit a post
 
 // get all posts
-postRouter.get('/api/upload/showAllThreads', async(req, res) => {
+threadRouter.get('/api/thread/showAllThreads', async(req, res) => {
     try {
         const threads = await Thread.find({});
         console.log(threads);
@@ -92,4 +92,4 @@ async function findAuthorByThread(thread) {
     return res;
 }
 
-module.exports = postRouter;
+module.exports = threadRouter;

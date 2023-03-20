@@ -9,7 +9,7 @@ import '../../constants/utils.dart';
 import '../../provider/user_provider.dart';
 
 class threadService {
-  void createNewThread({
+  void createThread({
     required BuildContext context,
     required String title,
     required String content
@@ -18,7 +18,7 @@ class threadService {
     try {
       http.Response res = await http.post(
           Uri.parse(
-              'http://${dotenv.env['IP_ADDRESS']}:3000/api/upload/createThread'),
+              'http://${dotenv.env['IP_ADDRESS']}:3000/api/thread/createThread'),
           body: jsonEncode({
             'title': title,
             'content': content,
@@ -42,11 +42,11 @@ class threadService {
     }
   }
 
-  Future<String> displayAllThreads({
+  Future<String> showAllThreads({
     required BuildContext context,
   }) async {
     try {
-      http.Response res = await http.get(Uri.parse('http://${dotenv.env['IP_ADDRESS']}:3000/api/upload/showAllThreads'));
+      http.Response res = await http.get(Uri.parse('http://${dotenv.env['IP_ADDRESS']}:3000/api/thread/showAllThreads'));
       return res.body;
     } catch (e) {
       debugPrint(e.toString());

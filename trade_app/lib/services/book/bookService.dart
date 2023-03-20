@@ -6,13 +6,14 @@ import 'package:http/http.dart' as http;
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:provider/provider.dart';
 import 'package:trade_app/provider/user_provider.dart';
-import '../constants/error_handling.dart';
-import '../constants/utils.dart';
-import '../screens/uploadPage.dart';
 import 'package:image/image.dart' as image_process;
 
-class uploadService {
-  void uploadPost({
+import '../../constants/error_handling.dart';
+import '../../constants/utils.dart';
+import '../../screens/uploadPage.dart';
+
+class bookService {
+  void universalImage({
     required BuildContext context,
     required File? image, 
     required String bookInfo, // this is a json response, use Map extractedDetails = json.decode(widget.bookInfoDetails); // map json response
@@ -23,7 +24,7 @@ class uploadService {
       List<int> imageBytes = image!.readAsBytesSync();
       String base64Image = base64Encode(imageBytes);
       // print(base64Image);
-      http.Response res = await http.post(Uri.parse('http://${dotenv.env['IP_ADDRESS']}:3000/api/upload/image'),
+      http.Response res = await http.post(Uri.parse('http://${dotenv.env['IP_ADDRESS']}:3000/api/universal/image'),
         body: jsonEncode({ 
           "image": base64Image
         }),
@@ -33,13 +34,13 @@ class uploadService {
       );
       // debugPrint(res.body); 
       debugPrint(res.body);
-      if (context.mounted) uploadDB(context, jsonDecode(res.body)['result'], bookInfo);
+      if (context.mounted) bookUpload(context, jsonDecode(res.body)['result'], bookInfo);
     } catch (e) {
       debugPrint(e.toString());
     }
   }
 
-  void uploadDB(BuildContext context, String imageURL, String bookInfo) async {
+  void bookUpload(BuildContext context, String imageURL, String bookInfo) async {
     // store to db by calling backend server
     final userProvider = Provider.of<UserProvider>(context, listen: false);
     Map bookDetails = jsonDecode(bookInfo);
@@ -70,7 +71,7 @@ class uploadService {
     }
   }
 
-  Future<String> getBookData( BuildContext context, Barcode barcode, MobileScannerArguments? args) async {
+  Future<String> bookInfo( BuildContext context, Barcode barcode, MobileScannerArguments? args) async {
     bool _screenOpened = false;
     // final userProvider = Provider.of<UserProvider>(context, listen: false);
     void _screenWasClosed() { _screenOpened = false; }

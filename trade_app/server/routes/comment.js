@@ -1,12 +1,12 @@
 const express = require('express');
 const commentRouter = express.Router();
-const Comment = require("../../models/comment");
-const auth = require("../../middleware/auth");
-const Thread = require('../../models/thread');
-const User = require('../../models/user');
+const Comment = require("../models/comment");
+const auth = require("../middleware/auth");
+const Thread = require('../models/thread');
+const User = require('../models/user');
 
 // user create comment
-commentRouter.post("/api/upload/createComment", auth, async (req, res) => {
+commentRouter.post("/api/comment/createComment", auth, async (req, res) => {
     const { body, thread_id } = req.body;
     try {
         // count how many comments in the current thread
@@ -46,9 +46,9 @@ commentRouter.post("/api/upload/createComment", auth, async (req, res) => {
     }
 });
 // show all comments
-commentRouter.get('/api/upload/showAllComments/thread/:thread_id', async (req, res) => {
+commentRouter.get('/api/comment/showAllComments/thread/:threadId', async (req, res) => {
     try {
-        const commentsList = await Thread.findOne({ thread_id: req.params.thread_id });
+        const commentsList = await Thread.findOne({ thread_id: req.params.threadId });
         const commentsObjList = commentsList.comments;
         var commentsMap = [];
 

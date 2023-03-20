@@ -1,17 +1,15 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:babstrap_settings_screen/babstrap_settings_screen.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
-import 'package:trade_app/services/userAction.dart';
 import 'package:trade_app/widgets/reusableWidget.dart';
 import 'package:trade_app/provider/user_provider.dart';
 import 'package:provider/provider.dart';
-
 import '../main.dart';
+import '../services/user/userAccountService.dart';
 
 class settingsPage extends StatefulWidget {
   const settingsPage({Key? key}) : super(key: key);
@@ -49,7 +47,7 @@ class _settingsPageState extends State<settingsPage> {
     String profilePicture = context.watch<UserProvider>().user.profilePicture;
 
     void _updateProfilePicture(File? pickedImage) {
-      AuthService().updateProfilePicture(context: context, image: pickedImage);
+      userAccountService().updateProfilePicture(context: context, image: pickedImage);
     }
 
     return Scaffold(
@@ -61,8 +59,8 @@ class _settingsPageState extends State<settingsPage> {
           SimpleUserCard(
             userName: username,
             userProfilePic: profilePicture == ""
-                ? const AssetImage('assets/default.jpg') as ImageProvider
-                : NetworkImage(profilePicture),
+              ? const AssetImage('assets/default.jpg') as ImageProvider
+              : NetworkImage(profilePicture),
           ),
           SettingsGroup(
             items: [
@@ -128,7 +126,7 @@ class _settingsPageState extends State<settingsPage> {
             items: [
               SettingsItem(
                 onTap: () {
-                  AuthService().userLogout(context);
+                  userAccountService().logout(context);
                 },
                 icons: Icons.exit_to_app_rounded,
                 title: "Sign Out",

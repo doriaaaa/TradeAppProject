@@ -60,7 +60,7 @@ class _createThreadPageState extends State<createThreadPage> {
             IconButton( 
               onPressed: () {
                 if (_formKey.currentState!.validate()) { 
-                  threadService().createNewThread(
+                  threadService().createThread(
                     context: context,
                     title: titleInputFieldController.text, 
                     content: contentInputFieldController.text

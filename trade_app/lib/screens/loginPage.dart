@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:trade_app/widgets/reusableWidget.dart';
-import 'package:trade_app/services/userAction.dart';
 import 'package:sizer/sizer.dart';
+
+import '../services/user/userAccountService.dart';
 
 class loginPage extends StatefulWidget {
   static String tag = 'login-page';
@@ -93,7 +94,7 @@ class _loginPageState extends State<loginPage> {
         if (_formKey.currentState!.validate()) {
           // If the form is valid, display a snackbar. In the real world,
           // you'd often call a server or save the information in a database.
-          AuthService().signInUser(
+          userAccountService().signIn(
             context: context,
             email: emailController.text,
             password: passwordController.text
