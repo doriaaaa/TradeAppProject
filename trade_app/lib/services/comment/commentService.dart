@@ -1,22 +1,21 @@
 import 'dart:convert';
-import 'dart:ffi';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
-import 'package:trade_app/models/comment.dart';
 import 'package:trade_app/screens/discussionPage.dart';
 import '../../constants/error_handling.dart';
 import '../../provider/comment_provider.dart';
 import '../../provider/user_provider.dart';
 
 class commentService {
-  void createNewComment({
+  Future<bool> createNewComment({
     required BuildContext context,
     required String body,
-    required Int threadId
+    required int threadId
   }) async {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
+    final commentProvider = Provider.of<CommentProvider>(context, listen: false);
     try {
       http.Response res = await http.post(Uri.parse('http://${dotenv.env['IP_ADDRESS']}:3000/api/upload/createComment'),
         body: jsonEncode({
@@ -28,10 +27,28 @@ class commentService {
           'x-auth-token': userProvider.user.token
         }
       );
+      print('res: ${res.body}');
+      Map comment = jsonDecode(res.body);
       // update ui
+      if (context.mounted) {
+        httpErrorHandle(
+          response: res,
+          context: context,
+          onSuccess: () {
+            var newComment = jsonEncode({
+              "body": comment["result"]["body"],
+              "username": userProvider.user.name,
+              "date": comment["result"]["date"]
+            });
+            Provider.of<CommentProvider>(context, listen: false).setComment(newComment);
+            print(commentProvider.comments);
+          },
+        );
+      }
     } catch (e) {
       debugPrint(e.toString());
     }
+    return true;
   }
 
   void displayAllCommentsInThread({
@@ -50,7 +67,6 @@ class commentService {
       Map commentList = jsonDecode(res.body);
       // print('comments_1: ${commentList['result'][0]}');
       // print('comments_2: ${commentList['result'][1]}');
-      final commentProvider = CommentProvider();
       if (context.mounted) {
         httpErrorHandle(
           response: res,
