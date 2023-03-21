@@ -89,7 +89,7 @@ class _settingsPageState extends State<settingsPage> {
                   backgroundColor: Colors.black54,
                 ),
                 title: 'Dark mode',
-                subtitle: "TODO",
+                subtitle: "Toggle the switch to change the theme",
                 trailing: Switch.adaptive(
                   value: _isToggled,
                   onChanged: (value) {

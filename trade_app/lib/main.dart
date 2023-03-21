@@ -9,14 +9,15 @@ import 'package:trade_app/provider/user_provider.dart';
 
 Future main() async {
   await dotenv.load(fileName: ".env");
-  runApp(MultiProvider(providers: [
-    ChangeNotifierProvider(
-      create: (context) => UserProvider(),
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider( create: (context) => UserProvider()),
+        ChangeNotifierProvider( create: (context) => CommentProvider())
+      ], 
+      child: const MyApp()
     ),
-    ChangeNotifierProvider(
-      create: (context) => CommentProvider(),
-    ),
-  ], child: const MyApp()));
+  );
 }
 
 class MyApp extends StatefulWidget {

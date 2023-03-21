@@ -176,8 +176,6 @@ class _discussionPageState extends State<discussionPage> {
     ];
 
     List<Widget> threadCommentList = displayItemList + displayCommentList;
-
-    final _focusNode = FocusNode();
     
     return GestureDetector(
       onTap: () {

@@ -51,6 +51,8 @@ dependencies:
   flutter_dotenv: ^5.0.2
   keyboard_attachable: ^2.1.0
   flutter_rating_bar: ^4.0.1
+  dart_openai: ^1.8.3
+  markdown_widget: ^2.1.0
   
 
 dev_dependencies:

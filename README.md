@@ -21,9 +21,10 @@ flutter run
 1. Login as super@dmin (this is a sample account), and I changed the password lol
 ```
 adminregister@gmail.com
-tradeApp@hku / TestingDummy
+testingDummy
 ```
 2. Changing the IP address in .env
+3. To access chatGPT function, you need to setup overseas vpn and set up split tunneling config
 
 ###### WORK:
 1. User login / logout
@@ -37,6 +38,7 @@ tradeApp@hku / TestingDummy
 9. User change password
 10. Home Page UI
 11. User upload profile pic
+12. ChatGPT replaces searchPage
 
 ###### TODO: 
 1. User Management API
@@ -69,7 +71,7 @@ tradeApp@hku / TestingDummy
 - [x] POST /api/user/account/changePassword
 - [x] POST /api/user/account/updateProfilePicture
 - [x] GET  /api/user/book/bookList
-- [x] GET  /api/user/info/:username
+- [ ] GET  /api/user/info/:username
 
 2. Auth
 - [x] POST /api/auth/tokenIsValid

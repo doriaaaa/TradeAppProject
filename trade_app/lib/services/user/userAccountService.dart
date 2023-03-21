@@ -26,8 +26,8 @@ class userAccountService {
           'Content-Type': 'application/json; charset=UTF-8'
         }
       );
-      debugPrint(res.body);
-      debugPrint("ipaddress: ${dotenv.env['IP_ADDRESS']}");
+      // debugPrint(res.body);
+      // debugPrint("ipaddress: ${dotenv.env['IP_ADDRESS']}");
       if (context.mounted) {
         httpErrorHandle(
           response: res,
@@ -56,24 +56,22 @@ class userAccountService {
     required String password,
   }) async {
     try {
-      http.Response res = await http.post(
-          Uri.parse(
-              'http://${dotenv.env['IP_ADDRESS']}:3000/api/account/signUp'),
-          body: jsonEncode({
-            'name': name,
-            'email': email,
-            'password': password,
-          }),
-          headers: <String, String>{
-            'Content-Type': 'application/json; charset=UTF-8'
-          });
+      http.Response res = await http.post( Uri.parse('http://${dotenv.env['IP_ADDRESS']}:3000/api/account/signUp'),
+        body: jsonEncode({
+          'name': name,
+          'email': email,
+          'password': password,
+        }),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8'
+        }
+      );
       if (context.mounted) {
         httpErrorHandle(
           response: res,
           context: context,
           onSuccess: () async {
-            showSnackBar(context,
-                "Your account has been created successfully. Please login.");
+            showSnackBar(context, "Your account has been created successfully. Please login.");
             Navigator.pushNamed(context, "/login");
           },
         );
@@ -105,8 +103,7 @@ class userAccountService {
           response: res,
           context: context,
           onSuccess: () async {
-            showSnackBar(
-                context, 'Your password has updated. Please login again');
+            showSnackBar(context, 'Your password has updated. Please login again');
             logout(context);
           },
         );
@@ -125,13 +122,12 @@ class userAccountService {
     try {
       List<int> imageBytes = image!.readAsBytesSync();
       String base64Image = base64Encode(imageBytes);
-      http.Response res = await http.post(
-          Uri.parse(
-              'http://${dotenv.env['IP_ADDRESS']}:3000/api/universal/image'),
-          body: jsonEncode({"image": base64Image}),
-          headers: {
-            'Content-Type': 'application/json; charset=UTF-8',
-          });
+      http.Response res = await http.post( Uri.parse('http://${dotenv.env['IP_ADDRESS']}:3000/api/universal/image'),
+        body: jsonEncode({"image": base64Image}),
+        headers: {
+          'Content-Type': 'application/json; charset=UTF-8',
+        }
+      );
       var imageUrl = jsonDecode(res.body)['result'];
       if (imageUrl!) imageUrl = "";
       http.Response result = await http.post( Uri.parse('http://${dotenv.env['IP_ADDRESS']}:3000/api/user/account/updateProfilePicture'),
