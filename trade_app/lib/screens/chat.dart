@@ -23,8 +23,8 @@ class _chatPageState extends State<chatPage> {
 
   @override
   Widget build(BuildContext context) {
-    return 
-    GestureDetector(
+    final scollBarController = ScrollController(initialScrollOffset: 50.0);
+    return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
         FocusScope.of(context).requestFocus(FocusNode());
@@ -34,17 +34,23 @@ class _chatPageState extends State<chatPage> {
         body: Column(
           children: [
             Expanded(
-              child: ListView(
-                padding: EdgeInsets.only(left: 4.0.w, right: 4.0.w),
-                children: [
-                  ..._messages.map(
-                    (msg) => MessageBubble(
-                      content: msg.content,
-                      isUserMessage: msg.isUserMessage,
+              child: Scrollbar(
+                thumbVisibility: true,
+                controller: scollBarController,
+                child: ListView(
+                  shrinkWrap: true,
+                  controller: scollBarController,
+                  padding: EdgeInsets.only(left: 4.0.w, right: 4.0.w),
+                  children: [
+                    ..._messages.map(
+                      (msg) => MessageBubble(
+                        content: msg.content,
+                        isUserMessage: msg.isUserMessage,
+                      ),
                     ),
-                  ),
-                ],
-              ),
+                  ],
+                ),
+              )
             ),
             MessageComposer(
               onSubmitted: _onSubmitted,

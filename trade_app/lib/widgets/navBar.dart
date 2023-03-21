@@ -44,7 +44,7 @@ class _NavBarState extends State<NavBar> {
         padding: EdgeInsets.symmetric(horizontal: 3.w, vertical: 2.h),
         tabs: const [
           GButton( icon: Icons.home_outlined, text: 'home'),
-          GButton( icon: Icons.chat_outlined, text: 'search'),
+          GButton( icon: Icons.chat_outlined, text: 'chat'),
           GButton( icon: Icons.bookmark_outline, text: 'books'),
           GButton( icon: Icons.notifications_outlined, text: 'news'),
           GButton( icon: Icons.settings_outlined, text: 'settings'),

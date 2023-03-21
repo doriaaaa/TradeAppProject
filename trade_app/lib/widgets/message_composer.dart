@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sizer/sizer.dart';
 
 class MessageComposer extends StatelessWidget {
   MessageComposer({
@@ -15,41 +16,38 @@ class MessageComposer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(12),
-      color: Theme.of(context).colorScheme.secondaryContainer.withOpacity(0.05),
+      padding: EdgeInsets.all(3.w),
+      // color: Theme.of(context).colorScheme.secondaryContainer.withOpacity(0.05),
       child: SafeArea(
         child: Row(
           children: [
             Expanded(
               child: !awaitingResponse
-                ? TextField(
+                ? TextFormField(
+                    maxLines: null,
                     controller: _messageController,
-                    onSubmitted: onSubmitted,
-                    decoration: const InputDecoration(
+                    // onSubmitted: onSubmitted,
+                    decoration: InputDecoration(
                       hintText: 'Ask questions here...',
-                      border: InputBorder.none,
+                      filled: true,
+                      contentPadding: EdgeInsets.all(3.w),
+                      border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0)),
+                      suffixIcon: IconButton(
+                        icon: const Icon(Icons.send),
+                        onPressed: !awaitingResponse
+                          ? () => onSubmitted(_messageController.text)
+                          : null,
+                      ),
                     ),
                   )
                 : Row(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
-                      SizedBox(
-                        height: 24,
-                        width: 24,
-                        child: CircularProgressIndicator(),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.all(16),
-                        child: Text('Fetching response...'),
-                      ),
+                    children: <Widget> [
+                      const SizedBox( child: CircularProgressIndicator() ),
+                      SizedBox(width: 2.w),
+                      const Text('Fetching response...'),
                     ],
                   ),
-            ),
-            IconButton(
-              onPressed: !awaitingResponse
-                  ? () => onSubmitted(_messageController.text)
-                  : null,
-              icon: const Icon(Icons.send),
             ),
           ],
         ),

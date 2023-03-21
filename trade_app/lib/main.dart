@@ -42,7 +42,7 @@ class _MyAppState extends State<MyApp> {
     return Sizer(builder: (context, orientation, deviceType) {
       return MaterialApp(
         title: 'Trade App',
-        theme: ThemeData(fontFamily: 'Menlo'),
+        theme: ThemeData(),
         darkTheme: ThemeData.dark(),
         themeMode: _themeMode, // 2) ← ← ← use "state" field here //////////////
         home: const loginPage(),

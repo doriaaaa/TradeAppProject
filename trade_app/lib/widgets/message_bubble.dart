@@ -1,6 +1,5 @@
 import 'package:chat_bubbles/bubbles/bubble_special_three.dart';
 import 'package:flutter/material.dart';
-import 'package:markdown_widget/markdown_widget.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 import '../provider/user_provider.dart';
@@ -37,7 +36,7 @@ class MessageBubble extends StatelessWidget {
           Expanded(
             child: BubbleSpecialThree(
               text: content,
-              color: themeData.colorScheme.primary.withOpacity(0.4),
+              color: themeData.colorScheme.primary.withOpacity(0.2),
               tail: false,
               textStyle: TextStyle(
                 color: themeData.brightness == Brightness.dark
