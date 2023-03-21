@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:sizer/sizer.dart';
 import '../api/chat_api.dart';
+import '../constants/utils.dart';
 import '../models/chat_message.dart';
 import '../widgets/message_bubble.dart';
 import '../widgets/message_composer.dart';
@@ -26,7 +28,6 @@ class _chatPageState extends State<chatPage> {
       onTap: () {
         FocusScope.of(context).unfocus();
         FocusScope.of(context).requestFocus(FocusNode());
-        // FocusScope.of(context).unfocus();
       },
       child: Scaffold(
         appBar: ReusableWidgets.persistentAppBar('ChatGPT'),
@@ -34,6 +35,7 @@ class _chatPageState extends State<chatPage> {
           children: [
             Expanded(
               child: ListView(
+                padding: EdgeInsets.only(left: 4.0.w, right: 4.0.w),
                 children: [
                   ..._messages.map(
                     (msg) => MessageBubble(
@@ -66,9 +68,7 @@ class _chatPageState extends State<chatPage> {
         _awaitingResponse = false;
       });
     } catch (err) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('An error occurred. Please try again.')),
-      );
+      showSnackBar( context, 'An error occurred. Please try again.');
       setState(() {
         _awaitingResponse = false;
       });

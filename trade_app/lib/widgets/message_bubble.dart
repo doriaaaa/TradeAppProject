@@ -1,5 +1,9 @@
+import 'package:chat_bubbles/bubbles/bubble_special_three.dart';
 import 'package:flutter/material.dart';
 import 'package:markdown_widget/markdown_widget.dart';
+import 'package:provider/provider.dart';
+import 'package:sizer/sizer.dart';
+import '../provider/user_provider.dart';
 
 class MessageBubble extends StatelessWidget {
   const MessageBubble({
@@ -10,39 +14,71 @@ class MessageBubble extends StatelessWidget {
 
   final String content;
   final bool isUserMessage;
-
+  
   @override
   Widget build(BuildContext context) {
     final themeData = Theme.of(context);
-    return Container(
-      margin: const EdgeInsets.all(8),
-      decoration: BoxDecoration(
-        color: isUserMessage
-            ? themeData.colorScheme.primary.withOpacity(0.4)
-            : themeData.colorScheme.secondary.withOpacity(0.4),
-        borderRadius: const BorderRadius.all(Radius.circular(12)),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(12),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                Text(
-                  isUserMessage ? 'You' : 'AI',
-                  style: const TextStyle(fontWeight: FontWeight.bold),
-                ),
-              ],
+    String profilePicture = context.watch<UserProvider>().user.profilePicture;
+
+    if (!isUserMessage) {
+      return Row(
+        children: <Widget>[
+          Container(
+            width: 10.w,
+            height: 10.h,
+            decoration: const BoxDecoration(
+              shape: BoxShape.circle,
+              image: DecorationImage(
+                image: AssetImage('assets/chatgpt.jpg'), 
+                fit: BoxFit.scaleDown
+              )
             ),
-            const SizedBox(height: 8),
-            MarkdownWidget(
-              data: content,
-              shrinkWrap: true,
+          ),
+          Expanded(
+            child: BubbleSpecialThree(
+              text: content,
+              color: themeData.colorScheme.primary.withOpacity(0.4),
+              tail: false,
+              textStyle: TextStyle(
+                color: themeData.brightness == Brightness.dark
+                  ? Colors.white 
+                  : Colors.black
+              ),
+              isSender: false,
+            )
+          )
+        ],
+      );
+    } else {
+      return Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Expanded(
+            child: BubbleSpecialThree(
+              text: content,
+              color: themeData.colorScheme.primary.withOpacity(0.4),
+              tail: false,
+              textStyle: TextStyle(
+                color: themeData.brightness == Brightness.dark
+                  ? Colors.white 
+                  : Colors.black
+              ),
+              isSender: true,
+            )
+          ),
+          Container(
+            width: 10.w,
+            height: 10.h,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              image: DecorationImage(
+                image: NetworkImage(profilePicture), //dummy image
+                fit: BoxFit.scaleDown
+              )
             ),
-          ],
-        ),
-      ),
-    );
+          ),
+        ],
+      );
+    }
   }
 }
