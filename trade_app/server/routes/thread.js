@@ -52,7 +52,7 @@ threadRouter.get('/api/thread/showAllThreads', async(req, res) => {
 
         const promises = threads.map(async (thread) => {
             const res = await findAuthorByThread(thread);
-            console.log(res);
+            // console.log(res);
             return res; // return the result of findAuthorByThread()
         });
         

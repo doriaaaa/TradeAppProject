@@ -3,6 +3,7 @@ import 'package:keyboard_attachable/keyboard_attachable.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 import 'package:trade_app/models/comment.dart';
+import 'package:trade_app/screens/editCommentPage.dart';
 import '../provider/comment_provider.dart';
 import '../provider/user_provider.dart';
 import '../services/comment/commentService.dart';
@@ -45,17 +46,25 @@ class _discussionPageState extends State<discussionPage> {
     _buildDisplayItemList();
   }
 
+  void _updateDisplayItemList() {
+    setState(() {
+      displayCommentList.clear();
+    });
+    _buildDisplayItemList();
+  }
+
   void _buildDisplayItemList() async {
     List<Comment> comments = Provider.of<CommentProvider>(context, listen: false).comments;
-    // print('**************************************');
-    // print('comments.length: ${comments.length}');
+    String user = Provider.of<UserProvider>(context, listen:false).user.name;
+    // print(user);
+
     for (int i=0; i<comments.length; i++) {
       String body = comments[i].body; // access the body of the first comment in the list
       String username = comments[i].username;
       String date = comments[i].date;
-      // print('body_$i: $body');
-      // print('username_$i: $username');
-      // print('date_$i: $date');
+      int thread_id = comments[i].thread_id;
+      int comment_id = comments[i].comment_id;
+
       final commentContentDisplayBox = Container(
         margin: EdgeInsets.fromLTRB(7.w, 1.h, 7.w, 1.h),
         child: Column(
@@ -75,42 +84,49 @@ class _discussionPageState extends State<discussionPage> {
                   ),
                 ),
                 SizedBox(width: 2.w),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text( username, style: TextStyle(fontSize: 12.sp)),
-                    SizedBox(height:1.5.h),
-                    Text( date.substring(0, date.indexOf('T')), style: TextStyle(fontSize: 8.sp))
-                  ]
-                ),
-                const Spacer(),
-                Text('#${i+2}')
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text( username, style: TextStyle(fontSize: 12.sp)),
+                          // const Spacer(),
+                          Container(
+                            child: username == user
+                              ? GestureDetector(
+                                onTap:() async {
+                                  print("comment_id: $comment_id");
+                                  await Navigator.push(context, 
+                                    MaterialPageRoute( 
+                                      builder: (context) => editCommentPage(
+                                        thread_id: thread_id,
+                                        comment_id: comment_id,
+                                      )
+                                    )
+                                  ).then((value) => _updateDisplayItemList());
+                                },
+                                child: const Icon(Icons.more_horiz_outlined),
+                              )
+                              : Container()
+                          )
+                        ]
+                      ),
+                      // Text( username, style: TextStyle(fontSize: 12.sp)),
+                      SizedBox(height:1.0.h),
+                      Text( date.substring(0, date.indexOf('T')), style: TextStyle(fontSize: 8.sp))
+                    ]
+                  ),
+                )
               ] 
             ),
             Text(body),
-            // SizedBox(height: 2.h),
-            // Row(
-            //   mainAxisSize: MainAxisSize.max,
-            //   crossAxisAlignment: CrossAxisAlignment.end,
-            //   children: <Widget>[
-            //     const Spacer(),
-            //     const Icon(Icons.thumb_up_alt_outlined),
-            //     SizedBox(width: 4.w),
-            //     const Icon(Icons.thumb_down_alt_outlined),
-            //   ],
-            // ),
           ],
         )
       );
       displayCommentList.add(commentContentDisplayBox);
     }
-  }
-
-  void _updateDisplayItemList() {
-    setState(() {
-      displayCommentList.clear();
-    });
-    _buildDisplayItemList();
   }
 
   @override
@@ -151,7 +167,7 @@ class _discussionPageState extends State<discussionPage> {
                 ]
               ),
               const Spacer(),
-              const Text('#1')
+              // const Text('#1')
             ] 
           ),
           Text(widget.content),

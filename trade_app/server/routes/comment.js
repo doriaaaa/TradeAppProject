@@ -53,10 +53,10 @@ commentRouter.get('/api/comment/showAllComments/thread/:threadId', async (req, r
         var commentsMap = [];
 
         const promises = commentsObjList.map(async (commentObjId) => {
-            const res = await findCommentById(commentObjId);
+            const res = await findCommentById(commentObjId, req.params.threadId);
             return res;
         });
-        console.log(res);
+        // console.log(res);
         commentsMap = await Promise.all(promises); 
 
         if (commentsMap) {
@@ -76,20 +76,58 @@ commentRouter.get('/api/comment/showAllComments/thread/:threadId', async (req, r
     }
 });
 
-async function findCommentById(commentObjId) {
+// user delete comment
+commentRouter.delete('/api/comment/deleteComment/thread/:threadId/commentId/:commentId', async(req,res) => {
+    // require comment_id, thread_id, frontend(only allow user to edit the comment)
+    // update comment id? --> replace comment as "this comment is deleted", replace comment_id as 9999.
+
+
+});
+
+// user edit comment
+commentRouter.put('/api/comment/editComment/thread/:threadId/commentId/:commentId', async(req, res) => {
+    try {
+        const { body, thread_id, comment_id } = req.body;
+        // console.log(`comment_id = ${comment_id}`);
+        // console.log(`thread_id = ${thread_id}`);
+        const thread = await Thread.findOne({thread_id: thread_id});
+        const comment = await Comment.findOneAndUpdate(
+            { thread_id: thread._id, comment_id: comment_id},
+            { $set: { 
+                body: body,
+                date: Date.now()
+            } },
+            { new: true } 
+        );
+        console.log(comment);
+        if (comment) {
+            res.status(200).json({
+                msg: "success",
+                result: comment
+            });
+        } else {
+            console.log("failed");
+            res.status(400).json({
+                msg: "failed",
+                result: "unknown error occured"
+            });
+        }
+    } catch(e) {
+        return res.status(500).json({ error: e.message });
+    }
+});
+
+async function findCommentById(commentObjId, thread_id) {
     const comment = await Comment.findOne({ _id: commentObjId});
     const user = await User.findOne({_id: comment.user_id});
     const res = {
         "body": comment.body,
         "username": user.name,
-        "comment_id": comment.coment_id,
+        "thread_id": parseInt(thread_id),
+        "comment_id": comment.comment_id,
         "date": comment.date
     }
     return res;
 }
-
-// user edit comment
-
-// user delete comment
 
 module.exports = commentRouter;

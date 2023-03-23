@@ -84,7 +84,7 @@ testingDummy
 - [x] POST /api/comment/createComment
 - [x] GET  /api/comment/showAllComments/thread/:threadId
 - [ ] DELETE /api/comment/deleteComment/thread/:threadId/commentId/:commentId
-- [ ] PUT /api/comment/editComment/thread/:threadId/commentId/:commentId
+- [x] PUT /api/comment/editComment/thread/:threadId/commentId/:commentId --> pending to update UI
 
 4. Book
 - [x] POST /api/book/info

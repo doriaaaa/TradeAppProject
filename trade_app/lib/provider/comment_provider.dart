@@ -22,6 +22,11 @@ class CommentProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  void updateCommentFromModel(Comment comment, int position) {
+    _comments[position] = comment;
+    notifyListeners();
+  }
+
   void clearComments() {
     _comments.clear();
     notifyListeners();

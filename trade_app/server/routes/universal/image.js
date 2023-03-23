@@ -21,7 +21,7 @@ universalRouter.post('/api/universal/image', async (req, res, next) => {
             data: formData
         }
         const result = await axios(options);
-        console.log(`axios response: ${JSON.stringify(result.data.data.link)}`);
+        // console.log(`axios response: ${JSON.stringify(result.data.data.link)}`);
         if (result) {
             let imageuri = result.data.data.link;
             res.status(200).json({
