@@ -66,29 +66,29 @@ testingDummy
 
 ###### API ENDPOINTS:
 1. User
-- [x] POST /api/user/account/signIn
-- [x] POST /api/user/account/signUp
-- [x] POST /api/user/account/changePassword
-- [x] POST /api/user/account/updateProfilePicture
-- [x] GET  /api/user/book/bookList
-- [ ] GET  /api/user/info/:username
+- [x] POST&nbsp;/api/user/account/signIn
+- [x] POST&nbsp;/api/user/account/signUp
+- [x] POST&nbsp;/api/user/account/changePassword
+- [x] POST&nbsp;/api/user/account/updateProfilePicture
+- [x] GET&nbsp;/api/user/book/bookList
+- [ ] GET&nbsp;/api/user/info/:username
 
 2. Auth
-- [x] POST /api/auth/tokenIsValid
+- [x] POST&nbsp;/api/auth/tokenIsValid
 
 3. Thread
-- [x] POST /api/thread/createThread
-- [x] GET  /api/thread/showAllThreads
+- [x] POST&nbsp;/api/thread/createThread
+- [x] GET&nbsp;/api/thread/showAllThreads
 
 4. Comment
-- [x] POST /api/comment/createComment
-- [x] GET  /api/comment/showAllComments/thread/:threadId
-- [ ] DELETE /api/comment/deleteComment/thread/:threadId/commentId/:commentId
-- [x] PUT /api/comment/editComment/thread/:threadId/commentId/:commentId --> pending to update UI
+- [x] POST&nbsp;/api/comment/createComment
+- [x] GET&nbsp;/api/comment/showAllComments/thread/:threadId
+- [ ] DELETE&nbsp;/api/comment/deleteComment/thread/:threadId/commentId/:commentId
+- [x] PUT&nbsp;/api/comment/editComment/thread/:threadId/commentId/:commentId
 
 4. Book
-- [x] POST /api/book/info
-- [x] POST /api/book/upload
+- [x] POST&nbsp;/api/book/info
+- [x] POST&nbsp;/api/book/upload
 
 5. Universal
-- [x] POST /api/universal/image
+- [x] POST&nbsp;/api/universal/image
