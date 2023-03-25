@@ -104,15 +104,13 @@ class commentService {
     }
   }
 
-  void editComment({
+  Future<bool> editComment({
     required BuildContext context,
     required int comment_id,
     required int thread_id,
     required String body,
   }) async {
-    final commentProvider = Provider.of<CommentProvider>(context, listen: false);
     try {
-      print("comment_id: $comment_id");
       http.Response res = await http.put(Uri.parse('http://${dotenv.env['IP_ADDRESS']}:3000/api/comment/editComment/thread/$thread_id/commentId/$comment_id'),
         body: jsonEncode({
           'body': body,
@@ -129,13 +127,16 @@ class commentService {
           // res.body should return body, comment_id and thread_id
           context: context,
           onSuccess: () async {
-            Comment updatedComment = Provider.of<CommentProvider>(context, listen: false).comments[comment_id-1].copyWith(body: jsonDecode(res.body)["body"]);
+            // print("respone: ${jsonDecode(res.body)["result"]["body"]}");
+            Comment updatedComment = Provider.of<CommentProvider>(context, listen: false).comments[comment_id-1].copyWith(body: jsonDecode(res.body)["result"]["body"]);
             Provider.of<CommentProvider>(context, listen: false).updateCommentFromModel(updatedComment, comment_id-1);
+            // print("updatedComment.body : $updatedComment.body");
           },
         );
       }
     } catch (e) {
       debugPrint(e.toString());
     }
+    return true;
   }
 }

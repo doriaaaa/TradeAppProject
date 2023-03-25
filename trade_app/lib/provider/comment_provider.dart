@@ -17,10 +17,10 @@ class CommentProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void setCommentFromModel(Comment comment) {
-    _comments.add(comment);
-    notifyListeners();
-  }
+  // void setCommentFromModel(Comment comment) {
+  //   _comments.add(comment);
+  //   notifyListeners();
+  // }
 
   void updateCommentFromModel(Comment comment, int position) {
     _comments[position] = comment;

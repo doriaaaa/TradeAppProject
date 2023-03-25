@@ -27,10 +27,8 @@ class _editCommentPageState extends State<editCommentPage> {
   @override
   void initState() {
     super.initState();
-    final commentQuery = Provider.of<CommentProvider>(context, listen: false)
-        .comments[widget.comment_id - 1];
-    contentInputFieldController =
-        TextEditingController(text: commentQuery.body);
+    final commentQuery = Provider.of<CommentProvider>(context, listen: false).comments[widget.comment_id - 1];
+    contentInputFieldController = TextEditingController(text: commentQuery.body);
   }
 
   @override
@@ -70,8 +68,7 @@ class _editCommentPageState extends State<editCommentPage> {
                         comment_id: commentQuery.comment_id,
                         thread_id: commentQuery.thread_id,
                         body: contentInputFieldController.text,
-                      );
-                      Navigator.pop(context);
+                      ).then((value) => Navigator.pop(context, true));
                     }
                   },
                   icon: const Icon(Icons.check),

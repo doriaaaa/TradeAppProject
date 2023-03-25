@@ -98,14 +98,21 @@ class _discussionPageState extends State<discussionPage> {
                               ? GestureDetector(
                                 onTap:() async {
                                   print("comment_id: $comment_id");
-                                  await Navigator.push(context, 
-                                    MaterialPageRoute( 
+                                  final update = await Navigator.push(context, 
+                                     MaterialPageRoute( 
                                       builder: (context) => editCommentPage(
                                         thread_id: thread_id,
                                         comment_id: comment_id,
                                       )
                                     )
-                                  ).then((value) => _updateDisplayItemList());
+                                  );
+                                  if(update) {
+                                    print(update);
+                                    setState(() {
+                                      _updateDisplayItemList();
+                                    });
+                                    print("body: $body");
+                                  }
                                 },
                                 child: const Icon(Icons.more_horiz_outlined),
                               )
