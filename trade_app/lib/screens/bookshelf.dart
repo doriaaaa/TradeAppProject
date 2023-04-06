@@ -25,7 +25,7 @@ class _bookshelfPageState extends State<bookshelfPage> {
   void _buildDisplayItemList() async {
     final String res = await userBookService().bookList(context: context);
     Map bookList = jsonDecode(res);
-    print(bookList['result'].length);
+    // print(bookList['result'].length);
 
     for (int i = 0; i < bookList['result'].length; i+=2) {
       displayItemList.add(gapBox);
@@ -36,20 +36,27 @@ class _bookshelfPageState extends State<bookshelfPage> {
         row = Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            bookToWidget(bookList['result'][i]['image']),
-            bookToWidget(bookList['result'][i + 1]['image']),
+            bookToWidget(jsonEncode(bookList['result'][i])),
+            bookToWidget(jsonEncode(bookList['result'][i + 1])),
           ]
         );
       } else {
         // Otherwise create a single book row
-        row = Row(children: [bookToWidget(bookList['result'][i]['image'])]);
+        row = Row(children: [bookToWidget(jsonEncode(bookList['result'][i]))]);
       }
       // Add the row to our shelf list
       displayItemList.add(row);
     }
   }
 
-  Widget bookToWidget(String imageUrl) {
+  Widget bookToWidget(String bookObj) {
+    final scollBarController = ScrollController(initialScrollOffset: 50.0);
+    Map book = jsonDecode(bookObj);
+    String imageUrl = book['image'];
+    String title = book['bookInfo']['title'];
+    String description = book['bookInfo']['description'];
+    String author = book['bookInfo']['authors'][0];
+
     return GestureDetector(
       child: Container(
         width: 40.w,
@@ -62,9 +69,87 @@ class _bookshelfPageState extends State<bookshelfPage> {
           )
         ),
       ),
-      onTap: () {
-        
-      }
+      onTap: () => showDialog<String>(
+        context: context, 
+        builder: (BuildContext context) => Dialog(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Scrollbar(
+              thumbVisibility: true,
+              controller: scollBarController,
+              child: ListView(
+                shrinkWrap: true,
+                controller: scollBarController,
+                children: <Widget>[
+                  SizedBox(height:2.h),
+                  Container(
+                    margin: EdgeInsets.only(left: 12.0.w, right: 12.0.w),
+                    width: 50.w,
+                    height: 60.w,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10.0),
+                        image: DecorationImage(
+                          image: NetworkImage(imageUrl), 
+                          fit: BoxFit.scaleDown
+                        )
+                      )
+                    )
+                  ),
+                  SizedBox(height:2.h),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: <Widget>[
+                      Expanded(
+                        child: Text(
+                          title,
+                          textAlign: TextAlign.center,
+                          style: TextStyle( fontSize: 14.sp, fontWeight: FontWeight.w500)
+                        )
+                      )
+                    ]
+                  ),
+                  SizedBox(height:1.h),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: <Widget>[
+                      Expanded(
+                        child:Text(
+                          "By $author",
+                          textAlign: TextAlign.center,
+                          style: TextStyle( fontSize: 12.sp, fontStyle: FontStyle.italic)
+                        )
+                      )
+                    ]
+                  ),
+                  SizedBox(height:0.5.h),
+                  Container(
+                    margin: EdgeInsets.all(4.w),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                          Text( 
+                            description, 
+                            textAlign: TextAlign.justify,
+                            style: TextStyle(fontSize: 12.0.sp, height: 1.2),
+                          )
+                        // )
+                      ],
+                    ),
+                  ),
+                  // wishlist
+                  TextButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    child: const Text('Close'),
+                  ),
+                ],
+              )
+            ),
+          ),
+        ),
+      )
     );
   }
 
