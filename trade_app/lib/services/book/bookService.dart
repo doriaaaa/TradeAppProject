@@ -106,4 +106,27 @@ class bookService {
     }
     return "Success!";
   }
+
+  // return a set of book search list
+  Future<String> bookSearch({
+    required BuildContext context,
+    required String bookTitle
+  }) async {
+    try {
+      http.Response res = await http.get(Uri.parse("https://www.googleapis.com/books/v1/volumes?q=\"$bookTitle\""));
+      Map resbody = jsonDecode(res.body);
+      if (context.mounted) {
+        httpErrorHandle(
+          response: res,
+          context: context,
+          onSuccess: () async {
+            
+          },
+        );
+      }
+    } catch (e) {
+      debugPrint(e.toString());
+    }
+   return ''; 
+  }
 }

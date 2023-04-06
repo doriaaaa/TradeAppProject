@@ -1,5 +1,6 @@
 const express = require('express');
 const User = require("../models/user");
+const Book = require("../models/book");
 const bcryptjs = require('bcryptjs');
 const userRouter = express.Router();
 const auth = require("../middleware/auth");
@@ -118,11 +119,31 @@ userRouter.post("/api/user/account/signUp", async (req, res) => {
 userRouter.get('/api/user/book/bookList', auth, async(req, res) => {
     try {
         const userInfo = await User.findOne({ _id: req.user });
+        var bookList = [];
         if (userInfo) {
-            res.status(200).json({
-                msg: "success",
-                result: userInfo.bookList
-            });
+            if (userInfo.bookList.length == 0) {
+                res.status(200).json({
+                    msg: "success",
+                    result: []
+                });
+            } else {
+                const promises = userInfo.bookList.map(async bookObjId => {
+                    const res = await Book.findOne( {_id: bookObjId} );
+                    return res;
+                });
+                bookList = await Promise.all(promises);
+                if (bookList) {
+                    res.status(200).json({
+                        msg: "success",
+                        result: bookList
+                    });
+                } else {
+                    res.status(400).json({
+                        msg: "failed",
+                        result: "cannot fetch book list"
+                    });
+                }
+            }
         } else {
             console.log("failed");
             res.status(400).json({

@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:sizer/sizer.dart';
+import 'package:trade_app/screens/bookshelf.dart';
 import 'package:trade_app/screens/homePage.dart';
-import 'package:trade_app/screens/notificationPage.dart';
 import 'package:trade_app/screens/settingsPage.dart';
-
 import '../screens/chat.dart';
 import '../screens/uploadSelectionPage.dart';
 
@@ -22,7 +21,7 @@ class _NavBarState extends State<NavBar> {
     const homePage(),
     const chatPage(),
     const uploadSelectionPage(),
-    const notificationPage(),
+    const bookshelfPage(),
     const settingsPage(),
   ];
 
@@ -45,8 +44,8 @@ class _NavBarState extends State<NavBar> {
         tabs: const [
           GButton( icon: Icons.home_outlined, text: 'home'),
           GButton( icon: Icons.chat_outlined, text: 'chat'),
-          GButton( icon: Icons.bookmark_outline, text: 'books'),
-          GButton( icon: Icons.notifications_outlined, text: 'news'),
+          GButton( icon: Icons.keyboard_option_key_sharp, text: 'options'),
+          GButton( icon: Icons.library_books_outlined ,text: 'bookshelf'),
           GButton( icon: Icons.settings_outlined, text: 'settings'),
         ]
       )

@@ -49,4 +49,30 @@ bookRouter.post("/api/book/upload", auth, async (req, res) => {
 
 // delete a book in bookshelf
 
+// search for a book through google api
+// bookRouter.get("/api/book/search/:book", async(req,res) => {
+//     try {
+//         const params = req.params.book;
+//         const options = {
+//             method: "GET", 
+//             url: "https://www.googleapis.com/books/v1/volumes?q="+params,
+//         };
+//         const result = await axios(options);
+//         console.log(result.body);
+//         if (result) {
+//             res.status(200).json({
+//                 msg: "success",
+//                 result: imageuri
+//             });
+//         } else {
+//             res.status(400).json({
+//                 msg: "failed",
+//                 result: "unknown error occured"
+//             });
+//         }
+//     } catch (e) {
+//         return res.status(500).json({ error: e.message });
+//     }
+// });
+
 module.exports = bookRouter;

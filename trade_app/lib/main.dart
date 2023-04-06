@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:sizer/sizer.dart';
 import 'package:trade_app/provider/comment_provider.dart';
+import 'package:trade_app/screens/bookshelf.dart';
 import 'package:trade_app/screens/loginPage.dart';
 import 'package:trade_app/routes/router.dart';
 import 'package:provider/provider.dart';
@@ -46,7 +47,7 @@ class _MyAppState extends State<MyApp> {
         darkTheme: ThemeData.dark(),
         themeMode: _themeMode, // 2) ← ← ← use "state" field here //////////////
         home: const loginPage(),
-        // home: const BookPage(),
+        // home: const bookshelfPage(),
         onGenerateRoute: (settings) => generateRoute(settings),
       );
     });

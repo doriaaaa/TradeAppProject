@@ -70,21 +70,21 @@ testingDummy
 - [x] POST&nbsp;/api/user/account/signUp
 - [x] POST&nbsp;/api/user/account/changePassword
 - [x] POST&nbsp;/api/user/account/updateProfilePicture
-- [x] GET&nbsp;/api/user/book/bookList
-- [ ] GET&nbsp;/api/user/info/:username
+- [x] GET &nbsp;/api/user/book/bookList
+- [ ] GET &nbsp;/api/user/info/:username
 
 2. Auth
 - [x] POST&nbsp;/api/auth/tokenIsValid
 
 3. Thread
 - [x] POST&nbsp;/api/thread/createThread
-- [x] GET&nbsp;/api/thread/showAllThreads
+- [x] GET &nbsp;/api/thread/showAllThreads
 
 4. Comment
 - [x] POST&nbsp;/api/comment/createComment
-- [x] GET&nbsp;/api/comment/showAllComments/thread/:threadId
+- [x] GET &nbsp;/api/comment/showAllComments/thread/:threadId
 - [ ] DELETE&nbsp;/api/comment/deleteComment/thread/:threadId/commentId/:commentId
-- [x] PUT&nbsp;/api/comment/editComment/thread/:threadId/commentId/:commentId
+- [x] PUT &nbsp;/api/comment/editComment/thread/:threadId/commentId/:commentId
 
 4. Book
 - [x] POST&nbsp;/api/book/info
