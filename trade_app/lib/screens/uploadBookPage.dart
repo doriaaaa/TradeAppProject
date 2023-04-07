@@ -33,12 +33,10 @@ class _BookPageState extends State<BookPage> {
   @override
   Widget build(BuildContext context) {
     Map info = json.decode(widget.bookInfo); // map json response
-    double rating;
-    if(info['averageRating']) {
-      rating = double.parse(info['averageRating']);
-    } else {
-      rating = 0.0;
-    }
+    String author = info.containsKey('authors') ? info['authors'][0] : "unknown";
+    String category = info.containsKey('categories') || info['categories'].length != 0 ? info['categories'][0] : "not classified";
+    double rating = info.containsKey('averageRating') ? double.parse(info['averageRating'].toString()) : 0.0;
+    String description = info.containsKey('description') ? info['description'] : "Description is not available.";
 
     final displayImageBox = GestureDetector(
       onTap: () async {
@@ -103,7 +101,7 @@ class _BookPageState extends State<BookPage> {
       children: <Widget>[
         Expanded(
           child:Text(
-            "By ${info['authors'][0] ?? "unknown" }",
+            "By $author",
             textAlign: TextAlign.start,
             style: TextStyle( fontSize: 8.sp)
           )
@@ -122,7 +120,7 @@ class _BookPageState extends State<BookPage> {
             borderRadius: BorderRadius.circular(20.0),
           ),
           child: Text(
-            "By ${info['categories'][0] ?? "not classified" }", 
+            category, 
             style: TextStyle( 
               fontSize: 10.sp,
               color: const Color(0xFF5E2750)
@@ -153,7 +151,7 @@ class _BookPageState extends State<BookPage> {
       mainAxisSize: MainAxisSize.min,
       children: [
           Text( 
-            info['description'], 
+            description, 
             textAlign: TextAlign.justify,
             style: TextStyle(fontSize: 12.0.sp, height: 1.0),
           )
@@ -192,21 +190,25 @@ class _BookPageState extends State<BookPage> {
           fit: BoxFit.cover
         ),
       ),
-      body: ListView(
-        padding: EdgeInsets.only(left: 7.0.w, right: 7.0.w, top: 2.h),
-        children: <Widget>[
-          displayImageBox,
-          SizedBox(height: 1.h),
-          displayBookTitleText,
-          SizedBox(height: 0.5.h),
-          displayBookAuthorText,
-          SizedBox(height: 1.h),
-          ratingDisplayBox,
-          SizedBox(height: 1.h),
-          categoryTag,
-          SizedBox(height: 1.h),
-          descriptionBox
-        ],
+      body: Form(
+        key: _formKey,
+        child: ListView(
+          padding: EdgeInsets.only(left: 7.0.w, right: 7.0.w, top: 2.h),
+          children: <Widget>[
+            displayImageBox,
+            SizedBox(height: 1.h),
+            displayBookTitleText,
+            SizedBox(height: 0.5.h),
+            displayBookAuthorText,
+            SizedBox(height: 1.h),
+            ratingDisplayBox,
+            SizedBox(height: 1.h),
+            categoryTag,
+            SizedBox(height: 1.h),
+            descriptionBox,
+            SizedBox(height: 1.h),
+          ],
+        )
       )
     );
   }

@@ -49,7 +49,7 @@ class _CameraState extends State<Camera> {
             bottom: 8.h, 
             left: 4.w, 
             child: FloatingActionButton(
-              heroTag: 1,
+              heroTag: 2,
               onPressed: () => cameraController.toggleTorch(),
               child: ValueListenableBuilder(
                 valueListenable: cameraController.torchState,
