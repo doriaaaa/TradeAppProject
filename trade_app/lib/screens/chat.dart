@@ -23,7 +23,7 @@ class _chatPageState extends State<chatPage> {
 
   @override
   Widget build(BuildContext context) {
-    final scollBarController = ScrollController(initialScrollOffset: 50.0);
+    final scrollBarController = ScrollController(initialScrollOffset: 50.0);
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
@@ -36,10 +36,10 @@ class _chatPageState extends State<chatPage> {
             Expanded(
               child: Scrollbar(
                 thumbVisibility: true,
-                controller: scollBarController,
+                controller: scrollBarController,
                 child: ListView(
                   shrinkWrap: true,
-                  controller: scollBarController,
+                  controller: scrollBarController,
                   padding: EdgeInsets.only(left: 4.0.w, right: 4.0.w),
                   children: [
                     ..._messages.map(

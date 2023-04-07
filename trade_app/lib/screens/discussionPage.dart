@@ -144,7 +144,7 @@ class _discussionPageState extends State<discussionPage> {
     final _formKey = GlobalKey<FormState>();
     String profilePicture = context.watch<UserProvider>().user.profilePicture;
     
-    final scollBarController = ScrollController(initialScrollOffset: 50.0);
+    final scrollBarController = ScrollController(initialScrollOffset: 50.0);
     // thread content always display above
     final threadContentDisplayBox = Container(
       margin: EdgeInsets.fromLTRB(7.w, 1.h, 7.w, 1.h),
@@ -264,10 +264,10 @@ class _discussionPageState extends State<discussionPage> {
                 ),
                 child: Scrollbar(
                   thumbVisibility: true,
-                  controller: scollBarController,
+                  controller: scrollBarController,
                   child: ListView(
                     shrinkWrap: true,
-                    controller: scollBarController,
+                    controller: scrollBarController,
                     // padding: EdgeInsets.only(left: 7.0.w, right: 7.0.w),
                     children: threadCommentList
                   ),

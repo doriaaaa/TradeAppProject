@@ -15,6 +15,7 @@ class bookshelfPage extends StatefulWidget {
 class _bookshelfPageState extends State<bookshelfPage> {
   final gapBox = SizedBox(height: 2.h);
   List<Widget> displayItemList = [];
+  bool isLoading = true;
 
   @override
   void initState() {
@@ -47,10 +48,13 @@ class _bookshelfPageState extends State<bookshelfPage> {
       // Add the row to our shelf list
       displayItemList.add(row);
     }
+    setState(() {
+      isLoading = false;
+    });
   }
 
   Widget bookToWidget(String bookObj) {
-    final scollBarController = ScrollController(initialScrollOffset: 50.0);
+    final scrollBarController = ScrollController(initialScrollOffset: 50.0);
     Map book = jsonDecode(bookObj);
     String imageUrl = book['image'];
     String title = book['bookInfo']['title'];
@@ -76,10 +80,10 @@ class _bookshelfPageState extends State<bookshelfPage> {
             padding: const EdgeInsets.all(8.0),
             child: Scrollbar(
               thumbVisibility: true,
-              controller: scollBarController,
+              controller: scrollBarController,
               child: ListView(
                 shrinkWrap: true,
-                controller: scollBarController,
+                controller: scrollBarController,
                 children: <Widget>[
                   SizedBox(height:2.h),
                   Container(
@@ -155,18 +159,23 @@ class _bookshelfPageState extends State<bookshelfPage> {
 
   @override
   Widget build(BuildContext context) {
-    final scollBarController = ScrollController(initialScrollOffset: 50.0);
+    final scrollBarController = ScrollController(initialScrollOffset: 50.0);
 
     return Scaffold(
       appBar: ReusableWidgets.persistentAppBar('My Bookshelf'),
       body: Scrollbar(
         thumbVisibility: true,
-        controller: scollBarController,
+        controller: scrollBarController,
         child: ListView(
           shrinkWrap: true,
-          controller: scollBarController,
+          controller: scrollBarController,
           padding: EdgeInsets.only(left: 7.0.w, right: 7.0.w),
-          children: displayItemList,
+          children: isLoading
+          ? [
+            SizedBox(height: 10.h),
+            const Center(child: CircularProgressIndicator())
+          ]
+          : displayItemList,
         )
       )
     );

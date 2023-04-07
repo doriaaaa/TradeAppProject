@@ -106,22 +106,25 @@ class _homePageState extends State<homePage> {
   // final bestBookHeaderDisplayText = Text("The best books that we choose for you", style: TextStyle(fontSize: 20.0.sp));
   @override
   Widget build(BuildContext context) {
-    final scollBarController = ScrollController(initialScrollOffset: 50.0);
+    final scrollBarController = ScrollController(initialScrollOffset: 50.0);
     String username = context.watch<UserProvider>().user.name;
     return Scaffold(
       appBar: ReusableWidgets.persistentAppBar('Welcome back! $username'),
-      body: isLoading
-        ? const Center(child: CircularProgressIndicator())
-        : Scrollbar(
-          thumbVisibility: true,
-          controller: scollBarController,
-          child: ListView(
-            shrinkWrap: true,
-            controller: scollBarController,
-            padding: EdgeInsets.only(left: 7.0.w, right: 7.0.w),
-            children: displayItemList
-          ),
-        )
+      body: Scrollbar(
+        thumbVisibility: true,
+        controller: scrollBarController,
+        child: ListView(
+          shrinkWrap: true,
+          controller: scrollBarController,
+          padding: EdgeInsets.only(left: 7.0.w, right: 7.0.w),
+          children: isLoading
+          ? [
+            SizedBox(height: 10.h),
+            const Center(child: CircularProgressIndicator())
+          ]
+          : displayItemList
+        ),
+      )
     );
   }
 }

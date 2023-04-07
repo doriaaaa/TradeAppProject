@@ -29,6 +29,7 @@ class _loginPageState extends State<loginPage> {
   Widget build(BuildContext context) {
 
     final email = TextFormField(
+      autofillHints: const [AutofillHints.email],
       textInputAction: TextInputAction.next,
       controller: emailController,
       keyboardType: TextInputType.emailAddress,
@@ -52,6 +53,7 @@ class _loginPageState extends State<loginPage> {
     );
 
     final password = TextFormField(
+      autofillHints: const [AutofillHints.password],
       textInputAction: TextInputAction.done,
       controller: passwordController,
       obscureText: true,
@@ -112,25 +114,27 @@ class _loginPageState extends State<loginPage> {
         appBar: ReusableWidgets.persistentAppBar('Welcome to Trade Book'),
         body: Form(
           key: _formKey,
-          child: ListView(
-            shrinkWrap: true,
-            // physics: const NeverScrollableScrollPhysics(),
-            padding: EdgeInsets.only(left: 7.0.w, right: 7.0.w),
-            children: <Widget>[
-              SizedBox(height: 2.h),
-              headerDisplayText,
-              SizedBox(height: 1.h),
-              backgroundDisplayImg,
-              SizedBox(height: 1.h),
-              email,
-              SizedBox(height: 2.h),
-              password,
-              SizedBox(height: 2.h),
-              loginButton,
-              SizedBox(height: 1.h),
-              registerButton
-            ],
-          ),
+          child: AutofillGroup(
+            child: ListView(
+              shrinkWrap: true,
+              // physics: const NeverScrollableScrollPhysics(),
+              padding: EdgeInsets.only(left: 7.0.w, right: 7.0.w),
+              children: <Widget>[
+                SizedBox(height: 2.h),
+                headerDisplayText,
+                SizedBox(height: 1.h),
+                backgroundDisplayImg,
+                SizedBox(height: 1.h),
+                email,
+                SizedBox(height: 2.h),
+                password,
+                SizedBox(height: 2.h),
+                loginButton,
+                SizedBox(height: 1.h),
+                registerButton
+              ],
+            ),
+          )
         ),
       )
     );
