@@ -11,7 +11,7 @@ import '../../constants/utils.dart';
 import '../../screens/uploadBookPage.dart';
 
 class bookService {
-  void universalImage({
+  Future<void> universalImage({
     required BuildContext context,
     required File? image, 
     required String bookInfo, // this is a json response, use Map extractedDetails = json.decode(widget.bookInfoDetails); // map json response

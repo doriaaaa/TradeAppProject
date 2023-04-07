@@ -29,6 +29,8 @@ class _BookPageState extends State<BookPage> {
   bool isPicked = false;
   String? base64Image;
   final _formKey = GlobalKey<FormState>();
+  bool _isButtonDisabled = false;
+  bool _isLoading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -38,6 +40,7 @@ class _BookPageState extends State<BookPage> {
     String category = (info.containsKey('categories') && info['categories'].length != 0) ? info['categories'][0] : "not classified";
     double rating = info.containsKey('averageRating') ? double.parse(info['averageRating'].toString()) : 0.0;
     String description = info.containsKey('description') ? info['description'] : "Description is not available.";
+    final themeData = Theme.of(context);
 
     final displayImageBox = GestureDetector(
       onTap: () async {
@@ -117,14 +120,18 @@ class _BookPageState extends State<BookPage> {
         Container(
           padding: EdgeInsets.all(1.5.w),
           decoration: BoxDecoration(
-            border: Border.all(color: const Color(0xFF5E2750)),
+            border: themeData.brightness == Brightness.dark
+              ? Border.all(color: const Color(0xE6ED764D))
+              : Border.all(color: const Color(0xFF5E2750)),
             borderRadius: BorderRadius.circular(20.0),
           ),
           child: Text(
             category, 
             style: TextStyle( 
               fontSize: 10.sp,
-              color: const Color(0xFF5E2750)
+              color: themeData.brightness == Brightness.dark
+              ? const Color(0xE6ED764D)
+              : const Color(0xFF5E2750)
             )
           )
         ),
@@ -154,7 +161,7 @@ class _BookPageState extends State<BookPage> {
           Text( 
             description, 
             textAlign: TextAlign.justify,
-            style: TextStyle(fontSize: 12.0.sp, height: 1.0),
+            style: TextStyle(fontSize: 12.0.sp, height: 1.5),
           )
         // )
       ],
@@ -165,21 +172,35 @@ class _BookPageState extends State<BookPage> {
         title: const Text("Book Details"),
         centerTitle: true,
         actions: <Widget>[
-          IconButton(
-            icon: const Icon(Icons.check),
-            onPressed: () {
-              // send request to backend server
-              // only need to validate the photo?
-              if (_formKey.currentState!.validate()) {
-                bookService().universalImage(
-                  context: context,
-                  image: pickedImage, // should pass image value
-                  bookInfo: widget.bookInfo,
-                );
-              } else {
-                showSnackBar(context, 'Missing photo!');
-              }
-            },
+          Stack(
+            children: <Widget>[
+              IgnorePointer(
+                ignoring: _isButtonDisabled,
+                child: IconButton(
+                  icon: const Icon(Icons.check),
+                  onPressed: () {
+                    setState(() {
+                      _isButtonDisabled = true;
+                      _isLoading = true;
+                    });
+                    // send request to backend server
+                    // only need to validate the photo?
+                    if (_formKey.currentState!.validate()) {
+                      bookService().universalImage(
+                        context: context,
+                        image: pickedImage, // should pass image value
+                        bookInfo: widget.bookInfo,
+                      ).then((_) => setState(() {
+                        _isLoading = false;
+                        _isButtonDisabled = false;
+                      }));
+                    } else {
+                      showSnackBar(context, 'Missing photo!');
+                    }
+                  },
+                ),
+              ),
+            ],
           )
         ],
         leading: IconButton(
@@ -193,22 +214,38 @@ class _BookPageState extends State<BookPage> {
       ),
       body: Form(
         key: _formKey,
-        child: ListView(
-          padding: EdgeInsets.only(left: 7.0.w, right: 7.0.w, top: 2.h),
-          children: <Widget>[
-            displayImageBox,
-            SizedBox(height: 1.h),
-            displayBookTitleText,
-            SizedBox(height: 0.5.h),
-            displayBookAuthorText,
-            SizedBox(height: 1.h),
-            ratingDisplayBox,
-            SizedBox(height: 1.h),
-            categoryTag,
-            SizedBox(height: 1.h),
-            descriptionBox,
-            SizedBox(height: 1.h),
-          ],
+        child: Stack(
+          children: [
+            ListView(
+              padding: EdgeInsets.only(left: 7.0.w, right: 7.0.w, top: 2.h),
+              children: <Widget>[
+                displayImageBox,
+                SizedBox(height: 1.h),
+                displayBookTitleText,
+                SizedBox(height: 0.5.h),
+                displayBookAuthorText,
+                SizedBox(height: 1.h),
+                ratingDisplayBox,
+                SizedBox(height: 1.h),
+                categoryTag,
+                SizedBox(height: 1.h),
+                descriptionBox,
+                SizedBox(height: 1.h),
+              ],
+            ),
+            Positioned.fill(
+              child: Visibility(
+                visible: _isLoading,
+                replacement: Container(),
+                child: Container(
+                  color: Colors.black.withOpacity(0.5),
+                  child: const Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                ),
+              ),
+            )
+          ]
         )
       )
     );

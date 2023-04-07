@@ -132,12 +132,11 @@ class _bookshelfPageState extends State<bookshelfPage> {
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                          Text( 
-                            description, 
-                            textAlign: TextAlign.justify,
-                            style: TextStyle(fontSize: 12.0.sp, height: 1.2),
-                          )
-                        // )
+                        Text( 
+                          description, 
+                          textAlign: TextAlign.justify,
+                          style: TextStyle(fontSize: 12.0.sp, height: 1.5),
+                        )
                       ],
                     ),
                   ),
