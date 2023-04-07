@@ -27,33 +27,34 @@ class _bookshelfPageState extends State<bookshelfPage> {
     final String res = await userBookService().bookList(context: context);
     Map bookList = jsonDecode(res);
     // print(bookList['result'].length);
-
-    for (int i = 0; i < bookList['result'].length; i+=2) {
-      displayItemList.add(gapBox);
-      // Create a new row with two books if available
-      // print(bookList['result'][i]['bookInfo']['title']);
-      Row row;
-      if (i + 1 < bookList['result'].length) {
-        row = Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            bookToWidget(jsonEncode(bookList['result'][i])),
-            bookToWidget(jsonEncode(bookList['result'][i + 1])),
-          ]
-        );
-      } else {
-        // Otherwise create a single book row
-        row = Row(children: [bookToWidget(jsonEncode(bookList['result'][i]))]);
+    if(context.mounted) {
+      for (int i = 0; i < bookList['result'].length; i+=2) {
+        displayItemList.add(gapBox);
+        // Create a new row with two books if available
+        // print(bookList['result'][i]['bookInfo']['title']);
+        Row row;
+        if (i + 1 < bookList['result'].length) {
+          row = Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              bookToWidget(context, jsonEncode(bookList['result'][i])),
+              bookToWidget(context, jsonEncode(bookList['result'][i + 1])),
+            ]
+          );
+        } else {
+          // Otherwise create a single book row
+          row = Row(children: [bookToWidget(context, jsonEncode(bookList['result'][i]))]);
+        }
+        // Add the row to our shelf list
+        displayItemList.add(row);
       }
-      // Add the row to our shelf list
-      displayItemList.add(row);
     }
     setState(() {
       isLoading = false;
     });
   }
 
-  Widget bookToWidget(String bookObj) {
+  Widget bookToWidget(BuildContext context, String bookObj) {
     final scrollBarController = ScrollController(initialScrollOffset: 50.0);
     Map book = jsonDecode(bookObj);
     String imageUrl = book['image'];
@@ -140,7 +141,40 @@ class _bookshelfPageState extends State<bookshelfPage> {
                       ],
                     ),
                   ),
-                  // wishlist
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      OutlinedButton(
+                        onPressed: () {}, 
+                        style: OutlinedButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20.0)
+                          )
+                        ),
+                        child: Row(
+                          children: const <Widget>[
+                            Icon( Icons.favorite_border ),
+                            Text("LIKE")
+                          ]
+                        )
+                      ),
+                      // share button --> redirect to new post 
+                      OutlinedButton(
+                        onPressed: () {}, 
+                        style: OutlinedButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20.0)
+                          )
+                        ),
+                        child: Row(
+                          children: const <Widget>[
+                            Icon( Icons.share ),
+                            Text("SHARE")
+                          ]
+                        )
+                      ),
+                    ]
+                  ),
                   TextButton(
                     onPressed: () {
                       Navigator.pop(context);

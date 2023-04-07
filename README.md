@@ -35,27 +35,30 @@ testingDummy
 6. Responsive design
 7. Implement environment variables for frontend and backend application
 8. Light / Dark mode
-9. User change password
+9. Users change password
 10. Home Page UI
 11. User upload profile pic
 12. ChatGPT replaces searchPage
+13. Setup bookshelf page
+14. Loading screen after user performs upload action
 
 ###### TODO: 
 1. User Management API
 - [x] user can edit the profile picture
 - [x] user can update the password
+- [ ] user like system
 - [ ] user can list out the category that they are interested in
 - [ ] user can send friend request --> notification system
 - [ ] assign special name tag to user 
-2. Google Analytics 
-- [ ] analyse what genres that user likes the most
+2. ~~Google Analytics~~ 
+- [ ] ~~analyse what genres that user likes the most~~
 - [ ] make suggestions on books
 3. Book review API
-- [ ] Database: set up a book review model
-- [ ] create review for the book with specified bookID / bookname
+- [x] Database: set up a book review model
+- [ ] create review for the book with specified bookID / bookname --> from books to start a new post
 - [x] get all reviews
-- [ ] get one review entry
-- [ ] edit the review
+- [ ] ~~get one review entry~~
+- [x] edit the review
 - [ ] delete the review
 4. Book search API
 - [ ] allows users to search for books in the exchange by title, author, genre, or other criteria (simply call google book search api)
