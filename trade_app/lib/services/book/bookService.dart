@@ -8,7 +8,7 @@ import 'package:provider/provider.dart';
 import 'package:trade_app/provider/user_provider.dart';
 import '../../constants/error_handling.dart';
 import '../../constants/utils.dart';
-import '../../screens/uploadBookPage_obsolete.dart';
+import '../../screens/uploadBookPage.dart';
 
 class bookService {
   void universalImage({
@@ -95,7 +95,7 @@ class bookService {
               context: context,
               onSuccess: () {
                 debugPrint("isbn code: $code");
-                Navigator.push( context, MaterialPageRoute( builder: (context) => uploadBookPage(screenClosed: _screenWasClosed, bookInfoDetails: res.body)));
+                Navigator.push( context, MaterialPageRoute( builder: (context) => BookPage(screenClosed: _screenWasClosed, bookInfo: res.body)));
               },
             );
           }

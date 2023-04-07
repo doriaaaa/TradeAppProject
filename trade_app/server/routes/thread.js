@@ -47,7 +47,7 @@ threadRouter.post('/api/thread/createThread', auth, async(req, res) => {
 threadRouter.get('/api/thread/showAllThreads', async(req, res) => {
     try {
         const threads = await Thread.find({});
-        console.log(threads);
+        // console.log(threads);
         var threadsMap = [];
 
         const promises = threads.map(async (thread) => {
