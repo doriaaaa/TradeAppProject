@@ -54,8 +54,8 @@ class _bookshelfPageState extends State<bookshelfPage> {
     Map book = jsonDecode(bookObj);
     String imageUrl = book['image'];
     String title = book['bookInfo']['title'];
-    String description = book['bookInfo']['description'];
-    String author = book['bookInfo']['authors'][0];
+    String description = (book['bookInfo'].containsKey('description')) ? book['bookInfo']['description'] : "Description is not available.";
+    String author = (book['bookInfo'].containsKey('authors') && book['bookInfo']['authors'].length != 0) ? book['bookInfo']['authors'][0] : "unknown";
 
     return GestureDetector(
       child: Container(
