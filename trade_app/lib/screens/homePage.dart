@@ -18,6 +18,7 @@ class _homePageState extends State<homePage> {
 
   final gapBox = SizedBox(height: 2.h);
   List<Widget> displayItemList = [];
+  bool isLoading = true;
 
   @override
   void initState() {
@@ -25,7 +26,7 @@ class _homePageState extends State<homePage> {
     super.initState();
   }
 
-  void _buildDisplayItemList() async {
+  Future<void> _buildDisplayItemList() async {
     final String res = await threadService().showAllThreads(context: context);
     Map threadList = jsonDecode(res);
 
@@ -95,6 +96,10 @@ class _homePageState extends State<homePage> {
         )
       ));
     }
+
+    setState(() {
+      isLoading = false;
+    });
   }
 
   // final recommendationHeaderDisplayText = Text("Latest Recommendation", style: TextStyle(fontSize: 20.0.sp));
@@ -105,16 +110,18 @@ class _homePageState extends State<homePage> {
     String username = context.watch<UserProvider>().user.name;
     return Scaffold(
       appBar: ReusableWidgets.persistentAppBar('Welcome back! $username'),
-      body: Scrollbar(
-        thumbVisibility: true,
-        controller: scollBarController,
-        child: ListView(
-          shrinkWrap: true,
+      body: isLoading
+        ? const Center(child: CircularProgressIndicator())
+        : Scrollbar(
+          thumbVisibility: true,
           controller: scollBarController,
-          padding: EdgeInsets.only(left: 7.0.w, right: 7.0.w),
-          children: displayItemList
-        ),
-      )
+          child: ListView(
+            shrinkWrap: true,
+            controller: scollBarController,
+            padding: EdgeInsets.only(left: 7.0.w, right: 7.0.w),
+            children: displayItemList
+          ),
+        )
     );
   }
 }
