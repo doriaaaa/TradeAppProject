@@ -12,12 +12,12 @@ import '../constants/utils.dart';
 
 class BookPage extends StatefulWidget {
   final String bookInfo;
-  final Function() screenClosed;
+  // final Function() screenClosed;
 
   const BookPage({
     Key? key,
     required this.bookInfo, // pass the json file? widget.value to access the information
-    required this.screenClosed,
+    // required this.screenClosed,
   }) : super(key: key);
 
   @override
@@ -33,8 +33,9 @@ class _BookPageState extends State<BookPage> {
   @override
   Widget build(BuildContext context) {
     Map info = json.decode(widget.bookInfo); // map json response
-    String author = info.containsKey('authors') ? info['authors'][0] : "unknown";
-    String category = info.containsKey('categories') || info['categories'].length != 0 ? info['categories'][0] : "not classified";
+    // print("info['authors'].length ${info['authors'].length}");
+    String author = (info.containsKey('authors') && info['authors'].length != 0) ? info['authors'][0] : "unknown";
+    String category = (info.containsKey('categories') && info['categories'].length != 0) ? info['categories'][0] : "not classified";
     double rating = info.containsKey('averageRating') ? double.parse(info['averageRating'].toString()) : 0.0;
     String description = info.containsKey('description') ? info['description'] : "Description is not available.";
 

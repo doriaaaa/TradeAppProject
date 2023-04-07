@@ -24,7 +24,7 @@ adminregister@gmail.com
 testingDummy
 ```
 2. Changing the IP address in .env
-3. To access chatGPT function, you need to setup overseas vpn and set up split tunneling config
+3. To access chatGPT function, you need to setup overseas vpn and set up split tunneling config (for emulator?)
 
 ###### WORK:
 1. User login / logout

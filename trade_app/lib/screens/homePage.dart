@@ -21,8 +21,8 @@ class _homePageState extends State<homePage> {
 
   @override
   void initState() {
-    super.initState();
     _buildDisplayItemList();
+    super.initState();
   }
 
   void _buildDisplayItemList() async {

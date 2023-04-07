@@ -68,43 +68,37 @@ class bookService {
     }
   }
 
-  Future<String> bookInfo( BuildContext context, Barcode barcode, MobileScannerArguments? args) async {
-    bool _screenOpened = false;
-    // final userProvider = Provider.of<UserProvider>(context, listen: false);
-    void _screenWasClosed() { _screenOpened = false; }
-
-    if (!_screenOpened) {
-      final String code = barcode.rawValue ?? "---";
-      try {
-        if (code != "---") {
-          debugPrint('Barcode found: $code');
-          _screenOpened = true;
-          http.Response res = await http.post(Uri.parse('http://${dotenv.env['IP_ADDRESS']}:3000/api/book/info'),
-            body: jsonEncode({
-              "book_isbn": code
-            }),
-            headers: { 
-              'Content-Type': 'application/json; charset=UTF-8',
-              // 'x-auth-token': userProvider.user.token
-            }
-          );
-          debugPrint(res.body);
-          if (context.mounted) {
-            httpErrorHandle(
-              response: res,
-              context: context,
-              onSuccess: () {
-                debugPrint("isbn code: $code");
-                Navigator.push( context, MaterialPageRoute( builder: (context) => BookPage(screenClosed: _screenWasClosed, bookInfo: res.body)));
-              },
-            );
+  void bookInfo( 
+    BuildContext context,
+    Barcode barcode,
+  ) async {
+    final String code = barcode.rawValue ?? "---";
+    try {
+      if (code != "---") {
+        debugPrint('Barcode found: $code');
+        http.Response res = await http.post(Uri.parse('http://${dotenv.env['IP_ADDRESS']}:3000/api/book/info'),
+          body: jsonEncode({
+            "book_isbn": code
+          }),
+          headers: { 
+            'Content-Type': 'application/json; charset=UTF-8',
           }
+        );
+        debugPrint(res.body);
+        if (context.mounted) {
+          httpErrorHandle(
+            response: res,
+            context: context,
+            onSuccess: () {
+              debugPrint("isbn code: $code");
+              Navigator.push( context, MaterialPageRoute( builder: (context) => BookPage(bookInfo: res.body)));
+            },
+          );
         }
-      } catch (e) {
-        debugPrint(e.toString());
       }
+    } catch (e) {
+      debugPrint(e.toString());
     }
-    return "Success!";
   }
 
   // return a set of book search list

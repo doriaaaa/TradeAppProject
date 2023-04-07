@@ -15,8 +15,20 @@ class Camera extends StatefulWidget {
 }
 
 class _CameraState extends State<Camera> {
-  MobileScannerController cameraController = MobileScannerController();
+  BarcodeCapture? barcode;
+  MobileScannerController cameraController = MobileScannerController(
+    detectionSpeed: DetectionSpeed.noDuplicates,
+    facing: CameraFacing.back,
+    detectionTimeoutMs: 500,
+  );
 
+  @override
+  void initState() {
+     // To fix on start error
+    cameraController.stop();
+    super.initState();
+  }
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,9 +36,14 @@ class _CameraState extends State<Camera> {
       body: Stack(
         children: <Widget>[
           MobileScanner( // need to show each barcode at a time, do not allow multiple codes
-            allowDuplicates: false,
             controller: cameraController,
-            onDetect: (Barcode barcode, MobileScannerArguments? args) => { bookService().bookInfo(context, barcode, args)}
+            onDetect: (capture) { 
+              final List<Barcode> barcodes = capture.barcodes;
+              // for (final barcode in barcodes) {
+              //   debugPrint('Barcode found! ${barcode.rawValue}');
+              // }
+              bookService().bookInfo(context, barcodes[0]);
+            }
           ),
           Positioned(
             bottom: 8.h,
