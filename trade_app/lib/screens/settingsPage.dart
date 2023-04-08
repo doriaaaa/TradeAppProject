@@ -31,7 +31,19 @@ class _settingsPageState extends State<settingsPage> {
   Future<bool> getSwitchState() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     _isToggled = prefs.getBool("switchState")!;
-    setState(() {});
+
+    if(context.mounted) {
+      if (Theme.of(context).brightness == Brightness.dark) {
+        setState(() {
+          _isToggled = true;
+        });
+      } else {
+        setState(() {
+          _isToggled = false;
+        });
+      }
+    }
+    // setState(() {});
     return _isToggled;
   }
 

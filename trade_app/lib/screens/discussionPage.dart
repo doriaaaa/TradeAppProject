@@ -34,6 +34,8 @@ class discussionPage extends StatefulWidget {
 
 class _discussionPageState extends State<discussionPage> {
   List<Widget> displayCommentList = [];
+  bool isLiked = false;
+  bool isDisliked = false;
 
   @override
   void dispose() {
@@ -107,11 +109,11 @@ class _discussionPageState extends State<discussionPage> {
                                     )
                                   );
                                   if(update) {
-                                    print(update);
+                                    // print(update);
                                     setState(() {
                                       _updateDisplayItemList();
                                     });
-                                    print("body: $body");
+                                    // print("body: $body");
                                   }
                                 },
                                 child: const Icon(Icons.more_horiz_outlined),
@@ -184,9 +186,33 @@ class _discussionPageState extends State<discussionPage> {
             crossAxisAlignment: CrossAxisAlignment.end,
             children: <Widget>[
               const Spacer(),
-              const Icon(Icons.thumb_up_alt_outlined),
-              SizedBox(width: 4.w),
-              const Icon(Icons.thumb_down_alt_outlined),
+              // const Icon(Icons.thumb_up_alt_outlined),
+              GestureDetector(
+                behavior: HitTestBehavior.translucent,
+                onTap: () {
+                  setState(() {
+                    isLiked = !isLiked;
+                  });
+                },
+                child: Icon(
+                  isLiked == true ? Icons.thumb_up_rounded : Icons.thumb_up_alt_outlined,
+                  color: isLiked == true ? Colors.greenAccent : null,
+                )
+              ),
+              SizedBox(width: 5.w),
+              GestureDetector(
+                behavior: HitTestBehavior.translucent,
+                onTap: () {
+                  setState(() {
+                    isDisliked = !isDisliked;
+                  });
+                },
+                child: Icon(
+                  isDisliked == true ? Icons.thumb_down_rounded : Icons.thumb_down_alt_outlined,
+                  color: isDisliked == true ? Colors.redAccent : null,
+                )
+              ),
+              // const Icon(Icons.thumb_down_alt_outlined),
             ],
           ),
         ],
@@ -206,7 +232,7 @@ class _discussionPageState extends State<discussionPage> {
         FocusScope.of(context).requestFocus(FocusNode());
         // FocusScope.of(context).unfocus();
       },
-      child:WillPopScope(
+      child: WillPopScope(
         onWillPop: () async {
           Provider.of<CommentProvider>(context, listen: false).clearComments();
           return true;
@@ -268,7 +294,6 @@ class _discussionPageState extends State<discussionPage> {
                   child: ListView(
                     shrinkWrap: true,
                     controller: scrollBarController,
-                    // padding: EdgeInsets.only(left: 7.0.w, right: 7.0.w),
                     children: threadCommentList
                   ),
                 )
