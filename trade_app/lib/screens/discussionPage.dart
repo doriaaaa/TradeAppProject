@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:keyboard_attachable/keyboard_attachable.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
+import 'package:trade_app/constants/utils.dart';
 import 'package:trade_app/models/comment.dart';
 import 'package:trade_app/screens/editCommentPage.dart';
 import 'package:trade_app/services/thread/threadService.dart';
@@ -18,6 +19,7 @@ class discussionPage extends StatefulWidget {
   final int dislikes;
   final String createdAt;
   final bool userLiked;
+  final bool userDisliked;
 
   const discussionPage({
     Key? key,
@@ -28,7 +30,8 @@ class discussionPage extends StatefulWidget {
     required this.likes,
     required this.dislikes,
     required this.createdAt,
-    required this.userLiked
+    required this.userLiked,
+    required this.userDisliked
   }) : super(key: key);
 
   @override
@@ -49,6 +52,7 @@ class _discussionPageState extends State<discussionPage> {
   void initState() {
     super.initState();
     isLiked = widget.userLiked;
+    isDisliked = widget.userDisliked;
     _buildDisplayItemList();
   }
 
@@ -148,7 +152,7 @@ class _discussionPageState extends State<discussionPage> {
     final _formKey = GlobalKey<FormState>();
     String profilePicture = context.watch<UserProvider>().user.profilePicture;
     
-    final scrollBarController = ScrollController(initialScrollOffset: 50.0);
+    final scrollBarController = ScrollController(initialScrollOffset: 0.0);
     // thread content always display above
     final threadContentDisplayBox = Container(
       margin: EdgeInsets.fromLTRB(7.w, 1.h, 7.w, 1.h),
@@ -187,22 +191,18 @@ class _discussionPageState extends State<discussionPage> {
             crossAxisAlignment: CrossAxisAlignment.end,
             children: <Widget>[
               const Spacer(),
-              // const Icon(Icons.thumb_up_alt_outlined),
               GestureDetector(
                 onTap: () {
                   setState(() {
-                    if (isLiked == true) {
-                      return; // If already liked, exit the function without doing anything
+                    if (isLiked == true || isDisliked == true) {
+                      showSnackBar(context, "You have liked / disliked this thread already.");
+                      return; // do nothing if already liked/disliked
                     }
-                    isLiked = true;
+                    if (isLiked == false && isDisliked == false) {
+                      isLiked = true;
+                      threadService().userLikedThread(context: context, threadId: widget.threadId);
+                    }
                   });
-                  if (isLiked) {
-                    threadService().userLikedThread(
-                      context: context,
-                      threadId: widget.threadId
-                    );
-                  }
-                  // call threadService.userLikedThread
                 },
                 child: Icon(
                   isLiked == true ? Icons.thumb_up_rounded : Icons.thumb_up_alt_outlined,
@@ -213,7 +213,14 @@ class _discussionPageState extends State<discussionPage> {
               GestureDetector(
                 onTap: () {
                   setState(() {
-                    isDisliked = !isDisliked;
+                    if (isLiked == true || isDisliked == true) {
+                      showSnackBar(context, "You have liked / disliked this thread already.");
+                      return; // do nothing if already liked/disliked
+                    }
+                    if (isLiked == false && isDisliked == false) {
+                      isDisliked = true;
+                      threadService().userDislikedThread(context: context, threadId: widget.threadId);
+                    }
                   });
                 },
                 child: Icon(

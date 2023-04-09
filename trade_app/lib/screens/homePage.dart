@@ -40,6 +40,7 @@ class _homePageState extends State<homePage> {
       int dislikes = threadList['result'][count]['dislikes'];
       String createdAt = threadList['result'][count]['createdAt'];
       bool userLiked = threadList['result'][count]['userLiked'];
+      bool userDisliked = threadList['result'][count]['userDisliked'];
 
       displayItemList.add(gapBox);
       displayItemList.add(GestureDetector(
@@ -53,7 +54,8 @@ class _homePageState extends State<homePage> {
             likes: likes,
             dislikes: dislikes,
             createdAt: createdAt,
-            userLiked: userLiked
+            userLiked: userLiked,
+            userDisliked: userDisliked
           );
         }, 
         child: Card(
@@ -83,9 +85,6 @@ class _homePageState extends State<homePage> {
                 Row(
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
-                    // Icon( Icons.remove_red_eye_outlined, color: Colors.grey[700]),
-                    // SizedBox(width: 2.0.w),
-                    // Text('$likes', style: TextStyle(fontSize: 10.sp, fontWeight: FontWeight.bold)), // dummy data
                     const Spacer(),
                     Icon( Icons.thumb_up_alt_outlined, color: Colors.grey[700]),
                     SizedBox(width: 2.0.w),
@@ -104,11 +103,9 @@ class _homePageState extends State<homePage> {
     });
   }
 
-  // final recommendationHeaderDisplayText = Text("Latest Recommendation", style: TextStyle(fontSize: 20.0.sp));
-  // final bestBookHeaderDisplayText = Text("The best books that we choose for you", style: TextStyle(fontSize: 20.0.sp));
   @override
   Widget build(BuildContext context) {
-    final scrollBarController = ScrollController(initialScrollOffset: 50.0);
+    final scrollBarController = ScrollController(initialScrollOffset: 0.0);
     String username = context.watch<UserProvider>().user.name;
     return Scaffold(
       appBar: ReusableWidgets.persistentAppBar('Welcome back! $username'),

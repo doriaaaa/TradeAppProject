@@ -24,31 +24,39 @@ class _NavBarState extends State<NavBar> {
     const bookshelfPage(),
     const settingsPage(),
   ];
+  final PageController _pageController = PageController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: IndexedStack(
-        index: _selectedPageIndex,
-        children:_pages
+      body: PageView(
+        controller: _pageController,
+        physics: const NeverScrollableScrollPhysics(),
+        children: _pages,
+        onPageChanged: (index) {
+          setState(() {
+            _selectedPageIndex = index;
+          });
+        },
       ),
       bottomNavigationBar: GNav(
+        selectedIndex: _selectedPageIndex,
         onTabChange: (value) => {
           setState(() {
             _selectedPageIndex = value;
-            debugPrint("pages: ${value.toString()}");
+            _pageController.jumpToPage(value);
           })
         },
         gap: 0.5,
         padding: EdgeInsets.symmetric(horizontal: 3.w, vertical: 2.h),
         tabs: const [
-          GButton( icon: Icons.home_outlined, text: 'home'),
-          GButton( icon: Icons.chat_outlined, text: 'chat'),
-          GButton( icon: Icons.keyboard_option_key_sharp, text: 'options'),
-          GButton( icon: Icons.library_books_outlined ,text: 'bookshelf'),
-          GButton( icon: Icons.settings_outlined, text: 'settings'),
-        ]
-      )
+          GButton(icon: Icons.home_outlined, text: 'home'),
+          GButton(icon: Icons.chat_outlined, text: 'chat'),
+          GButton(icon: Icons.keyboard_option_key_sharp, text: 'options'),
+          GButton(icon: Icons.library_books_outlined, text: 'bookshelf'),
+          GButton(icon: Icons.settings_outlined, text: 'settings'),
+        ],
+      ),
     );
   }
 }

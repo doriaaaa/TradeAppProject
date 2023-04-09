@@ -24,7 +24,7 @@ const threadSchema = mongoose.Schema({
         default: 0
     },
     dislikes: {
-        // length of `isDisikedBy`
+        // length of `isDislikedBy`
         type: Number,
         default: 0
     }, 

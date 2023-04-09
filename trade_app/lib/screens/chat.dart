@@ -14,7 +14,7 @@ class chatPage extends StatefulWidget {
   State<chatPage> createState() => _chatPageState();
 }
 
-class _chatPageState extends State<chatPage> {
+class _chatPageState extends State<chatPage> with AutomaticKeepAliveClientMixin<chatPage> {
   final ChatApi chatApi = ChatApi();
   final _messages = <ChatMessage>[
     ChatMessage('Hello, how can I help?', false),
@@ -22,8 +22,12 @@ class _chatPageState extends State<chatPage> {
   var _awaitingResponse = false;
 
   @override
+  bool get wantKeepAlive => true;
+
+  @override
   Widget build(BuildContext context) {
-    final scrollBarController = ScrollController(initialScrollOffset: 50.0);
+    final scrollBarController = ScrollController(initialScrollOffset: 0.0);
+    super.build(context);
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();

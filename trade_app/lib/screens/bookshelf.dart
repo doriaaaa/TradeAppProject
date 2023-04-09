@@ -55,7 +55,7 @@ class _bookshelfPageState extends State<bookshelfPage> {
   }
 
   Widget bookToWidget(BuildContext context, String bookObj) {
-    final scrollBarController = ScrollController(initialScrollOffset: 50.0);
+    final scrollBarController = ScrollController(initialScrollOffset: 0.0);
     Map book = jsonDecode(bookObj);
     String imageUrl = book['image'];
     String title = book['bookInfo']['title'];
@@ -192,7 +192,7 @@ class _bookshelfPageState extends State<bookshelfPage> {
 
   @override
   Widget build(BuildContext context) {
-    final scrollBarController = ScrollController(initialScrollOffset: 50.0);
+    final scrollBarController = ScrollController(initialScrollOffset: 0.0);
 
     return Scaffold(
       appBar: ReusableWidgets.persistentAppBar('My Bookshelf'),

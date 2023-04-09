@@ -54,7 +54,7 @@ threadRouter.put('/api/thread/userLikedThread/:threadId', auth, async(req, res) 
         } else {
             const result = await Thread.findOneAndUpdate(
                 {thread_id: threadId},
-                {$addToSet: {isLikedBy:user._id}},
+                {$addToSet: {isLikedBy: user._id}},
                 {new: true}
             );
             if (result) {
@@ -69,7 +69,6 @@ threadRouter.put('/api/thread/userLikedThread/:threadId', auth, async(req, res) 
                 });
             }
         }
-
     } catch (e) {
         return res.status(500).json({ error: e.message });
     }
@@ -77,9 +76,35 @@ threadRouter.put('/api/thread/userLikedThread/:threadId', auth, async(req, res) 
 
 
 // user dislike the post
-threadRouter.put('/api/thread/userDisikedThread/:threadId', auth, async(req, res) => {
+threadRouter.put('/api/thread/userDislikedThread/:threadId', auth, async(req, res) => {
+    const threadId = req.params.threadId;
     try {
+        const user = await User.findOne({_id: req.user});
+        const thread = await Thread.findOne({thread_id: threadId});
 
+        if (thread.isDislikedBy.includes(user._id)) {
+            res.status(409).json({
+                msg: "failed",
+                result: "user has disliked the thread"
+            });
+        } else {
+            const result = await Thread.findOneAndUpdate(
+                {thread_id: threadId},
+                {$addToSet: {isDislikedBy: user._id}},
+                {new: true}
+            );
+            if (result) {
+                res.status(200).json({
+                    msg: "success",
+                    result: result
+                });
+            } else {
+                res.status(400).json({
+                    msg: "failed",
+                    result: "unknown error occured"
+                });
+            }
+        }
     } catch (e) {
         return res.status(500).json({ error: e.message });
     }
@@ -126,10 +151,11 @@ async function findAuthorByThread(thread, user) {
         "content": thread.content,
         "author": author.name,
         "likes": thread.isLikedBy.length,
-        "dislikes": thread.dislikes,
+        "dislikes": thread.isDislikedBy.length,
         "comments": thread.comments,
         "createdAt": thread.createAt,
-        "userLiked": thread.isLikedBy.includes(user._id)
+        "userLiked": thread.isLikedBy.includes(user._id),
+        "userDisliked": thread.isDislikedBy.includes(user._id)
     }
     return res;
 }
