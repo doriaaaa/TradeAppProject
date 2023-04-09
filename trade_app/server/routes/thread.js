@@ -155,7 +155,8 @@ async function findAuthorByThread(thread, user) {
         "comments": thread.comments,
         "createdAt": thread.createAt,
         "userLiked": thread.isLikedBy.includes(user._id),
-        "userDisliked": thread.isDislikedBy.includes(user._id)
+        "userDisliked": thread.isDislikedBy.includes(user._id),
+        "totalComments": thread.comments.length
     }
     return res;
 }

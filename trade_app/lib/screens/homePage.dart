@@ -41,6 +41,7 @@ class _homePageState extends State<homePage> {
       String createdAt = threadList['result'][count]['createdAt'];
       bool userLiked = threadList['result'][count]['userLiked'];
       bool userDisliked = threadList['result'][count]['userDisliked'];
+      int totalComments = threadList['result'][count]['totalComments'];
 
       displayItemList.add(gapBox);
       displayItemList.add(GestureDetector(
@@ -86,9 +87,26 @@ class _homePageState extends State<homePage> {
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
                     const Spacer(),
-                    Icon( Icons.thumb_up_alt_outlined, color: Colors.grey[700]),
+                    Icon(
+                      likes - dislikes >= 0 
+                        ? Icons.thumb_up_alt_outlined 
+                        : Icons.thumb_down_alt_outlined,
+                      color: likes - dislikes >= 0 
+                        ? Colors.green 
+                        : Colors.red,
+                    ),
                     SizedBox(width: 2.0.w),
-                    Text('$likes', style: TextStyle(fontSize: 10.sp, fontWeight: FontWeight.bold)) // dummy data
+                    Text(
+                      likes >= dislikes ? '$likes' : '-$dislikes', 
+                      style: TextStyle(fontSize: 10.sp, fontWeight: FontWeight.bold)
+                    ),
+                    SizedBox(width: 4.0.w),
+                    const Icon( Icons.chat_bubble_outline),
+                    SizedBox(width: 2.0.w),
+                    Text(
+                      '$totalComments', 
+                      style: TextStyle(fontSize: 10.sp, fontWeight: FontWeight.bold)
+                    )
                   ],
                 )
               ],
