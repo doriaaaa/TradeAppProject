@@ -17,16 +17,17 @@ class threadService {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
     try {
       http.Response res = await http.post(
-          Uri.parse(
-              'http://${dotenv.env['IP_ADDRESS']}:3000/api/thread/createThread'),
-          body: jsonEncode({
-            'title': title,
-            'content': content,
-          }),
-          headers: <String, String>{
-            'Content-Type': 'application/json; charset=UTF-8',
-            'x-auth-token': userProvider.user.token
-          });
+        Uri.parse(
+            'http://${dotenv.env['IP_ADDRESS']}:3000/api/thread/createThread'),
+        body: jsonEncode({
+          'title': title,
+          'content': content,
+        }),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+          'x-auth-token': userProvider.user.token
+        }
+      );
       if (context.mounted) {
         httpErrorHandle(
           response: res,
@@ -45,12 +46,51 @@ class threadService {
   Future<String> showAllThreads({
     required BuildContext context,
   }) async {
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
     try {
-      http.Response res = await http.get(Uri.parse('http://${dotenv.env['IP_ADDRESS']}:3000/api/thread/showAllThreads'));
+      http.Response res = await http.get(Uri.parse('http://${dotenv.env['IP_ADDRESS']}:3000/api/thread/showAllThreads'),
+      headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+          'x-auth-token': userProvider.user.token
+        }
+      );
       return res.body;
     } catch (e) {
       debugPrint(e.toString());
       throw Exception("Failed to load user data");
     }
   }
+
+  // thread liked by user
+  void userLikedThread({
+    required BuildContext context,
+    required int threadId,
+  }) async {
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
+    try {
+      http.Response res = await http.put(Uri.parse('http://${dotenv.env['IP_ADDRESS']}:3000/api/thread/userLikedThread/$threadId'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+          'x-auth-token': userProvider.user.token
+        }
+      );
+      if (context.mounted) {
+        httpErrorHandle(
+          response: res,
+          context: context,
+          onSuccess: () {
+            showSnackBar(context, "You liked this thread!");
+          },
+          onDuplicates: () {
+            showSnackBar(context, "You liked this thread already.");
+          }
+        );
+      }
+    } catch (e) {
+      debugPrint(e.toString());
+    }
+  }
+
+  // thread disliked by user
+
 }

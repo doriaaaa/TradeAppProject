@@ -59,8 +59,9 @@ class commentService {
     required String content,
     required int threadId,
     required int likes,
-    required int views,
-    required String createdAt
+    required int dislikes,
+    required String createdAt,
+    required bool userLiked,
   }) async {
     try {
       http.Response res = await http.get(Uri.parse('http://${dotenv.env['IP_ADDRESS']}:3000/api/comment/showAllComments/thread/$threadId'));
@@ -90,8 +91,9 @@ class commentService {
                   content: content,
                   threadId: threadId,
                   likes: likes,
-                  views: views,
-                  createdAt: createdAt
+                  dislikes: dislikes,
+                  createdAt: createdAt,
+                  userLiked: userLiked
                 )
               ));
             }

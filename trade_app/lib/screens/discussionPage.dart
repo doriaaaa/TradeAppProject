@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 import 'package:trade_app/models/comment.dart';
 import 'package:trade_app/screens/editCommentPage.dart';
+import 'package:trade_app/services/thread/threadService.dart';
 import '../provider/comment_provider.dart';
 import '../provider/user_provider.dart';
 import '../services/comment/commentService.dart';
@@ -14,8 +15,9 @@ class discussionPage extends StatefulWidget {
   final String content;
   final int threadId;
   final int likes;
-  final int views;
+  final int dislikes;
   final String createdAt;
+  final bool userLiked;
 
   const discussionPage({
     Key? key,
@@ -24,8 +26,9 @@ class discussionPage extends StatefulWidget {
     required this.content,
     required this.threadId,
     required this.likes,
-    required this.views,
-    required this.createdAt
+    required this.dislikes,
+    required this.createdAt,
+    required this.userLiked
   }) : super(key: key);
 
   @override
@@ -45,6 +48,7 @@ class _discussionPageState extends State<discussionPage> {
   @override
   void initState() {
     super.initState();
+    isLiked = widget.userLiked;
     _buildDisplayItemList();
   }
 
@@ -187,8 +191,18 @@ class _discussionPageState extends State<discussionPage> {
               GestureDetector(
                 onTap: () {
                   setState(() {
-                    isLiked = !isLiked;
+                    if (isLiked == true) {
+                      return; // If already liked, exit the function without doing anything
+                    }
+                    isLiked = true;
                   });
+                  if (isLiked) {
+                    threadService().userLikedThread(
+                      context: context,
+                      threadId: widget.threadId
+                    );
+                  }
+                  // call threadService.userLikedThread
                 },
                 child: Icon(
                   isLiked == true ? Icons.thumb_up_rounded : Icons.thumb_up_alt_outlined,

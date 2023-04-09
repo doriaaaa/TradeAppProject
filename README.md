@@ -44,7 +44,8 @@ testingDummy
 1. User Management API
 - [x] user can edit the profile picture
 - [x] user can update the password
-- [ ] user like system
+- [x] user like system
+- [ ] user dislike system
 - [ ] user can list out the category that they are interested in
 - [ ] user can send friend request --> notification system
 - [ ] assign special name tag to user 
@@ -53,11 +54,11 @@ testingDummy
 - [ ] make suggestions on books
 3. Book review API
 - [ ] Database: set up a book review model
-- [ ] create review for the book with specified bookID / bookname
+- [x] create review for the book with specified bookID / bookname
 - [x] get all reviews
-- [ ] get one review entry
-- [ ] edit the review
-- [ ] delete the review
+- [ ] ~~get one review entry~~
+- [x] edit the review
+- [ ] ~~delete the review~~
 4. Book search API
 - [ ] allows users to search for books in the exchange by title, author, genre, or other criteria (simply call google book search api)
 
@@ -80,6 +81,8 @@ testingDummy
 3. Thread
 - [x] POST&nbsp;/api/thread/createThread
 - [x] GET &nbsp;/api/thread/showAllThreads
+- [x] PUT &nbsp;/api/thread/userLikedThread/:threadId
+- [ ] PUT &nbsp;/api/thread/userDislikedThread/:threadId
 
 4. Comment
 - [x] POST&nbsp;/api/comment/createComment

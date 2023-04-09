@@ -19,10 +19,12 @@ const threadSchema = mongoose.Schema({
         required: true 
     },
     likes: {
+        // length of `isLikedBy`
         type: Number,
         default: 0
     },
-    views: {
+    dislikes: {
+        // length of `isDisikedBy`
         type: Number,
         default: 0
     }, 
@@ -33,6 +35,14 @@ const threadSchema = mongoose.Schema({
     comments: [{ 
         type: mongoose.Schema.Types.ObjectId, 
         ref: "Comment"
+    }],
+    isLikedBy: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+    }],
+    isDislikedBy: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
     }]
 });
 

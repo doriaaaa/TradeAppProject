@@ -37,8 +37,9 @@ class _homePageState extends State<homePage> {
       String content = threadList['result'][count]['content'];
       int threadId = threadList['result'][count]['thread_id'];
       int likes = threadList['result'][count]['likes'];
-      int views = threadList['result'][count]['views'];
+      int dislikes = threadList['result'][count]['dislikes'];
       String createdAt = threadList['result'][count]['createdAt'];
+      bool userLiked = threadList['result'][count]['userLiked'];
 
       displayItemList.add(gapBox);
       displayItemList.add(GestureDetector(
@@ -50,8 +51,9 @@ class _homePageState extends State<homePage> {
             content: content,
             threadId: threadId,
             likes: likes,
-            views: views,
-            createdAt: createdAt
+            dislikes: dislikes,
+            createdAt: createdAt,
+            userLiked: userLiked
           );
         }, 
         child: Card(
@@ -81,13 +83,13 @@ class _homePageState extends State<homePage> {
                 Row(
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
-                    Icon( Icons.remove_red_eye_outlined, color: Colors.grey[700]),
-                    SizedBox(width: 2.0.w),
-                    Text('$likes', style: TextStyle(fontSize: 10.sp, fontWeight: FontWeight.bold)), // dummy data
+                    // Icon( Icons.remove_red_eye_outlined, color: Colors.grey[700]),
+                    // SizedBox(width: 2.0.w),
+                    // Text('$likes', style: TextStyle(fontSize: 10.sp, fontWeight: FontWeight.bold)), // dummy data
                     const Spacer(),
                     Icon( Icons.thumb_up_alt_outlined, color: Colors.grey[700]),
                     SizedBox(width: 2.0.w),
-                    Text('$views', style: TextStyle(fontSize: 10.sp, fontWeight: FontWeight.bold)) // dummy data
+                    Text('$likes', style: TextStyle(fontSize: 10.sp, fontWeight: FontWeight.bold)) // dummy data
                   ],
                 )
               ],

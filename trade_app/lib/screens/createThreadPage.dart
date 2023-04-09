@@ -22,12 +22,13 @@ class _createThreadPageState extends State<createThreadPage> {
   @override
   void initState() {
     super.initState();
-    titleInputFieldController = TextEditingController( text: "Discussion on $widget.title");
+    titleInputFieldController = TextEditingController( text: "Discussion on ${widget.title}");
   }
 
   @override
   Widget build(BuildContext context) {
     final titleInputField = TextFormField(
+      maxLines: null,
       textInputAction: TextInputAction.next,
       controller: titleInputFieldController,
       autocorrect: false,
@@ -43,7 +44,7 @@ class _createThreadPageState extends State<createThreadPage> {
     );
 
     final contentInputField = TextFormField(
-      maxLines: 5,
+      maxLines: null,
       textInputAction: TextInputAction.done,
       controller: contentInputFieldController,
       autocorrect: false,
