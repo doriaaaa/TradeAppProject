@@ -39,8 +39,6 @@ testingDummy
 10. Home Page UI
 11. User upload profile pic
 12. ChatGPT replaces searchPage
-13. Setup bookshelf page
-14. Loading screen after user performs upload action
 
 ###### TODO: 
 1. User Management API
@@ -54,11 +52,11 @@ testingDummy
 - [ ] ~~analyse what genres that user likes the most~~
 - [ ] make suggestions on books
 3. Book review API
-- [x] Database: set up a book review model
-- [ ] create review for the book with specified bookID / bookname --> from books to start a new post
+- [ ] Database: set up a book review model
+- [ ] create review for the book with specified bookID / bookname
 - [x] get all reviews
-- [ ] ~~get one review entry~~
-- [x] edit the review
+- [ ] get one review entry
+- [ ] edit the review
 - [ ] delete the review
 4. Book search API
 - [ ] allows users to search for books in the exchange by title, author, genre, or other criteria (simply call google book search api)

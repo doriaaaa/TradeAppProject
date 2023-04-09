@@ -109,11 +109,9 @@ class _discussionPageState extends State<discussionPage> {
                                     )
                                   );
                                   if(update) {
-                                    // print(update);
                                     setState(() {
                                       _updateDisplayItemList();
                                     });
-                                    // print("body: $body");
                                   }
                                 },
                                 child: const Icon(Icons.more_horiz_outlined),
@@ -176,7 +174,6 @@ class _discussionPageState extends State<discussionPage> {
                 ]
               ),
               const Spacer(),
-              // const Text('#1')
             ] 
           ),
           Text(widget.content),
@@ -188,7 +185,6 @@ class _discussionPageState extends State<discussionPage> {
               const Spacer(),
               // const Icon(Icons.thumb_up_alt_outlined),
               GestureDetector(
-                behavior: HitTestBehavior.translucent,
                 onTap: () {
                   setState(() {
                     isLiked = !isLiked;
@@ -201,7 +197,6 @@ class _discussionPageState extends State<discussionPage> {
               ),
               SizedBox(width: 5.w),
               GestureDetector(
-                behavior: HitTestBehavior.translucent,
                 onTap: () {
                   setState(() {
                     isDisliked = !isDisliked;
@@ -250,12 +245,12 @@ class _discussionPageState extends State<discussionPage> {
               icon: const Icon( Icons.arrow_back_outlined ),
             ),
           ),
-          body: Form(
-            key: _formKey,
-            child: SafeArea(
-              maintainBottomViewPadding: true,
-              child: FooterLayout(
-                footer: KeyboardAttachable(
+          body: SafeArea(
+            maintainBottomViewPadding: true,
+            child: FooterLayout(
+              footer: KeyboardAttachable(
+                child: Form(
+                  key: _formKey,
                   child: Container(
                     margin: EdgeInsets.all(2.w),
                     padding: EdgeInsets.all(2.w),
@@ -287,19 +282,19 @@ class _discussionPageState extends State<discussionPage> {
                       ),
                     )
                   ),
-                ),
-                child: Scrollbar(
-                  thumbVisibility: true,
-                  controller: scrollBarController,
-                  child: ListView(
-                    shrinkWrap: true,
-                    controller: scrollBarController,
-                    children: threadCommentList
-                  ),
-                )
               ),
+              ),
+              child: Scrollbar(
+                thumbVisibility: true,
+                controller: scrollBarController,
+                child: ListView(
+                  shrinkWrap: true,
+                  controller: scrollBarController,
+                  children: threadCommentList
+                ),
+              )
             ),
-          )
+          ),
         )
       )
     );
