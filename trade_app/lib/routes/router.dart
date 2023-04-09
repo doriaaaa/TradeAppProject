@@ -22,7 +22,19 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
     case Camera.routeName:
       return MaterialPageRoute( settings: routeSettings, builder: (_) => const Camera());
     case createThreadPage.routeName:
-      return MaterialPageRoute( settings: routeSettings, builder: (_) => const createThreadPage());
+      final args = routeSettings.arguments;
+      // Check if args is not null and contains a title key
+      if (args != null && args is Map<String, dynamic> && args.containsKey('title')) {
+        return MaterialPageRoute(
+          settings: routeSettings,
+          builder: (_) => createThreadPage(title: args['title']),
+        );
+      } else {
+        return MaterialPageRoute(
+          settings: routeSettings,
+          builder: (_) => const createThreadPage(title: null),
+        );
+      }
     default:
       return MaterialPageRoute( settings: routeSettings, builder: (_) => const Scaffold( body: Center( child: Text('Screen does not exist!'))));
   }

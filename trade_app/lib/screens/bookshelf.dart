@@ -160,7 +160,7 @@ class _bookshelfPageState extends State<bookshelfPage> {
                       ),
                       // share button --> redirect to new post 
                       OutlinedButton(
-                        onPressed: () {}, 
+                        onPressed: () { Navigator.pushNamed(context, '/createNewThread', arguments: {'title': title}); }, 
                         style: OutlinedButton.styleFrom(
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(20.0)

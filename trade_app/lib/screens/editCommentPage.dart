@@ -33,8 +33,7 @@ class _editCommentPageState extends State<editCommentPage> {
 
   @override
   Widget build(BuildContext context) {
-    final commentQuery = Provider.of<CommentProvider>(context, listen: false)
-        .comments[widget.comment_id - 1];
+    final commentQuery = Provider.of<CommentProvider>(context, listen: false).comments[widget.comment_id - 1];
     // print(commentQuery.body);
     final contentInputField = TextFormField(
       maxLines: 5,
@@ -52,78 +51,89 @@ class _editCommentPageState extends State<editCommentPage> {
     );
 
     return GestureDetector(
-        onTap: () {
-          FocusScope.of(context).unfocus();
-        },
-        child: Scaffold(
-            appBar: AppBar(
-              title: const Text("Edit Comment"),
-              centerTitle: true,
-              actions: <Widget>[
-                IconButton(
-                  onPressed: () {
-                    if (_formKey.currentState!.validate()) {
-                      commentService().editComment(
-                        context: context,
-                        comment_id: commentQuery.comment_id,
-                        thread_id: commentQuery.thread_id,
-                        body: contentInputFieldController.text,
-                      ).then((value) => Navigator.pop(context, true));
-                    }
-                  },
-                  icon: const Icon(Icons.check),
-                )
-              ],
-              leading: IconButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                icon: const Icon(Icons.arrow_back_outlined),
-              ),
-              flexibleSpace: const Image(
-                  image: AssetImage('assets/book_title.jpg'),
-                  fit: BoxFit.cover),
-            ),
-            body: SafeArea(
-              maintainBottomViewPadding: true,
-              child: FooterLayout(
-                footer: const KeyboardAttachableFooter(),
-                child: Form(
-                    key: _formKey,
-                    child: ListView(
-                      padding: EdgeInsets.only(left: 7.w, right: 7.w),
-                      children: <Widget>[
-                        Row(children: <Widget>[
-                          Container(
-                            width: 10.w,
-                            height: 10.h,
-                            decoration: const BoxDecoration(
-                                shape: BoxShape.circle,
-                                image: DecorationImage(
-                                    image: AssetImage('assets/default.jpg'),
-                                    fit: BoxFit.scaleDown)),
-                          ),
-                          SizedBox(width: 2.w),
-                          Expanded(
-                            child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: <Widget>[
-                                  Text(commentQuery.username,
-                                      style: TextStyle(fontSize: 12.sp)),
-                                  SizedBox(height: 1.0.h),
-                                  Text(
-                                      commentQuery.date.substring(
-                                          0, commentQuery.date.indexOf('T')),
-                                      style: TextStyle(fontSize: 8.sp))
-                                ]),
+      onTap: () {
+        FocusScope.of(context).unfocus();
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text("Edit Comment"),
+          centerTitle: true,
+          actions: <Widget>[
+            IconButton(
+              onPressed: () {
+                if (_formKey.currentState!.validate()) {
+                  commentService().editComment(
+                    context: context,
+                    comment_id: commentQuery.comment_id,
+                    thread_id: commentQuery.thread_id,
+                    body: contentInputFieldController.text,
+                  ).then((value) => Navigator.pop(context, true));
+                }
+              },
+              icon: const Icon(Icons.check),
+            )
+          ],
+          leading: IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: const Icon(Icons.arrow_back_outlined),
+          ),
+          flexibleSpace: const Image(
+            image: AssetImage('assets/book_title.jpg'),
+            fit: BoxFit.cover
+          ),
+        ),
+        body: SafeArea(
+          maintainBottomViewPadding: true,
+          child: FooterLayout(
+            footer: const KeyboardAttachableFooter(),
+            child: Form(
+              key: _formKey,
+              child: ListView(
+                padding: EdgeInsets.only(left: 7.w, right: 7.w),
+                children: <Widget>[
+                  Row(
+                    children: <Widget>[
+                      Container(
+                        width: 10.w,
+                        height: 10.h,
+                        decoration: const BoxDecoration(
+                          shape: BoxShape.circle,
+                          image: DecorationImage(
+                            image: AssetImage('assets/default.jpg'),
+                            fit: BoxFit.scaleDown
                           )
-                        ]),
-                        SizedBox(height: 1.h),
-                        contentInputField
-                      ],
-                    )),
-              ),
-            )));
+                        ),
+                      ),
+                      SizedBox(width: 2.w),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text(
+                              commentQuery.username,
+                              style: TextStyle(fontSize: 12.sp)
+                            ),
+                            SizedBox(height: 1.0.h),
+                            Text(
+                              commentQuery.date.substring(0, commentQuery.date.indexOf('T')),
+                              style: TextStyle(fontSize: 8.sp)
+                            )
+                          ]
+                        ),
+                      )
+                    ]
+                  ),
+                  SizedBox(height: 1.h),
+                  contentInputField
+                ],
+              )
+            ),
+          ),
+        )
+      )
+    );
   }
 }
 
@@ -132,15 +142,17 @@ class KeyboardAttachableFooter extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => KeyboardAttachable(
-        child: Container(padding: EdgeInsets.all(5.w), child: Container()
-            // TODO: add custom buttons
-            // const TextField(
-            //   decoration: InputDecoration(
-            //     hintText: "Tap me!",
-            //     filled: true,
-            //     border: OutlineInputBorder(),
-            //   ),
-            // ),
-            ),
-      );
+    child: Container(
+      padding: EdgeInsets.all(5.w), 
+      child: Container()
+        // TODO: add custom buttons
+        // const TextField(
+        //   decoration: InputDecoration(
+        //     hintText: "Tap me!",
+        //     filled: true,
+        //     border: OutlineInputBorder(),
+        //   ),
+        // ),
+    ),
+  );
 }

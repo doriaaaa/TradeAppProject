@@ -5,7 +5,9 @@ import 'package:trade_app/services/thread/threadService.dart';
 import '../constants/utils.dart';
 
 class createThreadPage extends StatefulWidget {
-  const createThreadPage({Key? key}) : super(key: key);
+  final String? title;
+
+  const createThreadPage({Key? key, required this.title}) : super(key: key);
   static const String routeName = '/createNewThread';
 
   @override
@@ -14,18 +16,25 @@ class createThreadPage extends StatefulWidget {
 
 class _createThreadPageState extends State<createThreadPage> {
   final _formKey = GlobalKey<FormState>();
-  final titleInputFieldController = TextEditingController();
-  final contentInputFieldController = TextEditingController();
+  TextEditingController titleInputFieldController = TextEditingController();
+  TextEditingController contentInputFieldController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    titleInputFieldController = TextEditingController( text: "Discussion on $widget.title");
+  }
 
   @override
   Widget build(BuildContext context) {
-
     final titleInputField = TextFormField(
       textInputAction: TextInputAction.next,
       controller: titleInputFieldController,
       autocorrect: false,
       validator: (value) {
-        if (value == null || value.isEmpty) return 'You need to enter a title to create a new thread!';
+        if (value == null || value.isEmpty) {
+          return 'You need to enter a title to create a new thread!';
+        }
         return null;
       },
       decoration: const InputDecoration(
@@ -47,42 +56,45 @@ class _createThreadPageState extends State<createThreadPage> {
         border: InputBorder.none,
       ),
     );
-    
+
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
       },
       child: Scaffold(
-        appBar:AppBar(
+        appBar: AppBar(
           title: const Text("New Post"),
           centerTitle: true,
           actions: <Widget>[
-            IconButton( 
+            IconButton(
               onPressed: () {
-                if (_formKey.currentState!.validate()) { 
+                if (_formKey.currentState!.validate()) {
                   threadService().createThread(
-                    context: context,
-                    title: titleInputFieldController.text, 
-                    content: contentInputFieldController.text
-                  );
+                      context: context,
+                      title: titleInputFieldController.text,
+                      content: contentInputFieldController.text);
                 } else {
-                  showSnackBar( context,'Missing title / description');
+                  showSnackBar(context, 'Missing title / description');
                 }
-              }, 
-              icon: const Icon( Icons.check ),
+              },
+              icon: const Icon(Icons.check),
             )
           ],
           leading: IconButton(
-            onPressed: () { Navigator.pop(context);},
-            icon: const Icon( Icons.arrow_back_outlined ),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: const Icon(Icons.arrow_back_outlined),
           ),
-          flexibleSpace: const Image( image: AssetImage('assets/book_title.jpg'), fit: BoxFit.cover),
+          flexibleSpace: const Image(
+              image: AssetImage('assets/book_title.jpg'),
+              fit: BoxFit.cover),
         ),
         body: SafeArea(
           maintainBottomViewPadding: true,
-            child: FooterLayout(
-              footer: const KeyboardAttachableFooter(),
-              child:Form(
+          child: FooterLayout(
+            footer: const KeyboardAttachableFooter(),
+            child: Form(
                 key: _formKey,
                 child: ListView(
                   padding: EdgeInsets.only(left: 7.w, right: 7.w),
@@ -93,8 +105,8 @@ class _createThreadPageState extends State<createThreadPage> {
                     contentInputField
                   ],
                 )
-              ) ,
-            ),
+              ),
+          ),
         )
       )
     );
@@ -106,17 +118,15 @@ class KeyboardAttachableFooter extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => KeyboardAttachable(
-    child: Container(
-      padding: EdgeInsets.all(5.w),
-      child: Container()
-      // TODO: add custom buttons
-      // const TextField(
-      //   decoration: InputDecoration(
-      //     hintText: "Tap me!",
-      //     filled: true,
-      //     border: OutlineInputBorder(),
-      //   ),
-      // ),
-    ),
-  );
+        child: Container(padding: EdgeInsets.all(5.w), child: Container()
+            // TODO: add custom buttons
+            // const TextField(
+            //   decoration: InputDecoration(
+            //     hintText: "Tap me!",
+            //     filled: true,
+            //     border: OutlineInputBorder(),
+            //   ),
+            // ),
+            ),
+      );
 }
