@@ -31,7 +31,7 @@ commentRouter.post("/api/comment/createComment", auth, async (req, res) => {
         thread.comments.push(newComment); 
         const threadResult = await thread.save();
         if (threadResult) {
-            res.status(200).json({
+            res.status(201).json({
                 msg: "success",
                 result: newComment
             });
