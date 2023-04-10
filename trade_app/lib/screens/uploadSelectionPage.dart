@@ -56,6 +56,25 @@ class _uploadSelectionPageState extends State<uploadSelectionPage> {
       )
     );
 
+    final searchButton = ElevatedButton(
+      style: ElevatedButton.styleFrom(
+        backgroundColor: const Color(0xE66d84b4),
+        elevation: 6.0,
+        shape: RoundedRectangleBorder( borderRadius: BorderRadius.circular(20.0)),
+      ),
+      onPressed: () {
+        Navigator.pushNamed(context, '/search');
+      }, 
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Icon( Icons.recommend_rounded, size: 30.sp),
+          SizedBox(height: 3.h),
+          const Text("View recommendations")
+        ]
+      )
+    );
+
     return Scaffold(
       appBar: ReusableWidgets.persistentAppBar('Choose upload options'),
       body: Center(
@@ -65,15 +84,19 @@ class _uploadSelectionPageState extends State<uploadSelectionPage> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
-              SizedBox(height: 10.0.h),
+              SizedBox(height: 4.0.h),
               Expanded(
                 child: uploadBookButton,
               ),
-              SizedBox(height: 10.0.h),
+              SizedBox(height: 4.0.h),
               Expanded(
                 child: createThreadButton,
               ),
-              SizedBox(height: 10.0.h),
+              SizedBox(height: 4.0.h),
+              Expanded(
+                child: searchButton,
+              ),
+              SizedBox(height: 4.0.h),
             ],
           ),
         )
