@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import 'package:trade_app/services/comment/commentService.dart';
@@ -137,7 +138,7 @@ class _homePageState extends State<homePage> {
           children: isLoading
           ? [
             SizedBox(height: 10.h),
-            const Center(child: CircularProgressIndicator())
+            const Center(child: CupertinoActivityIndicator())
           ]
           : displayItemList
         ),

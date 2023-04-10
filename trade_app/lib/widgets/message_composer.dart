@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
@@ -54,7 +55,7 @@ class MessageComposer extends StatelessWidget {
                 : Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget> [
-                      const SizedBox( child: CircularProgressIndicator() ),
+                      const SizedBox( child: CupertinoActivityIndicator() ),
                       SizedBox(width: 2.w),
                       const Text('Fetching response...'),
                     ],

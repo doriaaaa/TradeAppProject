@@ -1,9 +1,12 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:basic_utils/basic_utils.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:sizer/sizer.dart';
 import '../services/book/bookService.dart';
+import '../widgets/recommendationModal.dart';
 import '../widgets/reusableWidget.dart';
 
 class SearchPage extends StatefulWidget {
@@ -37,37 +40,47 @@ class _SearchPageState extends State<SearchPage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Padding(
-            padding: EdgeInsets.all(2.w),
-            child: const Text(
+            padding: EdgeInsets.only(left: 4.w, right: 4.w, top: 1.5.h, bottom: 1.0.h),
+            child: Text(
               'Weekly Recommendation',
-              style: TextStyle(
-                fontSize: 20,
-              ),
+              style: TextStyle( fontSize: 20.sp),
             ),
           ),
-          SizedBox(height: 1.h),
+          const Divider(thickness: 1.0),
           Expanded(
-            child: _buildTrendingBookList(),
+            child: Stack(
+              children: [
+                _buildTrendingBookList(),
+                Positioned.fill(
+                  child: Center(
+                    child: Visibility(
+                      visible: isLoading,
+                      child: const CupertinoActivityIndicator(),
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
         ],
       ),
       bottomNavigationBar: Container(
-        padding: EdgeInsets.all(4.0.w),
+        padding: EdgeInsets.all(3.0.w),
         child: Row(
           children: [
             Expanded(
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   elevation: 0,
-                  shadowColor: Colors.transparent,
+                  // shadowColor: Colors.transparent,
                   splashFactory: NoSplash.splashFactory,
-                  backgroundColor: const Color(0xFF535353),
+                  backgroundColor: const Color(0xB3535353),
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0))
                 ),
                 child: Row(
                   children: const [
-                    Icon( color: Color(0xFFbabcbe), Icons.search),
-                    Text( "Seach for a book", style: TextStyle(color: Color(0xFFBabcbe)))
+                    Icon( color: Color(0xFFF2F1F0), Icons.search),
+                    Text( "Search for a Book", style: TextStyle(color: Color(0xFFF2F1F0)))
                   ]
                 ),
                 onPressed: () {
@@ -90,39 +103,60 @@ class _SearchPageState extends State<SearchPage> {
         ListView.separated(
           controller: _sc,
           itemCount: bookList.length,
-          separatorBuilder: (context, index) { return const Divider(); },
+          separatorBuilder: (context, index) { 
+            return const Divider(thickness: 1.0,); 
+          },
           itemBuilder: (context, index) {
             Map book = jsonDecode(bookList[index]);
-            return ListTile(
-              leading: ConstrainedBox(
-                constraints: BoxConstraints(
-                  maxHeight: 30.h,
-                  maxWidth: 10.w
-                ),
-                child: Align(
-                  alignment: Alignment.center,
-                  child: book['book_image'] != null
-                  ? Image.network(book['book_image'])
-                  : const Icon(Icons.image_not_supported_outlined)
+            return TextButton(
+              style: TextButton.styleFrom(
+                // elevation: 0.0,
+                backgroundColor: Colors.transparent
+              ),
+              onPressed: () => showBarModalBottomSheet(
+                expand: false,
+                context: context, 
+                backgroundColor: Colors.transparent,
+                builder: (context) => recommendationModal(
+                  // pass title, author, book picture url, description
+                  title: StringUtils.capitalize(book['title'], allWords: true),
+                  author: book['author'],
+                  bookCoverUrl: book['book_image'],
+                  description: book['description']
                 )
               ),
-              title: Text(StringUtils.capitalize(book['title'], allWords: true)),
-              // user clicks the list tile will be redirected to see the summary of the book
-              // trailing: 
+              child: ListTile(
+                leading: ConstrainedBox(
+                  constraints: BoxConstraints(
+                    maxHeight: 30.h,
+                    maxWidth: 10.w
+                  ),
+                  child: Align(
+                    alignment: Alignment.center,
+                    child: book['book_image'] != null
+                    ? Image.network(book['book_image'])
+                    : const Icon(Icons.image_not_supported_outlined)
+                  )
+                ),
+                title: Padding(
+                  padding: EdgeInsets.only(bottom: 1.h),
+                  child: Text(
+                    StringUtils.capitalize(book['title'], allWords: true),
+                    style: TextStyle(fontSize: 12.0.sp),
+                  ),
+                ),
+                subtitle: Text(
+                  book['author'],
+                  style: TextStyle(
+                    fontStyle: FontStyle.italic,
+                    fontSize: 10.sp
+                  ),
+                ),
+                // user clicks the list tile will be redirected to see the summary of the book
+                // trailing: const Icon(Icons.arrow_forward_ios_rounded),
+              )
             );
           },
-        ),
-        Positioned(
-          bottom: 0,
-          left: 0,
-          right: 0,
-          child: Container(
-            alignment: Alignment.center,
-            padding: const EdgeInsets.symmetric(vertical: 8.0),
-            child: isLoading
-            ? const CircularProgressIndicator()
-            : const SizedBox.shrink(),
-          ),
         ),
       ],
     );
@@ -134,6 +168,9 @@ class _SearchPageState extends State<SearchPage> {
   }
 
   void _fetchBookList() async {
+    setState(() {
+      isLoading = true;
+    });
     _bookListResponse = await getBookListResponse();
     fetchBookList(page, _bookListResponse);
     _sc.addListener(() {
@@ -148,6 +185,9 @@ class _SearchPageState extends State<SearchPage> {
           });
         });
       }
+    });
+    setState(() {
+      isLoading = false;
     });
   }
 

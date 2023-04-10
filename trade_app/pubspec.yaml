@@ -55,6 +55,7 @@ dependencies:
   markdown_widget: ^2.1.0
   chat_bubbles: ^1.4.1
   basic_utils: ^5.5.3
+  modal_bottom_sheet: ^3.0.0-pre
   
 
 dev_dependencies:

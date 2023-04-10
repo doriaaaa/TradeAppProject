@@ -3,12 +3,14 @@
 // backend server should have an upload image api and delete image api
 import 'dart:convert';
 import 'dart:io';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:sizer/sizer.dart';
 import 'package:trade_app/services/book/bookService.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import '../constants/utils.dart';
+
 
 class BookPage extends StatefulWidget {
   final String bookInfo;
@@ -240,7 +242,7 @@ class _BookPageState extends State<BookPage> {
                 child: Container(
                   color: Colors.black.withOpacity(0.5),
                   child: const Center(
-                    child: CircularProgressIndicator(),
+                    child: CupertinoActivityIndicator(),
                   ),
                 ),
               ),

@@ -24,7 +24,7 @@ adminregister@gmail.com
 testingDummy
 ```
 2. Changing the IP address in .env
-3. To access chatGPT function, you need to setup overseas vpn and set up split tunneling config (for emulator?)
+~~3. To access chatGPT function, you need to setup overseas vpn and set up split tunneling config (for emulator?)~~
 
 ###### WORK:
 1. User login / logout
@@ -39,21 +39,24 @@ testingDummy
 10. Home Page UI
 11. User upload profile pic
 12. ChatGPT replaces searchPage
+13. Like / Dislike System for threads
+14. Create thread from books / suggestions
+15. Recommendations
 
 ###### TODO: 
 1. User Management API
 - [x] user can edit the profile picture
 - [x] user can update the password
 - [x] user like system
-- [ ] user dislike system
+- [x] user dislike system
 - [ ] user can list out the category that they are interested in
 - [ ] user can send friend request --> notification system
 - [ ] assign special name tag to user 
 2. ~~Google Analytics~~ 
 - [ ] ~~analyse what genres that user likes the most~~
-- [ ] make suggestions on books
+- [x] make suggestions on books
 3. Book review API
-- [ ] Database: set up a book review model
+- [x] Database: set up a book review model
 - [x] create review for the book with specified bookID / bookname
 - [x] get all reviews
 - [ ] ~~get one review entry~~
@@ -82,7 +85,7 @@ testingDummy
 - [x] POST&nbsp;/api/thread/createThread
 - [x] GET &nbsp;/api/thread/showAllThreads
 - [x] PUT &nbsp;/api/thread/userLikedThread/:threadId
-- [ ] PUT &nbsp;/api/thread/userDislikedThread/:threadId
+- [x] PUT &nbsp;/api/thread/userDislikedThread/:threadId
 
 4. Comment
 - [x] POST&nbsp;/api/comment/createComment

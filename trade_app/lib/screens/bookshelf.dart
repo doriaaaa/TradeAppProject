@@ -1,9 +1,14 @@
 import 'dart:convert';
 
+import 'package:basic_utils/basic_utils.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:sizer/sizer.dart';
 import 'package:trade_app/services/user/userBookService.dart';
 import 'package:trade_app/widgets/reusableWidget.dart';
+
+import '../widgets/recommendationModal.dart';
 
 class bookshelfPage extends StatefulWidget {
   const bookshelfPage({Key? key}) : super(key: key);
@@ -74,119 +79,131 @@ class _bookshelfPageState extends State<bookshelfPage> {
           )
         ),
       ),
-      onTap: () => showDialog<String>(
+      onTap: () => showBarModalBottomSheet(
+        expand: false,
         context: context, 
-        builder: (BuildContext context) => Dialog(
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Scrollbar(
-              thumbVisibility: true,
-              controller: scrollBarController,
-              child: ListView(
-                shrinkWrap: true,
-                controller: scrollBarController,
-                children: <Widget>[
-                  SizedBox(height:2.h),
-                  Container(
-                    margin: EdgeInsets.only(left: 12.0.w, right: 12.0.w),
-                    width: 50.w,
-                    height: 60.w,
-                    child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10.0),
-                        image: DecorationImage(
-                          image: NetworkImage(imageUrl), 
-                          fit: BoxFit.scaleDown
-                        )
-                      )
-                    )
-                  ),
-                  SizedBox(height:2.h),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: <Widget>[
-                      Expanded(
-                        child: Text(
-                          title,
-                          textAlign: TextAlign.center,
-                          style: TextStyle( fontSize: 14.sp, fontWeight: FontWeight.w500)
-                        )
-                      )
-                    ]
-                  ),
-                  SizedBox(height:1.h),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: <Widget>[
-                      Expanded(
-                        child:Text(
-                          "By $author",
-                          textAlign: TextAlign.center,
-                          style: TextStyle( fontSize: 12.sp, fontStyle: FontStyle.italic)
-                        )
-                      )
-                    ]
-                  ),
-                  SizedBox(height:0.5.h),
-                  Container(
-                    margin: EdgeInsets.all(4.w),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Text( 
-                          description, 
-                          textAlign: TextAlign.justify,
-                          style: TextStyle(fontSize: 12.0.sp, height: 1.5),
-                        )
-                      ],
-                    ),
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      OutlinedButton(
-                        onPressed: () {}, 
-                        style: OutlinedButton.styleFrom(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20.0)
-                          )
-                        ),
-                        child: Row(
-                          children: const <Widget>[
-                            Icon( Icons.favorite_border ),
-                            Text("LIKE")
-                          ]
-                        )
-                      ),
-                      // share button --> redirect to new post 
-                      OutlinedButton(
-                        onPressed: () { Navigator.pushNamed(context, '/createNewThread', arguments: {'title': title}); }, 
-                        style: OutlinedButton.styleFrom(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20.0)
-                          )
-                        ),
-                        child: Row(
-                          children: const <Widget>[
-                            Icon( Icons.share ),
-                            Text("SHARE")
-                          ]
-                        )
-                      ),
-                    ]
-                  ),
-                  TextButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    child: const Text('Close'),
-                  ),
-                ],
-              )
-            ),
-          ),
-        ),
-      )
+        backgroundColor: Colors.transparent,
+        builder: (context) => recommendationModal(
+          // pass title, author, book picture url, description
+          title: title,
+          author: author,
+          bookCoverUrl: imageUrl,
+          description: description
+        )
+      ),
+      // () => showDialog<String>(
+      //   context: context, 
+      //   builder: (BuildContext context) => Dialog(
+      //     child: Padding(
+      //       padding: const EdgeInsets.all(8.0),
+      //       child: Scrollbar(
+      //         thumbVisibility: true,
+      //         controller: scrollBarController,
+      //         child: ListView(
+      //           shrinkWrap: true,
+      //           controller: scrollBarController,
+      //           children: <Widget>[
+      //             SizedBox(height:2.h),
+      //             Container(
+      //               margin: EdgeInsets.only(left: 12.0.w, right: 12.0.w),
+      //               width: 50.w,
+      //               height: 60.w,
+      //               child: Container(
+      //                 decoration: BoxDecoration(
+      //                   borderRadius: BorderRadius.circular(10.0),
+      //                   image: DecorationImage(
+      //                     image: NetworkImage(imageUrl), 
+      //                     fit: BoxFit.scaleDown
+      //                   )
+      //                 )
+      //               )
+      //             ),
+      //             SizedBox(height:2.h),
+      //             Row(
+      //               mainAxisAlignment: MainAxisAlignment.start,
+      //               children: <Widget>[
+      //                 Expanded(
+      //                   child: Text(
+      //                     title,
+      //                     textAlign: TextAlign.center,
+      //                     style: TextStyle( fontSize: 14.sp, fontWeight: FontWeight.w500)
+      //                   )
+      //                 )
+      //               ]
+      //             ),
+      //             SizedBox(height:1.h),
+      //             Row(
+      //               mainAxisAlignment: MainAxisAlignment.start,
+      //               children: <Widget>[
+      //                 Expanded(
+      //                   child:Text(
+      //                     "By $author",
+      //                     textAlign: TextAlign.center,
+      //                     style: TextStyle( fontSize: 12.sp, fontStyle: FontStyle.italic)
+      //                   )
+      //                 )
+      //               ]
+      //             ),
+      //             SizedBox(height:0.5.h),
+      //             Container(
+      //               margin: EdgeInsets.all(4.w),
+      //               child: Column(
+      //                 mainAxisSize: MainAxisSize.min,
+      //                 children: [
+      //                   Text( 
+      //                     description, 
+      //                     textAlign: TextAlign.justify,
+      //                     style: TextStyle(fontSize: 12.0.sp, height: 1.5),
+      //                   )
+      //                 ],
+      //               ),
+      //             ),
+      //             Row(
+      //               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      //               children: [
+      //                 OutlinedButton(
+      //                   onPressed: () {}, 
+      //                   style: OutlinedButton.styleFrom(
+      //                     shape: RoundedRectangleBorder(
+      //                       borderRadius: BorderRadius.circular(20.0)
+      //                     )
+      //                   ),
+      //                   child: Row(
+      //                     children: const <Widget>[
+      //                       Icon( Icons.favorite_border ),
+      //                       Text("LIKE")
+      //                     ]
+      //                   )
+      //                 ),
+      //                 // share button --> redirect to new post 
+      //                 OutlinedButton(
+      //                   onPressed: () { Navigator.pushNamed(context, '/createNewThread', arguments: {'title': title}); }, 
+      //                   style: OutlinedButton.styleFrom(
+      //                     shape: RoundedRectangleBorder(
+      //                       borderRadius: BorderRadius.circular(20.0)
+      //                     )
+      //                   ),
+      //                   child: Row(
+      //                     children: const <Widget>[
+      //                       Icon( Icons.share ),
+      //                       Text("SHARE")
+      //                     ]
+      //                   )
+      //                 ),
+      //               ]
+      //             ),
+      //             TextButton(
+      //               onPressed: () {
+      //                 Navigator.pop(context);
+      //               },
+      //               child: const Text('Close'),
+      //             ),
+      //           ],
+      //         )
+      //       ),
+      //     ),
+      //   ),
+      // )
     );
   }
 
@@ -206,7 +223,7 @@ class _bookshelfPageState extends State<bookshelfPage> {
           children: isLoading
           ? [
             SizedBox(height: 10.h),
-            const Center(child: CircularProgressIndicator())
+            const Center(child: CupertinoActivityIndicator())
           ]
           : displayItemList,
         )
