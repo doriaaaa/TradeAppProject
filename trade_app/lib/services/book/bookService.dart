@@ -101,7 +101,8 @@ class bookService {
     }
   }
 
-  // return a set of book search list
+  // return a set of book search list, do not pass to backend
+  // call by search
   Future<String> bookSearch({
     required BuildContext context,
     required String bookTitle
@@ -122,5 +123,15 @@ class bookService {
       debugPrint(e.toString());
     }
    return ''; 
+  }
+  // return trending list, do not pass to backend
+  Future<String> trendingBookList() async {
+    try {
+      http.Response res = await http.get(Uri.parse("https://api.nytimes.com/svc/books/v3/lists/full-overview.json?api-key=${dotenv.env['NYTIMES_APIKEY']}"));
+      return res.body;
+    } catch (e) {
+      debugPrint(e.toString());
+    }
+    return '';
   }
 }

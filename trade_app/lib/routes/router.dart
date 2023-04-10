@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:trade_app/screens/changePassword.dart';
 import 'package:trade_app/screens/createThreadPage.dart';
 import 'package:trade_app/screens/registerPage.dart';
+import 'package:trade_app/screens/search.dart';
 import 'package:trade_app/widgets/navBar.dart';
 import 'package:trade_app/screens/loginPage.dart';
 import '../screens/aboutApp.dart';
@@ -21,6 +22,8 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
       return MaterialPageRoute( settings: routeSettings, builder: (_) => const changePasswordPage());
     case Camera.routeName:
       return MaterialPageRoute( settings: routeSettings, builder: (_) => const Camera());
+    case SearchPage.routeName:
+      return MaterialPageRoute( settings: routeSettings, builder: (_) => const SearchPage());
     case createThreadPage.routeName:
       final args = routeSettings.arguments;
       // Check if args is not null and contains a title key

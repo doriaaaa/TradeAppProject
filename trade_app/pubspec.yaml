@@ -54,6 +54,7 @@ dependencies:
   dart_openai: ^1.8.3
   markdown_widget: ^2.1.0
   chat_bubbles: ^1.4.1
+  basic_utils: ^5.5.3
   
 
 dev_dependencies:

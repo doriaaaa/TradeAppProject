@@ -68,9 +68,9 @@ class _uploadSelectionPageState extends State<uploadSelectionPage> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          Icon( Icons.recommend_rounded, size: 30.sp),
+          Icon( Icons.trending_up, size: 30.sp),
           SizedBox(height: 3.h),
-          const Text("View recommendations")
+          const Text("Trending")
         ]
       )
     );
