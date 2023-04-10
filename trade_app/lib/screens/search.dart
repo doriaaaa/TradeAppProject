@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:sizer/sizer.dart';
+import '../models/book.dart';
 import '../services/book/bookService.dart';
 import '../widgets/recommendationModal.dart';
 import '../widgets/reusableWidget.dart';
@@ -246,23 +247,57 @@ class CustomSearchDelegate extends SearchDelegate {
 
   @override
   Widget buildResults(BuildContext context) {
-    List<String> matchQuery = [];
-    for (var book in seacrhTerms) {
-      if (book.toLowerCase().contains(query.toLowerCase())) {
-        matchQuery.add(book);
+    return FutureBuilder<List<Book>>(
+      future: bookService().bookSearch(query),
+      builder: (context, AsyncSnapshot snapshot) {
+        if(snapshot.hasData) {
+          return ListView.separated(
+            itemCount: snapshot.data.length,
+            separatorBuilder: (BuildContext context, int index) { 
+              return const Divider(thickness: 1.0);
+            },
+            itemBuilder: (context, index) {
+              return ListTile(
+                leading: ConstrainedBox(
+                  constraints: BoxConstraints(
+                    maxHeight: 30.h,
+                    maxWidth: 10.w
+                  ),
+                  child: Align(
+                    alignment: Alignment.center,
+                    child: snapshot.data[index].imageUrl != ""
+                    ? Image.network(snapshot.data[index].imageUrl)
+                    : const Icon(Icons.image_not_supported_outlined)
+                  )
+                ),
+                title: Padding(
+                  padding: EdgeInsets.only(bottom: 1.h),
+                  child: Text(
+                    snapshot.data[index].title,
+                    style: TextStyle(fontSize: 12.0.sp),
+                  ),
+                ),
+                subtitle: Text(
+                  snapshot.data[index].author,
+                  style: TextStyle(
+                    fontStyle: FontStyle.italic,
+                    fontSize: 10.sp
+                  ),
+                ),
+              );
+            }, 
+            
+          );
+        } else {
+          return const Center(
+            child: CupertinoActivityIndicator(),
+          );
+        }
       }
-    }
-    return ListView.builder(
-      itemCount: matchQuery.length,
-      itemBuilder: (context, index) {
-        var result = matchQuery[index];
-        return ListTile(
-          title: Text(result),
-        );
-      },
     );
   }
 
+  // suggestions history
   @override
   Widget buildSuggestions(BuildContext context) {
     List<String> matchQuery = [];

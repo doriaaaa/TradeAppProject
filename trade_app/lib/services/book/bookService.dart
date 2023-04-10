@@ -5,6 +5,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:provider/provider.dart';
+import 'package:trade_app/models/book.dart';
 import 'package:trade_app/provider/user_provider.dart';
 import '../../constants/error_handling.dart';
 import '../../constants/utils.dart';
@@ -103,26 +104,23 @@ class bookService {
 
   // return a set of book search list, do not pass to backend
   // call by search
-  Future<String> bookSearch({
-    required BuildContext context,
-    required String bookTitle
-  }) async {
-    try {
-      http.Response res = await http.get(Uri.parse("https://www.googleapis.com/books/v1/volumes?q=\"$bookTitle\""));
-      Map resbody = jsonDecode(res.body);
-      if (context.mounted) {
-        httpErrorHandle(
-          response: res,
-          context: context,
-          onSuccess: () async {
-            
-          },
-        );
-      }
-    } catch (e) {
-      debugPrint(e.toString());
+  Future<List<Book>> bookSearch(String? query) async {
+    List<Book> resultBookList = []; 
+    http.Response res = await http.get(Uri.parse("https://www.googleapis.com/books/v1/volumes?q=\"$query\""));
+    Map resbody = jsonDecode(res.body);
+    for (int i=0; i< resbody['items'].length; i++) {
+      //fetch each book
+      var book = {
+        "title": resbody['items'][i]['volumeInfo']['title'],
+        "author": (resbody['items'][i]['volumeInfo'].containsKey('authors') && resbody['items'][i]['volumeInfo']['authors'].length != 0) ? resbody['items'][i]['volumeInfo']['authors'][0] : "",
+        "description": resbody['items'][i]['volumeInfo'].containsKey('description') ? resbody['items'][i]['volumeInfo']['description'] : "Description not available.",
+        "category": (resbody['items'][i]['volumeInfo'].containsKey('categories') && resbody['items'][i]['volumeInfo']['categories'].length != 0) ? resbody['items'][i]['volumeInfo']['categories'][0] : "",
+        "averageRating": resbody['items'][i]['volumeInfo'].containsKey('averageRating') ? "${resbody['items'][i]['volumeInfo']['averageRating']}" : "0",
+        "imageUrl": (resbody['items'][i]['volumeInfo'].containsKey('imageLinks') && resbody['items'][i]['volumeInfo']['imageLinks'].containsKey('thumbnail')) ? resbody['items'][i]['volumeInfo']['imageLinks']['thumbnail'] : ""
+      };
+      resultBookList.add(Book.fromJson(book));
     }
-   return ''; 
+    return resultBookList;
   }
   // return trending list, do not pass to backend
   Future<String> trendingBookList() async {
