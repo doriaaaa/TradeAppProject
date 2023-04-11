@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
+import 'package:trade_app/screens/searchResult.dart';
 import '../models/book.dart';
 import '../services/book/bookService.dart';
 import '../widgets/recommendationModal.dart';
@@ -106,16 +107,12 @@ class _SearchPageState extends State<SearchPage> {
           controller: _sc,
           itemCount: bookList.length,
           separatorBuilder: (context, index) { 
-            return const Divider(thickness: 1.0,); 
+            return const Divider(thickness: 1.0); 
           },
           itemBuilder: (context, index) {
             Map book = jsonDecode(bookList[index]);
-            return TextButton(
-              style: TextButton.styleFrom(
-                // elevation: 0.0,
-                backgroundColor: Colors.transparent
-              ),
-              onPressed: () => showBarModalBottomSheet(
+            return ListTile(
+              onTap: () => showBarModalBottomSheet(
                 expand: false,
                 context: context, 
                 backgroundColor: Colors.transparent,
@@ -127,36 +124,34 @@ class _SearchPageState extends State<SearchPage> {
                   description: book['description']
                 )
               ),
-              child: ListTile(
-                leading: ConstrainedBox(
-                  constraints: BoxConstraints(
-                    maxHeight: 30.h,
-                    maxWidth: 10.w
-                  ),
-                  child: Align(
-                    alignment: Alignment.center,
-                    child: book['book_image'] != null
-                    ? Image.network(book['book_image'])
-                    : const Icon(Icons.image_not_supported_outlined)
-                  )
+              leading: ConstrainedBox(
+                constraints: BoxConstraints(
+                  maxHeight: 30.h,
+                  maxWidth: 10.w
                 ),
-                title: Padding(
-                  padding: EdgeInsets.only(bottom: 1.h),
-                  child: Text(
-                    StringUtils.capitalize(book['title'], allWords: true),
-                    style: TextStyle(fontSize: 12.0.sp),
-                  ),
+                child: Align(
+                  alignment: Alignment.center,
+                  child: book['book_image'] != null
+                  ? Image.network(book['book_image'])
+                  : const Icon(Icons.image_not_supported_outlined)
+                )
+              ),
+              title: Padding(
+                padding: EdgeInsets.only(bottom: 1.h),
+                child: Text(
+                  StringUtils.capitalize(book['title'], allWords: true),
+                  style: TextStyle(fontSize: 12.0.sp),
                 ),
-                subtitle: Text(
-                  book['author'],
-                  style: TextStyle(
-                    fontStyle: FontStyle.italic,
-                    fontSize: 10.sp
-                  ),
+              ),
+              subtitle: Text(
+                book['author'],
+                style: TextStyle(
+                  fontStyle: FontStyle.italic,
+                  fontSize: 10.sp
                 ),
-                // user clicks the list tile will be redirected to see the summary of the book
-                // trailing: const Icon(Icons.arrow_forward_ios_rounded),
-              )
+              ),
+              // user clicks the list tile will be redirected to see the summary of the book
+              // trailing: const Icon(Icons.arrow_forward_ios_rounded),
             );
           },
         ),
@@ -232,7 +227,7 @@ class CustomSearchDelegate extends SearchDelegate {
       IconButton(
         icon: const Icon(Icons.clear),
         onPressed: () {
-          query = '';
+          // query = '';
         },
       ),
     ];
@@ -267,6 +262,19 @@ class CustomSearchDelegate extends SearchDelegate {
             separatorBuilder: (BuildContext context, int index) { return const Divider(thickness: 1.0); },
             itemBuilder: (context, index) {
               return ListTile(
+                onTap: () {
+                  // direct to search result page
+                  Navigator.push(context, MaterialPageRoute(
+                    builder: (context) => searchResult(
+                      title: snapshot.data[index].title,
+                      author: snapshot.data[index].author, 
+                      description: snapshot.data[index].description,
+                      category: snapshot.data[index].category,
+                      averageRating: snapshot.data[index].averageRating,
+                      imageUrl: snapshot.data[index].imageUrl
+                    )
+                  ));
+                },
                 leading: ConstrainedBox(
                   constraints: BoxConstraints( maxHeight: 30.h, maxWidth: 10.w ),
                   child: Align(
@@ -298,7 +306,7 @@ class CustomSearchDelegate extends SearchDelegate {
     List<String> matchQuery = [];
     SharedPreferences.getInstance().then((prefs) {
       var lastQueries = prefs.getStringList('search_terms') ?? [];
-      print(lastQueries);
+      // print(lastQueries);
       searchTerms.addAll(lastQueries);
       searchTerms = searchTerms.toSet().toList();
       searchTerms.sort((a, b) => b.compareTo(a));
@@ -313,6 +321,10 @@ class CustomSearchDelegate extends SearchDelegate {
       itemBuilder: (context, index) {
         var result = matchQuery[index];
         return ListTile(
+          onTap:() {
+            query = result;
+            showResults(context);
+          },
           leading: const Icon(Icons.history),
           title: Text(result),
         );

@@ -114,7 +114,7 @@ class bookService {
         "title": resbody['items'][i]['volumeInfo']['title'],
         "author": (resbody['items'][i]['volumeInfo'].containsKey('authors') && resbody['items'][i]['volumeInfo']['authors'].length != 0) ? resbody['items'][i]['volumeInfo']['authors'][0] : "",
         "description": resbody['items'][i]['volumeInfo'].containsKey('description') ? resbody['items'][i]['volumeInfo']['description'] : "Description not available.",
-        "category": (resbody['items'][i]['volumeInfo'].containsKey('categories') && resbody['items'][i]['volumeInfo']['categories'].length != 0) ? resbody['items'][i]['volumeInfo']['categories'][0] : "",
+        "category": (resbody['items'][i]['volumeInfo'].containsKey('categories') && resbody['items'][i]['volumeInfo']['categories'].length != 0) ? resbody['items'][i]['volumeInfo']['categories'][0] : "not classified",
         "averageRating": resbody['items'][i]['volumeInfo'].containsKey('averageRating') ? "${resbody['items'][i]['volumeInfo']['averageRating']}" : "0",
         "imageUrl": (resbody['items'][i]['volumeInfo'].containsKey('imageLinks') && resbody['items'][i]['volumeInfo']['imageLinks'].containsKey('thumbnail')) ? resbody['items'][i]['volumeInfo']['imageLinks']['thumbnail'] : ""
       };

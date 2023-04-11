@@ -48,7 +48,7 @@ testingDummy
 - [ ] view user info
 - [ ] add book to favourites
 - [x] search history
-- [ ] search result display info --> use upload page template
+- [x] search result display info --> use upload page template
 
 ###### TODO: 
 1. User Management API

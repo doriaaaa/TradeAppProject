@@ -161,12 +161,11 @@ class _BookPageState extends State<BookPage> {
     final descriptionBox = Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-          Text( 
-            description, 
-            textAlign: TextAlign.justify,
-            style: TextStyle(fontSize: 12.0.sp, height: 1.5),
-          )
-        // )
+        Text( 
+          description, 
+          textAlign: TextAlign.justify,
+          style: TextStyle(fontSize: 12.0.sp, height: 1.5),
+        )
       ],
     );
 
