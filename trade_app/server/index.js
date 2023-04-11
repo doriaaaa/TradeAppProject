@@ -12,6 +12,7 @@ const universalRouter = require('./routes/universal/image');
 const threadRouter = require('./routes/thread');
 const commentRouter = require('./routes/comment');
 const userRouter = require('./routes/user');
+const socialRouter = require('./routes/social');
 
 //INIT
 const app = express();
@@ -26,6 +27,7 @@ app.use(universalRouter);
 app.use(threadRouter);
 app.use(commentRouter);
 app.use(userRouter);
+app.use(socialRouter);
 
 // connections
 

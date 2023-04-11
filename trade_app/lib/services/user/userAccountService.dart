@@ -128,8 +128,7 @@ class userAccountService {
           'Content-Type': 'application/json; charset=UTF-8',
         }
       );
-      var imageUrl = jsonDecode(res.body)['result'];
-      if (imageUrl!) imageUrl = "";
+      String imageUrl = jsonDecode(res.body)['result'];
       http.Response result = await http.post( Uri.parse('http://${dotenv.env['IP_ADDRESS']}:3000/api/user/account/updateProfilePicture'),
         body: jsonEncode({"profilePicture": imageUrl}),
         headers: {

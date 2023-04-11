@@ -123,6 +123,7 @@ async function findCommentById(commentObjId, thread_id) {
     const res = {
         "body": comment.body,
         "username": user.name,
+        "userId": user.userId,
         "thread_id": parseInt(thread_id),
         "comment_id": comment.comment_id,
         "date": comment.date

@@ -128,19 +128,16 @@ class _homePageState extends State<homePage> {
     String username = context.watch<UserProvider>().user.name;
     return Scaffold(
       appBar: ReusableWidgets.persistentAppBar('Welcome back! $username'),
-      body: Scrollbar(
+      body: isLoading
+      ? const Center(child: CupertinoActivityIndicator())
+      : Scrollbar(
         thumbVisibility: true,
         controller: scrollBarController,
         child: ListView(
           shrinkWrap: true,
           controller: scrollBarController,
           padding: EdgeInsets.only(left: 7.0.w, right: 7.0.w),
-          children: isLoading
-          ? [
-            SizedBox(height: 10.h),
-            const Center(child: CupertinoActivityIndicator())
-          ]
-          : displayItemList
+          children: displayItemList
         ),
       )
     );

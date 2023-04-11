@@ -34,7 +34,7 @@ class _chatPageState extends State<chatPage> with AutomaticKeepAliveClientMixin<
         FocusScope.of(context).requestFocus(FocusNode());
       },
       child: Scaffold(
-        appBar: ReusableWidgets.persistentAppBar('ChatGPT'),
+        appBar: ReusableWidgets.persistentAppBar('Chat with ChatGPT'),
         body: Column(
           children: [
             Expanded(

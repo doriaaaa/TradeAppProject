@@ -95,7 +95,7 @@ class _createThreadPageState extends State<createThreadPage> {
               child: ListView(
                 padding: EdgeInsets.only(left: 7.w, right: 7.w),
                 children: <Widget>[
-                  SizedBox(height: 2.h),
+                  SizedBox(height: 1.h),
                   titleInputField,
                   SizedBox(height: 1.h),
                   contentInputField

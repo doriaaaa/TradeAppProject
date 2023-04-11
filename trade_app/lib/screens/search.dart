@@ -47,7 +47,7 @@ class _SearchPageState extends State<SearchPage> {
             padding: EdgeInsets.only(left: 4.w, right: 4.w, top: 1.5.h, bottom: 1.0.h),
             child: Text(
               'Weekly Recommendations',
-              style: TextStyle( fontSize: 20.sp),
+              style: TextStyle( fontSize: 13.sp),
             ),
           ),
           const Divider(thickness: 1.0),
@@ -226,7 +226,6 @@ class CustomSearchDelegate extends SearchDelegate {
         child: const Text("Cancel"),
         onPressed: () {
           close(context, null);
-          // query = '';
         },
       ),
     ];
@@ -236,10 +235,6 @@ class CustomSearchDelegate extends SearchDelegate {
   @override
   Widget buildLeading(BuildContext context) {
     return const Icon(Icons.search);
-    //   onPressed: () {
-    //     close(context, null);
-    //   },
-    // );
   }
 
   @override

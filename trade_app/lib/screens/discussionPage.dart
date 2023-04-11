@@ -11,6 +11,7 @@ import 'package:trade_app/widgets/reusableWidget.dart';
 import '../provider/comment_provider.dart';
 import '../provider/user_provider.dart';
 import '../services/comment/commentService.dart';
+import '../services/social/socialService.dart';
 
 class discussionPage extends StatefulWidget {
   final String title;
@@ -44,6 +45,7 @@ class _discussionPageState extends State<discussionPage> {
   List<Widget> displayCommentList = [];
   bool isLiked = false;
   bool isDisliked = false;
+  bool isLoading = true;
 
   @override
   void dispose() {
@@ -69,14 +71,20 @@ class _discussionPageState extends State<discussionPage> {
     List<Comment> comments = Provider.of<CommentProvider>(context, listen: false).comments;
     String user = Provider.of<UserProvider>(context, listen:false).user.name;
     String userProfilePic = Provider.of<UserProvider>(context, listen:false).user.profilePicture;
-    // print(user);
+    String otherUserProfilePic = "";
 
     for (int i=0; i<comments.length; i++) {
       String body = comments[i].body; // access the body of the first comment in the list
       String username = comments[i].username;
       String date = comments[i].date;
+      int userId = comments[i].userId;
       int thread_id = comments[i].thread_id;
       int comment_id = comments[i].comment_id;
+      otherUserProfilePic = await socialService().loadUserProfilePictureFromUserId(
+        context: context, 
+        userId: userId
+      );
+      // print(userId);
 
       final commentContentDisplayBox = Container(
         margin: EdgeInsets.fromLTRB(7.w, 1.h, 7.w, 1.h),
@@ -85,17 +93,20 @@ class _discussionPageState extends State<discussionPage> {
           children: <Widget>[
             Row(
               children: <Widget>[
-                Container(
-                  width: 10.w,
-                  height: 10.h,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    image: DecorationImage(
-                      image: username == user 
-                      ? NetworkImage(userProfilePic)
-                      : const AssetImage('assets/default.jpg') as ImageProvider,
-                      fit: BoxFit.scaleDown
-                    )
+                GestureDetector(
+                  onTap: () {},
+                  child: Container(
+                    width: 10.w,
+                    height: 10.h,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      image: DecorationImage(
+                        image: otherUserProfilePic != "" 
+                        ? NetworkImage(otherUserProfilePic) 
+                        : const AssetImage('assets/default.jpg') as ImageProvider,
+                        fit: BoxFit.scaleDown
+                      )
+                    ),
                   ),
                 ),
                 SizedBox(width: 2.w),
@@ -106,8 +117,10 @@ class _discussionPageState extends State<discussionPage> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text( username, style: TextStyle(fontSize: 12.sp)),
-                          // const Spacer(),
+                          GestureDetector(
+                            child: Text( username, style: TextStyle(fontSize: 12.sp)),
+                            onTap: () {},
+                          ),
                           Container(
                             child: username == user
                               ? GestureDetector(
@@ -127,7 +140,10 @@ class _discussionPageState extends State<discussionPage> {
                                     });
                                   }
                                 },
-                                child: const Icon(CupertinoIcons.pencil),
+                                child: Icon(
+                                  CupertinoIcons.pencil,
+                                  color: Colors.lightBlue[800],
+                                ),
                               )
                               : Container()
                           )
@@ -147,6 +163,9 @@ class _discussionPageState extends State<discussionPage> {
       );
       displayCommentList.add(commentContentDisplayBox);
     }
+    setState(() {
+      isLoading = false;
+    });
   }
 
   @override
@@ -167,27 +186,33 @@ class _discussionPageState extends State<discussionPage> {
         children: <Widget>[
           Row(
             children: <Widget>[
-              Container(
-                width: 10.w,
-                height: 10.h,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  image: DecorationImage(
-                    image: widget.author == user 
-                    ? NetworkImage(userProfilePic)
-                    : const AssetImage('assets/default.jpg') as ImageProvider,
-                    fit: BoxFit.scaleDown
-                  )
+              GestureDetector(
+                onTap: () {},
+                child: Container(
+                  width: 10.w,
+                  height: 10.h,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    image: DecorationImage(
+                      image: widget.author == user 
+                      ? NetworkImage(userProfilePic)
+                      : const AssetImage('assets/default.jpg') as ImageProvider,
+                      fit: BoxFit.scaleDown
+                    )
+                  ),
                 ),
               ),
               SizedBox(width: 2.w),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text( widget.author, style: TextStyle(fontSize: 12.sp)),
-                  SizedBox(height:1.5.h),
-                  Text( timestamp.substring(0, timestamp.indexOf('T')), style: TextStyle(fontSize: 8.sp))
-                ]
+              GestureDetector(
+                onTap: () {},
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text( widget.author, style: TextStyle(fontSize: 12.sp)),
+                    SizedBox(height:1.5.h),
+                    Text( timestamp.substring(0, timestamp.indexOf('T')), style: TextStyle(fontSize: 8.sp))
+                  ]
+                ),
               ),
               const Spacer(),
             ] 
@@ -284,16 +309,17 @@ class _discussionPageState extends State<discussionPage> {
                     child: TextFormField(
                       autocorrect: true,
                       controller: commentController,
-                      maxLines: null,
+                      minLines: 1,
+                      maxLines: 5,
                       validator: (value) {
                         if (value == null || value.isEmpty) return 'You need to input at least 1 character';
                         return null;
                       },
                       decoration: InputDecoration(
-                        hintText: "Comment...",
                         filled: true,
-                        contentPadding: EdgeInsets.all(3.w),
-                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0)),
+                        hintText: "Add a comment...",
+                        contentPadding: EdgeInsets.only(left: 5.w, top: 1.h, bottom: 1.h),
+                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(30.0)),
                         suffixIcon: IconButton(
                           icon: const Icon(Icons.send),
                           onPressed: () {
@@ -311,14 +337,16 @@ class _discussionPageState extends State<discussionPage> {
                   ),
               ),
               ),
-              child: Scrollbar(
-                thumbVisibility: true,
-                controller: scrollBarController,
-                child: ListView(
-                  shrinkWrap: true,
+              child: isLoading
+                ? const Center(child: CupertinoActivityIndicator())
+                : Scrollbar(
+                  thumbVisibility: true,
                   controller: scrollBarController,
-                  children: threadCommentList
-                ),
+                  child: ListView(
+                    shrinkWrap: true,
+                    controller: scrollBarController,
+                    children: threadCommentList
+                  ),
               )
             ),
           ),

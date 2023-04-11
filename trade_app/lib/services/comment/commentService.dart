@@ -80,6 +80,7 @@ class commentService {
                 Provider.of<CommentProvider>(context, listen: false).setComment( jsonEncode({
                   "body": commentList['result'][i]["body"],
                   "username": commentList['result'][i]["username"],
+                  "userId":commentList['result'][i]["userId"],
                   "thread_id": commentList['result'][i]["thread_id"],
                   "date": commentList['result'][i]["date"],
                   "comment_id":commentList["result"][i]["comment_id"] 

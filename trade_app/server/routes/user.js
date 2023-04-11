@@ -103,10 +103,13 @@ userRouter.post("/api/user/account/signUp", async (req, res) => {
             });
         }
         const hashedPassword = await bcryptjs.hash(password, 8);
+        const totalNoOfUsers = await User.countDocuments({}).exec();
         let user = new User({
+            userId: totalNoOfUsers+1,
             email,
             password: hashedPassword,
             name,
+            profilePicture: ''
         })
         user = await user.save();
         res.json(user);

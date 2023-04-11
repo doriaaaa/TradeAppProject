@@ -57,6 +57,7 @@ class _settingsPageState extends State<settingsPage> {
   Widget build(BuildContext context) {
     String username = context.watch<UserProvider>().user.name;
     String profilePicture = context.watch<UserProvider>().user.profilePicture;
+    print(profilePicture);
 
     void _updateProfilePicture(File? pickedImage) {
       userAccountService().updateProfilePicture(context: context, image: pickedImage);

@@ -50,7 +50,7 @@ testingDummy
 - [ ] add book to favourites
 - [x] search history
 - [x] search result display info --> use upload page template
-- [ ] search button functionalities, cancel button
+- [x] search button functionalities, cancel button
 
 ###### TODO: 
 1. User Management API
@@ -85,7 +85,6 @@ testingDummy
 - [x] POST&nbsp;/api/user/account/changePassword
 - [x] POST&nbsp;/api/user/account/updateProfilePicture
 - [x] GET &nbsp;/api/user/book/bookList
-- [ ] GET &nbsp;/api/user/info/:username
 
 2. Auth
 - [x] POST&nbsp;/api/auth/tokenIsValid
@@ -108,3 +107,6 @@ testingDummy
 
 5. Universal
 - [x] POST&nbsp;/api/universal/image
+
+6. Social
+- [x] GET&nbsp;/api/social/user/:userId/profilePic

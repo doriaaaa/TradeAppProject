@@ -38,13 +38,14 @@ class MessageComposer extends StatelessWidget {
                         if (value == null || value.isEmpty) return 'You need to input at least 1 character';
                         return null;
                       },
-                      maxLines: null,
+                      minLines: 1,
+                      maxLines: 5,
                       controller: _messageController,
                       decoration: InputDecoration(
-                        hintText: 'Ask questions here...',
+                        hintText: "Message...",
                         filled: true,
-                        contentPadding: EdgeInsets.all(3.w),
-                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0)),
+                        contentPadding: EdgeInsets.only(left: 5.w, top: 1.h, bottom: 1.h),
+                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(30.0)),
                         suffixIcon: IconButton(
                           icon: const Icon(Icons.send),
                           onPressed: () => _handleSubmit(_formKey, _messageController),
@@ -57,7 +58,7 @@ class MessageComposer extends StatelessWidget {
                     children: <Widget> [
                       const SizedBox( child: CupertinoActivityIndicator() ),
                       SizedBox(width: 2.w),
-                      const Text('Fetching response...'),
+                      const Text('thinking...'),
                     ],
                   ),
             ),

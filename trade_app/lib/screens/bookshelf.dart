@@ -91,141 +91,24 @@ class _bookshelfPageState extends State<bookshelfPage> {
           description: description
         )
       ),
-      // () => showDialog<String>(
-      //   context: context, 
-      //   builder: (BuildContext context) => Dialog(
-      //     child: Padding(
-      //       padding: const EdgeInsets.all(8.0),
-      //       child: Scrollbar(
-      //         thumbVisibility: true,
-      //         controller: scrollBarController,
-      //         child: ListView(
-      //           shrinkWrap: true,
-      //           controller: scrollBarController,
-      //           children: <Widget>[
-      //             SizedBox(height:2.h),
-      //             Container(
-      //               margin: EdgeInsets.only(left: 12.0.w, right: 12.0.w),
-      //               width: 50.w,
-      //               height: 60.w,
-      //               child: Container(
-      //                 decoration: BoxDecoration(
-      //                   borderRadius: BorderRadius.circular(10.0),
-      //                   image: DecorationImage(
-      //                     image: NetworkImage(imageUrl), 
-      //                     fit: BoxFit.scaleDown
-      //                   )
-      //                 )
-      //               )
-      //             ),
-      //             SizedBox(height:2.h),
-      //             Row(
-      //               mainAxisAlignment: MainAxisAlignment.start,
-      //               children: <Widget>[
-      //                 Expanded(
-      //                   child: Text(
-      //                     title,
-      //                     textAlign: TextAlign.center,
-      //                     style: TextStyle( fontSize: 14.sp, fontWeight: FontWeight.w500)
-      //                   )
-      //                 )
-      //               ]
-      //             ),
-      //             SizedBox(height:1.h),
-      //             Row(
-      //               mainAxisAlignment: MainAxisAlignment.start,
-      //               children: <Widget>[
-      //                 Expanded(
-      //                   child:Text(
-      //                     "By $author",
-      //                     textAlign: TextAlign.center,
-      //                     style: TextStyle( fontSize: 12.sp, fontStyle: FontStyle.italic)
-      //                   )
-      //                 )
-      //               ]
-      //             ),
-      //             SizedBox(height:0.5.h),
-      //             Container(
-      //               margin: EdgeInsets.all(4.w),
-      //               child: Column(
-      //                 mainAxisSize: MainAxisSize.min,
-      //                 children: [
-      //                   Text( 
-      //                     description, 
-      //                     textAlign: TextAlign.justify,
-      //                     style: TextStyle(fontSize: 12.0.sp, height: 1.5),
-      //                   )
-      //                 ],
-      //               ),
-      //             ),
-      //             Row(
-      //               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      //               children: [
-      //                 OutlinedButton(
-      //                   onPressed: () {}, 
-      //                   style: OutlinedButton.styleFrom(
-      //                     shape: RoundedRectangleBorder(
-      //                       borderRadius: BorderRadius.circular(20.0)
-      //                     )
-      //                   ),
-      //                   child: Row(
-      //                     children: const <Widget>[
-      //                       Icon( Icons.favorite_border ),
-      //                       Text("LIKE")
-      //                     ]
-      //                   )
-      //                 ),
-      //                 // share button --> redirect to new post 
-      //                 OutlinedButton(
-      //                   onPressed: () { Navigator.pushNamed(context, '/createNewThread', arguments: {'title': title}); }, 
-      //                   style: OutlinedButton.styleFrom(
-      //                     shape: RoundedRectangleBorder(
-      //                       borderRadius: BorderRadius.circular(20.0)
-      //                     )
-      //                   ),
-      //                   child: Row(
-      //                     children: const <Widget>[
-      //                       Icon( Icons.share ),
-      //                       Text("SHARE")
-      //                     ]
-      //                   )
-      //                 ),
-      //               ]
-      //             ),
-      //             TextButton(
-      //               onPressed: () {
-      //                 Navigator.pop(context);
-      //               },
-      //               child: const Text('Close'),
-      //             ),
-      //           ],
-      //         )
-      //       ),
-      //     ),
-      //   ),
-      // )
     );
   }
 
   @override
   Widget build(BuildContext context) {
     final scrollBarController = ScrollController(initialScrollOffset: 0.0);
-
     return Scaffold(
       appBar: ReusableWidgets.persistentAppBar('My Bookshelf'),
-      body: Scrollbar(
+      body: isLoading
+      ? const Center(child: CupertinoActivityIndicator())
+      : Scrollbar(
         thumbVisibility: true,
         controller: scrollBarController,
         child: ListView(
           shrinkWrap: true,
           controller: scrollBarController,
           padding: EdgeInsets.only(left: 7.0.w, right: 7.0.w),
-          children: isLoading
-          ? [
-            SizedBox(height: 10.h),
-            const Center(child: CupertinoActivityIndicator())
-          ]
-          : displayItemList,
+          children: displayItemList,
         )
       )
     );
