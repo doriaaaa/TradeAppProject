@@ -161,4 +161,41 @@ class userAccountService {
       debugPrint(e.toString());
     }
   }
+
+  Future<String> loadUserProfilePictureFromUserId({
+    required BuildContext context, 
+    required int userId
+  }) async {
+    try {
+      http.Response res = await http.get(Uri.parse('http://${dotenv.env['IP_ADDRESS']}:3000/api/user/social/:userId/profilePicture'));
+      if (context.mounted) {
+        String userProfilePic = '';
+        httpErrorHandle(
+          response: res, 
+          context: context, 
+          onSuccess: () {
+            userProfilePic = jsonDecode(res.body)['result']['profilePicture'];
+          }
+        );
+        return userProfilePic;
+      }
+    } catch (e) {
+      debugPrint(e.toString());
+    }
+    return 'failed to retrieve picture';
+  }
+
+  void showUserInfo({
+    required BuildContext context,
+    required int userId,
+  }) async {
+    try {
+      http.Response res = await http.get(Uri.parse('http://${dotenv.env['IP_ADDRESS']}:3000/api/user/social/$userId/info'));
+      if (context.mounted) {
+
+      }
+    } catch (e) {
+      debugPrint(e.toString());
+    }
+  }
 }

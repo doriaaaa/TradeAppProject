@@ -41,7 +41,6 @@ userRouter.post('/api/user/account/changePassword', auth, async(req, res) => {
         return res.status(500).json({ error: e.message });
     }
 });
-
 // user update profile picture
 userRouter.post('/api/user/account/updateProfilePicture', auth, async(req, res) => {
     try {
@@ -117,7 +116,6 @@ userRouter.post("/api/user/account/signUp", async (req, res) => {
         res.status(500).json({ error: e.message });
     }
 });
-
 // get user book list
 userRouter.get('/api/user/book/bookList', auth, async(req, res) => {
     try {
@@ -158,7 +156,52 @@ userRouter.get('/api/user/book/bookList', auth, async(req, res) => {
         return res.status(500).json({ error: e.message });
     }
 });
-
+// get user profile pic
+userRouter.get('/api/user/social/:userId/profilePicture', async(req, res) => {
+    try {
+        const user = await User.findOne({ userId: req.params.userId });
+        if (user) {
+            res.status(200).json({
+                msg: "success",
+                result: {
+                    "userId": user.userId,
+                    "profilePicture": user.profilePicture
+                }
+            });
+        } else {
+            res.status(400).json({
+                msg: "failed",
+                result: "unknown error occured"
+            });
+        }
+    } catch (e) {
+        return res.status(500).json({ error: e.message });
+    }
+});
 // get user info
+userRouter.get('/api/user/social/:userId/info', async(req, res) => {
+    try {
+        const user = await User.findOne({ userId: req.params.userId });
+
+        if (user) {
+            // selectively return messages
+            res.status(200).json({
+                msg: "success",
+                result: {
+                    "username": user.name,
+                    "profilePicture": user.profilePicture,
+                    "bookList": user.bookList,
+                }
+            });
+        } else {
+            res.status(400).json({
+                msg: "failed",
+                result: "unknown error occured"
+            });
+        }
+    } catch (e) {
+        return res.status(500).json({ error: e.message });
+    }
+});
 
 module.exports = userRouter;

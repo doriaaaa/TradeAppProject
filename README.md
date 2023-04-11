@@ -24,7 +24,6 @@ adminregister@gmail.com
 testingDummy
 ```
 2. Changing the IP address in .env
-~~3. To access chatGPT function, you need to setup overseas vpn and set up split tunneling config (for emulator?)~~
 
 ###### WORK:
 1. User login / logout
@@ -85,6 +84,7 @@ testingDummy
 - [x] POST&nbsp;/api/user/account/changePassword
 - [x] POST&nbsp;/api/user/account/updateProfilePicture
 - [x] GET &nbsp;/api/user/book/bookList
+- [x] GET &nbsp;/api/user/social/:userId/profilePicture
 
 2. Auth
 - [x] POST&nbsp;/api/auth/tokenIsValid
@@ -105,8 +105,10 @@ testingDummy
 - [x] POST&nbsp;/api/book/info
 - [x] POST&nbsp;/api/book/upload
 
-5. Universal
+5. Universal --> should be called in frontend instead of moving to backend
 - [x] POST&nbsp;/api/universal/image
 
-6. Social
-- [x] GET&nbsp;/api/social/user/:userId/profilePic
+6. Frontend APIs
+- [x] GET trendingBookList
+- [x] GET search
+- [ ] GET image --> from universal image

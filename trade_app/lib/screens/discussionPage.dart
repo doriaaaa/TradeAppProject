@@ -11,11 +11,12 @@ import 'package:trade_app/widgets/reusableWidget.dart';
 import '../provider/comment_provider.dart';
 import '../provider/user_provider.dart';
 import '../services/comment/commentService.dart';
-import '../services/social/socialService.dart';
+import '../services/user/userAccountService.dart';
 
 class discussionPage extends StatefulWidget {
   final String title;
   final String author;
+  final int userId;
   final String content;
   final int threadId;
   final int likes;
@@ -28,6 +29,7 @@ class discussionPage extends StatefulWidget {
     Key? key,
     required this.title,
     required this.author,
+    required this.userId,
     required this.content,
     required this.threadId,
     required this.likes,
@@ -80,7 +82,7 @@ class _discussionPageState extends State<discussionPage> {
       int userId = comments[i].userId;
       int thread_id = comments[i].thread_id;
       int comment_id = comments[i].comment_id;
-      otherUserProfilePic = await socialService().loadUserProfilePictureFromUserId(
+      otherUserProfilePic = await userAccountService().loadUserProfilePictureFromUserId(
         context: context, 
         userId: userId
       );
@@ -93,20 +95,17 @@ class _discussionPageState extends State<discussionPage> {
           children: <Widget>[
             Row(
               children: <Widget>[
-                GestureDetector(
-                  onTap: () {},
-                  child: Container(
-                    width: 10.w,
-                    height: 10.h,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      image: DecorationImage(
-                        image: otherUserProfilePic != "" 
-                        ? NetworkImage(otherUserProfilePic) 
-                        : const AssetImage('assets/default.jpg') as ImageProvider,
-                        fit: BoxFit.scaleDown
-                      )
-                    ),
+                Container(
+                  width: 10.w,
+                  height: 10.h,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    image: DecorationImage(
+                      image: otherUserProfilePic != "" 
+                      ? NetworkImage(otherUserProfilePic) 
+                      : const AssetImage('assets/default.jpg') as ImageProvider,
+                      fit: BoxFit.scaleDown
+                    )
                   ),
                 ),
                 SizedBox(width: 2.w),
@@ -119,7 +118,12 @@ class _discussionPageState extends State<discussionPage> {
                         children: [
                           GestureDetector(
                             child: Text( username, style: TextStyle(fontSize: 12.sp)),
-                            onTap: () {},
+                            onTap: () {
+                              userAccountService().showUserInfo(
+                                context: context,
+                                userId: userId
+                              );
+                            },
                           ),
                           Container(
                             child: username == user
@@ -149,7 +153,6 @@ class _discussionPageState extends State<discussionPage> {
                           )
                         ]
                       ),
-                      // Text( username, style: TextStyle(fontSize: 12.sp)),
                       SizedBox(height:1.0.h),
                       Text( date.substring(0, date.indexOf('T')), style: TextStyle(fontSize: 8.sp))
                     ]
@@ -186,25 +189,27 @@ class _discussionPageState extends State<discussionPage> {
         children: <Widget>[
           Row(
             children: <Widget>[
-              GestureDetector(
-                onTap: () {},
-                child: Container(
-                  width: 10.w,
-                  height: 10.h,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    image: DecorationImage(
-                      image: widget.author == user 
-                      ? NetworkImage(userProfilePic)
-                      : const AssetImage('assets/default.jpg') as ImageProvider,
-                      fit: BoxFit.scaleDown
-                    )
-                  ),
+              Container(
+                width: 10.w,
+                height: 10.h,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  image: DecorationImage(
+                    image: widget.author == user 
+                    ? NetworkImage(userProfilePic)
+                    : const AssetImage('assets/default.jpg') as ImageProvider,
+                    fit: BoxFit.scaleDown
+                  )
                 ),
               ),
               SizedBox(width: 2.w),
               GestureDetector(
-                onTap: () {},
+                onTap: () {
+                  userAccountService().showUserInfo(
+                    context: context,
+                    userId: widget.userId
+                  );
+                },
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -335,7 +340,7 @@ class _discussionPageState extends State<discussionPage> {
                       ),
                     )
                   ),
-              ),
+                ),
               ),
               child: isLoading
                 ? const Center(child: CupertinoActivityIndicator())

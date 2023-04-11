@@ -36,6 +36,7 @@ class _homePageState extends State<homePage> {
       String title = threadList['result'][count]['title'];
       String author = threadList['result'][count]['author'];
       String content = threadList['result'][count]['content'];
+      int userId = threadList['result'][count]['userId'];
       int threadId = threadList['result'][count]['thread_id'];
       int likes = threadList['result'][count]['likes'];
       int dislikes = threadList['result'][count]['dislikes'];
@@ -51,6 +52,7 @@ class _homePageState extends State<homePage> {
             context: context, 
             title: title,
             author: author,
+            userId: userId,
             content: content,
             threadId: threadId,
             likes: likes,

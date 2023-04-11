@@ -150,6 +150,7 @@ async function findAuthorByThread(thread, user) {
         "thread_id": thread.thread_id,
         "content": thread.content,
         "author": author.name,
+        "userId": author.userId,
         "likes": thread.isLikedBy.length,
         "dislikes": thread.isDislikedBy.length,
         "comments": thread.comments,

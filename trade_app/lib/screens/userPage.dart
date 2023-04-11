@@ -1,7 +1,10 @@
+// load other user data when user clicks in icon / name tag
+// username, profilePicture, bookList, threads? 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 class userPage extends StatefulWidget {
-  // need user_id and call api
+  // need userId and call api
   const userPage({Key? key}) : super(key: key);
 
   @override
@@ -11,7 +14,6 @@ class userPage extends StatefulWidget {
 class _userPageState extends State<userPage> {
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
-    throw UnimplementedError();
+    return Scaffold();
   }
 }
