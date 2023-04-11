@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:keyboard_attachable/keyboard_attachable.dart';
 import 'package:sizer/sizer.dart';
 import 'package:trade_app/services/thread/threadService.dart';
+import 'package:trade_app/widgets/reusableWidget.dart';
 import '../constants/utils.dart';
 
 class createThreadPage extends StatefulWidget {
@@ -22,7 +23,10 @@ class _createThreadPageState extends State<createThreadPage> {
   @override
   void initState() {
     super.initState();
-    titleInputFieldController = TextEditingController( text: "Discussion on ${widget.title}");
+    titleInputFieldController = 
+      widget.title != null
+      ? TextEditingController( text: "Discussion on ${widget.title}")
+      : TextEditingController();
   }
 
   @override
@@ -63,17 +67,17 @@ class _createThreadPageState extends State<createThreadPage> {
         FocusScope.of(context).unfocus();
       },
       child: Scaffold(
-        appBar: AppBar(
-          title: const Text("New Post"),
-          centerTitle: true,
+        appBar: ReusableWidgets.persistentAppBar(
+          "New Post",
           actions: <Widget>[
             IconButton(
               onPressed: () {
                 if (_formKey.currentState!.validate()) {
                   threadService().createThread(
-                      context: context,
-                      title: titleInputFieldController.text,
-                      content: contentInputFieldController.text);
+                    context: context,
+                    title: titleInputFieldController.text,
+                    content: contentInputFieldController.text
+                  );
                 } else {
                   showSnackBar(context, 'Missing title / description');
                 }
@@ -81,32 +85,23 @@ class _createThreadPageState extends State<createThreadPage> {
               icon: const Icon(Icons.check),
             )
           ],
-          leading: IconButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            icon: const Icon(Icons.arrow_back_outlined),
-          ),
-          flexibleSpace: const Image(
-              image: AssetImage('assets/book_title.jpg'),
-              fit: BoxFit.cover),
         ),
         body: SafeArea(
           maintainBottomViewPadding: true,
           child: FooterLayout(
             footer: const KeyboardAttachableFooter(),
             child: Form(
-                key: _formKey,
-                child: ListView(
-                  padding: EdgeInsets.only(left: 7.w, right: 7.w),
-                  children: <Widget>[
-                    SizedBox(height: 2.h),
-                    titleInputField,
-                    SizedBox(height: 1.h),
-                    contentInputField
-                  ],
-                )
-              ),
+              key: _formKey,
+              child: ListView(
+                padding: EdgeInsets.only(left: 7.w, right: 7.w),
+                children: <Widget>[
+                  SizedBox(height: 2.h),
+                  titleInputField,
+                  SizedBox(height: 1.h),
+                  contentInputField
+                ],
+              )
+            ),
           ),
         )
       )
@@ -119,15 +114,15 @@ class KeyboardAttachableFooter extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => KeyboardAttachable(
-        child: Container(padding: EdgeInsets.all(5.w), child: Container()
-            // TODO: add custom buttons
-            // const TextField(
-            //   decoration: InputDecoration(
-            //     hintText: "Tap me!",
-            //     filled: true,
-            //     border: OutlineInputBorder(),
-            //   ),
-            // ),
-            ),
-      );
+    child: Container(padding: EdgeInsets.all(5.w), child: Container()
+        // TODO: add custom buttons
+        // const TextField(
+        //   decoration: InputDecoration(
+        //     hintText: "Tap me!",
+        //     filled: true,
+        //     border: OutlineInputBorder(),
+        //   ),
+        // ),
+        ),
+  );
 }

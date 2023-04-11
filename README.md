@@ -43,6 +43,13 @@ testingDummy
 14. Create thread from books / suggestions
 15. Recommendations
 
+###### FIX:
+- [ ] user profile pic in discussionPage
+- [ ] view user info
+- [ ] add book to favourites
+- [x] search history
+- [ ] search result display info --> use upload page template
+
 ###### TODO: 
 1. User Management API
 - [x] user can edit the profile picture
@@ -63,7 +70,7 @@ testingDummy
 - [x] edit the review
 - [ ] ~~delete the review~~
 4. Book search API
-- [ ] allows users to search for books in the exchange by title, author, genre, or other criteria (simply call google book search api)
+- [x] allows users to search by book name
 
 ###### BACKEND:
 1. [x] Build Post Schema (linked to user) --> adjust the existing book schema

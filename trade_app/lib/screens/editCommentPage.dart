@@ -3,6 +3,7 @@ import 'package:keyboard_attachable/keyboard_attachable.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 import 'package:trade_app/services/comment/commentService.dart';
+import 'package:trade_app/widgets/reusableWidget.dart';
 import '../provider/comment_provider.dart';
 
 class editCommentPage extends StatefulWidget {
@@ -55,10 +56,9 @@ class _editCommentPageState extends State<editCommentPage> {
         FocusScope.of(context).unfocus();
       },
       child: Scaffold(
-        appBar: AppBar(
-          title: const Text("Edit Comment"),
-          centerTitle: true,
-          actions: <Widget>[
+        appBar: ReusableWidgets.persistentAppBar(
+          "Edit Comment",
+          actions :<Widget>[
             IconButton(
               onPressed: () {
                 if (_formKey.currentState!.validate()) {
@@ -73,16 +73,6 @@ class _editCommentPageState extends State<editCommentPage> {
               icon: const Icon(Icons.check),
             )
           ],
-          leading: IconButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            icon: const Icon(Icons.arrow_back_outlined),
-          ),
-          flexibleSpace: const Image(
-            image: AssetImage('assets/book_title.jpg'),
-            fit: BoxFit.cover
-          ),
         ),
         body: SafeArea(
           maintainBottomViewPadding: true,

@@ -13,7 +13,6 @@ class recommendationModal extends StatelessWidget {
     required this.author,
     required this.bookCoverUrl,
     required this.description
-
   }) : super(key: key);
   
   @override

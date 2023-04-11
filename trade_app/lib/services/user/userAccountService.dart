@@ -156,7 +156,8 @@ class userAccountService {
     try {
       Navigator.pushNamedAndRemoveUntil(context, '/login', (route) => false);
       SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-      await sharedPreferences.setString('x-auth-token', ''); // reset the auth token
+      await sharedPreferences.clear();
+      // await sharedPreferences.setString('x-auth-token', ''); // reset the auth token
     } catch (e) {
       debugPrint(e.toString());
     }

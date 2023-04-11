@@ -6,6 +6,7 @@ import 'package:trade_app/constants/utils.dart';
 import 'package:trade_app/models/comment.dart';
 import 'package:trade_app/screens/editCommentPage.dart';
 import 'package:trade_app/services/thread/threadService.dart';
+import 'package:trade_app/widgets/reusableWidget.dart';
 import '../provider/comment_provider.dart';
 import '../provider/user_provider.dart';
 import '../services/comment/commentService.dart';
@@ -254,10 +255,8 @@ class _discussionPageState extends State<discussionPage> {
           return true;
         },
         child: Scaffold(
-          appBar: AppBar(
-            title: Text(title),
-            centerTitle: true,
-            flexibleSpace: const Image( image: AssetImage('assets/book_title.jpg'), fit: BoxFit.cover),
+          appBar: ReusableWidgets.persistentAppBar(
+            title,
             leading: IconButton(
               onPressed: () { 
                 Provider.of<CommentProvider>(context, listen: false).clearComments();

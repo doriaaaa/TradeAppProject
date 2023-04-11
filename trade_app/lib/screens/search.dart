@@ -4,6 +4,7 @@ import 'package:basic_utils/basic_utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 import '../models/book.dart';
 import '../services/book/bookService.dart';
@@ -43,7 +44,7 @@ class _SearchPageState extends State<SearchPage> {
           Padding(
             padding: EdgeInsets.only(left: 4.w, right: 4.w, top: 1.5.h, bottom: 1.0.h),
             child: Text(
-              'Weekly Recommendation',
+              'Weekly Recommendations',
               style: TextStyle( fontSize: 20.sp),
             ),
           ),
@@ -218,11 +219,13 @@ class _SearchPageState extends State<SearchPage> {
 }
 
 class CustomSearchDelegate extends SearchDelegate {
-  List<String> seacrhTerms = [
-    'Atomic Habits',
-    'Cracking the Coding Interview, Fourth Edition Book 1',
-    'The Last Wish',
+  List<String> searchTerms = [
+    // 'Atomic Habits',
+    // 'Cracking the Coding Interview, Fourth Edition Book 1',
+    // 'The Last Wish',
   ];
+
+  // clear the search field
   @override
   List<Widget> buildActions(BuildContext context) {
     return [
@@ -235,6 +238,7 @@ class CustomSearchDelegate extends SearchDelegate {
     ];
   }
 
+  // drop the search context
   @override
   Widget buildLeading(BuildContext context) {
     return IconButton(
@@ -251,18 +255,20 @@ class CustomSearchDelegate extends SearchDelegate {
       future: bookService().bookSearch(query),
       builder: (context, AsyncSnapshot snapshot) {
         if(snapshot.hasData) {
+          if (!searchTerms.contains(query) && query != '') {
+            searchTerms.add(query);
+          }
+          // Store last query in SharedPreferences
+          SharedPreferences.getInstance().then((prefs) {
+            prefs.setStringList('search_terms', searchTerms);
+          });
           return ListView.separated(
             itemCount: snapshot.data.length,
-            separatorBuilder: (BuildContext context, int index) { 
-              return const Divider(thickness: 1.0);
-            },
+            separatorBuilder: (BuildContext context, int index) { return const Divider(thickness: 1.0); },
             itemBuilder: (context, index) {
               return ListTile(
                 leading: ConstrainedBox(
-                  constraints: BoxConstraints(
-                    maxHeight: 30.h,
-                    maxWidth: 10.w
-                  ),
+                  constraints: BoxConstraints( maxHeight: 30.h, maxWidth: 10.w ),
                   child: Align(
                     alignment: Alignment.center,
                     child: snapshot.data[index].imageUrl != ""
@@ -272,26 +278,15 @@ class CustomSearchDelegate extends SearchDelegate {
                 ),
                 title: Padding(
                   padding: EdgeInsets.only(bottom: 1.h),
-                  child: Text(
-                    snapshot.data[index].title,
-                    style: TextStyle(fontSize: 12.0.sp),
-                  ),
+                  child: Text( snapshot.data[index].title, style: TextStyle( fontSize: 12.0.sp )),
                 ),
-                subtitle: Text(
-                  snapshot.data[index].author,
-                  style: TextStyle(
-                    fontStyle: FontStyle.italic,
-                    fontSize: 10.sp
-                  ),
-                ),
+                subtitle: Text( snapshot.data[index].author, style: TextStyle( fontStyle: FontStyle.italic, fontSize: 10.sp )),
               );
             }, 
             
           );
         } else {
-          return const Center(
-            child: CupertinoActivityIndicator(),
-          );
+          return const Center( child: CupertinoActivityIndicator());
         }
       }
     );
@@ -301,9 +296,16 @@ class CustomSearchDelegate extends SearchDelegate {
   @override
   Widget buildSuggestions(BuildContext context) {
     List<String> matchQuery = [];
-    for (var fruit in seacrhTerms) {
-      if (fruit.toLowerCase().contains(query.toLowerCase())) {
-        matchQuery.add(fruit);
+    SharedPreferences.getInstance().then((prefs) {
+      var lastQueries = prefs.getStringList('search_terms') ?? [];
+      print(lastQueries);
+      searchTerms.addAll(lastQueries);
+      searchTerms = searchTerms.toSet().toList();
+      searchTerms.sort((a, b) => b.compareTo(a));
+    });
+    for (var book in searchTerms) {
+      if (book.toLowerCase().contains(query.toLowerCase())) {
+        matchQuery.add(book);
       }
     }
     return ListView.builder(
@@ -311,6 +313,7 @@ class CustomSearchDelegate extends SearchDelegate {
       itemBuilder: (context, index) {
         var result = matchQuery[index];
         return ListTile(
+          leading: const Icon(Icons.history),
           title: Text(result),
         );
       },

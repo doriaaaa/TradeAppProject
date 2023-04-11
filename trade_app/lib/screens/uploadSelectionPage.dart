@@ -68,15 +68,15 @@ class _uploadSelectionPageState extends State<uploadSelectionPage> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          Icon( Icons.trending_up, size: 30.sp),
+          Icon( Icons.bolt_outlined, size: 30.sp),
           SizedBox(height: 3.h),
-          const Text("Trending")
+          const Text("Trending Books")
         ]
       )
     );
 
     return Scaffold(
-      appBar: ReusableWidgets.persistentAppBar('Choose upload options'),
+      appBar: ReusableWidgets.persistentAppBar('More functions'),
       body: Center(
         child: Padding(
           padding: EdgeInsets.only(left: 20.0.w, right: 20.0.w),

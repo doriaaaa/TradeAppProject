@@ -9,6 +9,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:sizer/sizer.dart';
 import 'package:trade_app/services/book/bookService.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:trade_app/widgets/reusableWidget.dart';
 import '../constants/utils.dart';
 
 
@@ -170,9 +171,8 @@ class _BookPageState extends State<BookPage> {
     );
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Book Details"),
-        centerTitle: true,
+      appBar: ReusableWidgets.persistentAppBar(
+        "Book Details",
         actions: <Widget>[
           Stack(
             children: <Widget>[
@@ -205,14 +205,6 @@ class _BookPageState extends State<BookPage> {
             ],
           )
         ],
-        leading: IconButton(
-          onPressed: () { Navigator.pop(context); },
-          icon: const Icon(Icons.arrow_back_outlined),
-        ),
-        flexibleSpace: const Image(
-          image: AssetImage('assets/book_title.jpg'), 
-          fit: BoxFit.cover
-        ),
       ),
       body: Form(
         key: _formKey,
