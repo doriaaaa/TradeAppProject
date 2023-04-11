@@ -42,13 +42,15 @@ testingDummy
 13. Like / Dislike System for threads
 14. Create thread from books / suggestions
 15. Recommendations
+16. search engine
 
 ###### FIX:
-- [ ] user profile pic in discussionPage
+- [x] user profile pic in discussionPage --> need to change user model and give user_id to fetch propic
 - [ ] view user info
 - [ ] add book to favourites
 - [x] search history
 - [x] search result display info --> use upload page template
+- [ ] search button functionalities, cancel button
 
 ###### TODO: 
 1. User Management API

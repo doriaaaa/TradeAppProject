@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:keyboard_attachable/keyboard_attachable.dart';
 import 'package:provider/provider.dart';
@@ -67,6 +68,7 @@ class _discussionPageState extends State<discussionPage> {
   void _buildDisplayItemList() async {
     List<Comment> comments = Provider.of<CommentProvider>(context, listen: false).comments;
     String user = Provider.of<UserProvider>(context, listen:false).user.name;
+    String userProfilePic = Provider.of<UserProvider>(context, listen:false).user.profilePicture;
     // print(user);
 
     for (int i=0; i<comments.length; i++) {
@@ -86,10 +88,12 @@ class _discussionPageState extends State<discussionPage> {
                 Container(
                   width: 10.w,
                   height: 10.h,
-                  decoration: const BoxDecoration(
+                  decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     image: DecorationImage(
-                      image: AssetImage('assets/avatar.jpg'), //dummy image
+                      image: username == user 
+                      ? NetworkImage(userProfilePic)
+                      : const AssetImage('assets/default.jpg') as ImageProvider,
                       fit: BoxFit.scaleDown
                     )
                   ),
@@ -123,7 +127,7 @@ class _discussionPageState extends State<discussionPage> {
                                     });
                                   }
                                 },
-                                child: const Icon(Icons.more_horiz_outlined),
+                                child: const Icon(CupertinoIcons.pencil),
                               )
                               : Container()
                           )
@@ -151,7 +155,8 @@ class _discussionPageState extends State<discussionPage> {
     String timestamp = widget.createdAt;
     final commentController = TextEditingController();
     final _formKey = GlobalKey<FormState>();
-    String profilePicture = context.watch<UserProvider>().user.profilePicture;
+    String userProfilePic = context.watch<UserProvider>().user.profilePicture;
+    String user = context.watch<UserProvider>().user.name;
     
     final scrollBarController = ScrollController(initialScrollOffset: 0.0);
     // thread content always display above
@@ -165,10 +170,12 @@ class _discussionPageState extends State<discussionPage> {
               Container(
                 width: 10.w,
                 height: 10.h,
-                decoration: const BoxDecoration(
+                decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   image: DecorationImage(
-                    image: AssetImage('assets/avatar.jpg'), //dummy image
+                    image: widget.author == user 
+                    ? NetworkImage(userProfilePic)
+                    : const AssetImage('assets/default.jpg') as ImageProvider,
                     fit: BoxFit.scaleDown
                   )
                 ),

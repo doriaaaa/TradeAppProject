@@ -36,6 +36,7 @@ class _SearchPageState extends State<SearchPage> {
 
   @override
   Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
     return Scaffold(
       appBar: ReusableWidgets.persistentAppBar("Trending Books"),
       // implement trending list
@@ -77,13 +78,14 @@ class _SearchPageState extends State<SearchPage> {
                   elevation: 0,
                   // shadowColor: Colors.transparent,
                   splashFactory: NoSplash.splashFactory,
-                  backgroundColor: const Color(0xB3535353),
+                  backgroundColor: theme.brightness == Brightness.dark ? Colors.grey[900] : Colors.white,
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0))
                 ),
                 child: Row(
-                  children: const [
-                    Icon( color: Color(0xFFF2F1F0), Icons.search),
-                    Text( "Search for a Book", style: TextStyle(color: Color(0xFFF2F1F0)))
+                  children: <Widget>[
+                    const Icon( color: Colors.grey, Icons.search),
+                    SizedBox(width: 2.w),
+                    const Text( "Search for a Book", style: TextStyle(color: Colors.grey))
                   ]
                 ),
                 onPressed: () {
@@ -214,19 +216,16 @@ class _SearchPageState extends State<SearchPage> {
 }
 
 class CustomSearchDelegate extends SearchDelegate {
-  List<String> searchTerms = [
-    // 'Atomic Habits',
-    // 'Cracking the Coding Interview, Fourth Edition Book 1',
-    // 'The Last Wish',
-  ];
+  List<String> searchTerms = [];
 
   // clear the search field
   @override
   List<Widget> buildActions(BuildContext context) {
     return [
-      IconButton(
-        icon: const Icon(Icons.clear),
+      TextButton(
+        child: const Text("Cancel"),
         onPressed: () {
+          close(context, null);
           // query = '';
         },
       ),
@@ -236,12 +235,11 @@ class CustomSearchDelegate extends SearchDelegate {
   // drop the search context
   @override
   Widget buildLeading(BuildContext context) {
-    return IconButton(
-      icon: const Icon(Icons.arrow_back),
-      onPressed: () {
-        close(context, null);
-      },
-    );
+    return const Icon(Icons.search);
+    //   onPressed: () {
+    //     close(context, null);
+    //   },
+    // );
   }
 
   @override

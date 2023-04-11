@@ -75,12 +75,12 @@ class _settingsPageState extends State<settingsPage> {
               : NetworkImage(profilePicture),
           ),
           SettingsGroup(
+            settingsGroupTitle: "Personalization",
             items: [
               SettingsItem(
                 onTap: () async {
                   ImagePicker picker = ImagePicker();
-                  XFile? image =
-                      await picker.pickImage(source: ImageSource.gallery);
+                  XFile? image = await picker.pickImage(source: ImageSource.gallery);
                   if (image != null) {
                     pickedImage = File(image.path);
                     // debugPrint(image.path);
@@ -120,6 +120,7 @@ class _settingsPageState extends State<settingsPage> {
             ],
           ),
           SettingsGroup(
+            settingsGroupTitle: "Enquiry",
             items: [
               SettingsItem(
                 onTap: () {
@@ -144,9 +145,7 @@ class _settingsPageState extends State<settingsPage> {
                 title: "Sign Out",
               ),
               SettingsItem(
-                onTap: () {
-                  Navigator.pushNamed(context, '/changePassword');
-                },
+                onTap: () { Navigator.pushNamed(context, '/changePassword'); },
                 icons: CupertinoIcons.repeat,
                 title: "Change Password",
               ),
