@@ -1,7 +1,9 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:keyboard_attachable/keyboard_attachable.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
+import 'package:trade_app/provider/user_provider.dart';
 import 'package:trade_app/services/comment/commentService.dart';
 import 'package:trade_app/widgets/reusableWidget.dart';
 import '../provider/comment_provider.dart';
@@ -35,6 +37,7 @@ class _editCommentPageState extends State<editCommentPage> {
   @override
   Widget build(BuildContext context) {
     final commentQuery = Provider.of<CommentProvider>(context, listen: false).comments[widget.comment_id - 1];
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
     // print(commentQuery.body);
     final contentInputField = TextFormField(
       maxLines: 5,
@@ -88,10 +91,10 @@ class _editCommentPageState extends State<editCommentPage> {
                       Container(
                         width: 10.w,
                         height: 10.h,
-                        decoration: const BoxDecoration(
+                        decoration: BoxDecoration(
                           shape: BoxShape.circle,
                           image: DecorationImage(
-                            image: AssetImage('assets/default.jpg'),
+                            image: CachedNetworkImageProvider(userProvider.user.profilePicture),
                             fit: BoxFit.scaleDown
                           )
                         ),

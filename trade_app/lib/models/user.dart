@@ -8,6 +8,7 @@ class User {
   final String profilePicture;
   final String type;
   final String token;
+  final int userId;
 
   User({
     required this.id,
@@ -17,6 +18,7 @@ class User {
     required this.profilePicture,
     required this.type,
     required this.token,
+    required this.userId
   });
 
   Map<String, dynamic> toMap() {
@@ -28,6 +30,7 @@ class User {
       'profilePicture': profilePicture,
       'type': type,
       'token': token,
+      'userId': userId
     };
   }
 
@@ -40,6 +43,7 @@ class User {
       profilePicture: map['profilePicture'],
       type: map['type'] ?? '',
       token: map['token'] ?? '',
+      userId: map['userId'] ?? 0
     );
   }
 
@@ -55,6 +59,7 @@ class User {
     String? profilePicture,
     String? type,
     String? token,
+    int? userId
   }) {
     return User(
       id: id ?? this.id,
@@ -64,6 +69,7 @@ class User {
       profilePicture: profilePicture ?? this.profilePicture,
       type: type ?? this.type,
       token: token ?? this.token,
+      userId: userId ?? this.userId
     );
   }
 }

@@ -10,6 +10,7 @@ class UserProvider extends ChangeNotifier {
     profilePicture: '',
     type: '',
     token: '',
+    userId: 0
   );
 
   User get user => _user;

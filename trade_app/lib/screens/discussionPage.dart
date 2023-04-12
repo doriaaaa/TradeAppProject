@@ -73,8 +73,7 @@ class _discussionPageState extends State<discussionPage> {
   void _buildDisplayItemList() async {
     List<Comment> comments = Provider.of<CommentProvider>(context, listen: false).comments;
     String user = Provider.of<UserProvider>(context, listen:false).user.name;
-    String userProfilePic = Provider.of<UserProvider>(context, listen:false).user.profilePicture;
-    String otherUserProfilePic = "";
+    String userProfilePic = "";
 
     for (int i=0; i<comments.length; i++) {
       String body = comments[i].body; // access the body of the first comment in the list
@@ -83,10 +82,12 @@ class _discussionPageState extends State<discussionPage> {
       int userId = comments[i].userId;
       int thread_id = comments[i].thread_id;
       int comment_id = comments[i].comment_id;
-      otherUserProfilePic = await userAccountService().loadUserProfilePictureFromUserId(
+      userProfilePic = await userAccountService().loadUserProfilePictureFromUserId(
         context: context, 
         userId: userId
       );
+      // print("userId: $userId");
+      // print("profilePic: $userProfilePic");
 
       final commentContentDisplayBox = Container(
         margin: EdgeInsets.fromLTRB(7.w, 1.h, 7.w, 1.h),
@@ -101,8 +102,8 @@ class _discussionPageState extends State<discussionPage> {
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     image: DecorationImage(
-                      image: otherUserProfilePic != "" 
-                      ? CachedNetworkImageProvider(otherUserProfilePic) 
+                      image: userProfilePic != "" 
+                      ? CachedNetworkImageProvider(userProfilePic) 
                       : const AssetImage('assets/default.jpg') as ImageProvider,
                       fit: BoxFit.scaleDown
                     )
@@ -138,7 +139,7 @@ class _discussionPageState extends State<discussionPage> {
                                       )
                                     )
                                   );
-                                  if(update) {
+                                  if(update != null) {
                                     setState(() {
                                       _updateDisplayItemList();
                                     });
@@ -179,6 +180,7 @@ class _discussionPageState extends State<discussionPage> {
     final _formKey = GlobalKey<FormState>();
     String userProfilePic = context.watch<UserProvider>().user.profilePicture;
     String user = context.watch<UserProvider>().user.name;
+    int userId = context.watch<UserProvider>().user.userId;
     
     final scrollBarController = ScrollController(initialScrollOffset: 0.0);
     // thread content always display above
@@ -196,7 +198,7 @@ class _discussionPageState extends State<discussionPage> {
                   shape: BoxShape.circle,
                   image: DecorationImage(
                     image: widget.author == user 
-                    ? NetworkImage(userProfilePic)
+                    ? CachedNetworkImageProvider(userProfilePic)
                     : const AssetImage('assets/default.jpg') as ImageProvider,
                     fit: BoxFit.scaleDown
                   )
@@ -332,7 +334,8 @@ class _discussionPageState extends State<discussionPage> {
                               commentService().createComment(
                                 context: context,
                                 body: commentController.text,
-                                threadId: widget.threadId
+                                threadId: widget.threadId,
+                                userId: userId
                               ).then((value) => _updateDisplayItemList());
                             }
                           },

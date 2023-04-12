@@ -13,7 +13,8 @@ class commentService {
   Future<bool> createComment({
     required BuildContext context,
     required String body,
-    required int threadId
+    required int threadId,
+    required int userId
   }) async {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
     try {
@@ -28,6 +29,7 @@ class commentService {
         }
       );
       // print('res: ${res.body}');
+      // print(res.statusCode);
       Map comment = jsonDecode(res.body);
       // update ui
       if (context.mounted) {
@@ -38,6 +40,7 @@ class commentService {
             var newComment = jsonEncode({
               "body": comment["result"]["body"],
               "username": userProvider.user.name,
+              "userId": userProvider.user.userId,
               "date": comment["result"]["date"],
               "comment_id": comment["result"]["comment_id"]
             });
