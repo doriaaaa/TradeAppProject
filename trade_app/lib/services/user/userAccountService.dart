@@ -7,6 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:trade_app/constants/utils.dart';
 import 'package:provider/provider.dart';
 import 'package:trade_app/provider/user_provider.dart';
+import 'package:trade_app/screens/userPage.dart';
 import '../../constants/error_handling.dart';
 import '../../models/user.dart';
 
@@ -191,8 +192,22 @@ class userAccountService {
   }) async {
     try {
       http.Response res = await http.get(Uri.parse('http://${dotenv.env['IP_ADDRESS']}:3000/api/user/social/$userId/info'));
+      Map resbody = jsonDecode(res.body);
       if (context.mounted) {
-
+        httpErrorHandle(
+          response: res, 
+          context: context, 
+          onSuccess: () async {
+            // username, userProfilePic, bookList, book image
+            Navigator.push(context, MaterialPageRoute(
+              builder: (context) => userPage(
+                username: resbody['result']['username'],
+                profilePicture: resbody['result']['profilePicture'],
+                bookList: resbody['result']['bookList']
+              )
+            ));
+          }
+        );
       }
     } catch (e) {
       debugPrint(e.toString());

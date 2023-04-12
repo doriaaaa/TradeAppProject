@@ -57,6 +57,7 @@ dependencies:
   basic_utils: ^5.5.3
   modal_bottom_sheet: ^3.0.0-pre
   cached_network_image: ^3.2.3
+  circular_profile_avatar: ^2.0.5
   
 
 dev_dependencies:

@@ -156,7 +156,7 @@ userRouter.get('/api/user/book/bookList', auth, async(req, res) => {
         return res.status(500).json({ error: e.message });
     }
 });
-// get user profile pic
+// get other user profile pic
 userRouter.get('/api/user/social/:userId/profilePicture', async(req, res) => {
     try {
         const user = await User.findOne({ userId: req.params.userId });
@@ -178,19 +178,26 @@ userRouter.get('/api/user/social/:userId/profilePicture', async(req, res) => {
         return res.status(500).json({ error: e.message });
     }
 });
-// get user info
+// get other user info
 userRouter.get('/api/user/social/:userId/info', async(req, res) => {
     try {
         const user = await User.findOne({ userId: req.params.userId });
+        var bookDetailsList = [];
 
         if (user) {
+            const bookList = user.bookList.map(async (book) => {
+                var bookDetails = await Book.findOne({ _id: book})
+                return bookDetails;
+            });
+            bookDetailsList = await Promise.all(bookList);
+
             // selectively return messages
             res.status(200).json({
                 msg: "success",
                 result: {
                     "username": user.name,
                     "profilePicture": user.profilePicture,
-                    "bookList": user.bookList,
+                    "bookList": bookDetailsList,
                 }
             });
         } else {
