@@ -45,7 +45,7 @@ testingDummy
 
 ###### FIX:
 - [x] user profile pic in discussionPage --> need to change user model and give user_id to fetch propic
-- [ ] view user info
+- [x] view user info
 - [ ] add book to favourites
 - [x] search history
 - [x] search result display info --> use upload page template
