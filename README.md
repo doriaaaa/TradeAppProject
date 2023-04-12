@@ -42,6 +42,7 @@ testingDummy
 14. Create thread from books / suggestions
 15. Recommendations
 16. search engine
+17. check user uploaded book list
 
 ###### FIX:
 - [x] user profile pic in discussionPage --> need to change user model and give user_id to fetch propic
@@ -85,6 +86,7 @@ testingDummy
 - [x] POST&nbsp;/api/user/account/updateProfilePicture
 - [x] GET &nbsp;/api/user/book/bookList
 - [x] GET &nbsp;/api/user/social/:userId/profilePicture
+- [x] GET &nbsp;/api/user/social/:userId/info
 
 2. Auth
 - [x] POST&nbsp;/api/auth/tokenIsValid
@@ -101,14 +103,14 @@ testingDummy
 - [ ] DELETE&nbsp;/api/comment/deleteComment/thread/:threadId/commentId/:commentId
 - [x] PUT &nbsp;/api/comment/editComment/thread/:threadId/commentId/:commentId
 
-4. Book
+5. Book
 - [x] POST&nbsp;/api/book/info
 - [x] POST&nbsp;/api/book/upload
 
-5. Universal --> should be called in frontend instead of moving to backend
+6. Universal --> should be called in frontend instead of moving to backend
 - [x] POST&nbsp;/api/universal/image
 
-6. Frontend APIs
+7. Frontend APIs
 - [x] GET trendingBookList
 - [x] GET search
 - [ ] GET image --> from universal image

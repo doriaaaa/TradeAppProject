@@ -24,7 +24,6 @@ class userPage extends StatefulWidget {
 }
 
 class _userPageState extends State<userPage> {
-  // bool isLoading = true;
 
   @override
   void initState() {
@@ -36,9 +35,6 @@ class _userPageState extends State<userPage> {
     final scrollBarController = ScrollController(initialScrollOffset: 0.0);
     return Scaffold(
       appBar: ReusableWidgets.persistentAppBar(widget.username),
-      // body: isLoading
-      // ? const Center(child: CupertinoActivityIndicator())
-      // : 
       body: Center(
         child: Column(
           children: [
