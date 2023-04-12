@@ -167,7 +167,7 @@ class userAccountService {
     required int userId
   }) async {
     try {
-      http.Response res = await http.get(Uri.parse('http://${dotenv.env['IP_ADDRESS']}:3000/api/user/social/:userId/profilePicture'));
+      http.Response res = await http.get(Uri.parse('http://${dotenv.env['IP_ADDRESS']}:3000/api/user/social/$userId/profilePicture'));
       if (context.mounted) {
         String userProfilePic = '';
         httpErrorHandle(

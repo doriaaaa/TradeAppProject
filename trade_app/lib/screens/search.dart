@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:basic_utils/basic_utils.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
@@ -134,7 +135,7 @@ class _SearchPageState extends State<SearchPage> {
                 child: Align(
                   alignment: Alignment.center,
                   child: book['book_image'] != null
-                  ? Image.network(book['book_image'])
+                  ? CachedNetworkImage( imageUrl: book['book_image'])
                   : const Icon(Icons.image_not_supported_outlined)
                 )
               ),
@@ -273,7 +274,7 @@ class CustomSearchDelegate extends SearchDelegate {
                   child: Align(
                     alignment: Alignment.center,
                     child: snapshot.data[index].imageUrl != ""
-                    ? Image.network(snapshot.data[index].imageUrl)
+                    ? CachedNetworkImage(imageUrl: snapshot.data[index].imageUrl)
                     : const Icon(Icons.image_not_supported_outlined)
                   )
                 ),

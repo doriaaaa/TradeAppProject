@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:chat_bubbles/bubbles/bubble_special_three.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -71,7 +72,7 @@ class MessageBubble extends StatelessWidget {
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               image: DecorationImage(
-                image: NetworkImage(profilePicture), //dummy image
+                image: CachedNetworkImageProvider(profilePicture), //dummy image
                 fit: BoxFit.scaleDown
               )
             ),

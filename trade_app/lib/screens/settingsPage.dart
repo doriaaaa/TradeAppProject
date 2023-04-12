@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:babstrap_settings_screen/babstrap_settings_screen.dart';
@@ -73,7 +74,7 @@ class _settingsPageState extends State<settingsPage> {
             userName: username,
             userProfilePic: profilePicture == ""
               ? const AssetImage('assets/default.jpg') as ImageProvider
-              : NetworkImage(profilePicture),
+              : CachedNetworkImageProvider(profilePicture),
           ),
           SettingsGroup(
             settingsGroupTitle: "Personalization",

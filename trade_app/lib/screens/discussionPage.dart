@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:keyboard_attachable/keyboard_attachable.dart';
@@ -86,7 +87,6 @@ class _discussionPageState extends State<discussionPage> {
         context: context, 
         userId: userId
       );
-      // print(userId);
 
       final commentContentDisplayBox = Container(
         margin: EdgeInsets.fromLTRB(7.w, 1.h, 7.w, 1.h),
@@ -102,7 +102,7 @@ class _discussionPageState extends State<discussionPage> {
                     shape: BoxShape.circle,
                     image: DecorationImage(
                       image: otherUserProfilePic != "" 
-                      ? NetworkImage(otherUserProfilePic) 
+                      ? CachedNetworkImageProvider(otherUserProfilePic) 
                       : const AssetImage('assets/default.jpg') as ImageProvider,
                       fit: BoxFit.scaleDown
                     )

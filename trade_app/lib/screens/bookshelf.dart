@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:basic_utils/basic_utils.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
@@ -74,7 +75,7 @@ class _bookshelfPageState extends State<bookshelfPage> {
         decoration: BoxDecoration(
           shape: BoxShape.rectangle,
           image: DecorationImage(
-            image: NetworkImage(imageUrl), //dummy image
+            image: CachedNetworkImageProvider(imageUrl), //dummy image
             fit: BoxFit.scaleDown
           )
         ),

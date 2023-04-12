@@ -56,6 +56,7 @@ dependencies:
   chat_bubbles: ^1.4.1
   basic_utils: ^5.5.3
   modal_bottom_sheet: ^3.0.0-pre
+  cached_network_image: ^3.2.3
   
 
 dev_dependencies:

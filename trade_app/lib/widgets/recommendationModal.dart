@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
@@ -39,7 +40,7 @@ class recommendationModal extends StatelessWidget {
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10.0),
                       image: DecorationImage(
-                        image: NetworkImage(bookCoverUrl),
+                        image: CachedNetworkImageProvider(bookCoverUrl),
                         fit: BoxFit.scaleDown
                       )
                     ),
