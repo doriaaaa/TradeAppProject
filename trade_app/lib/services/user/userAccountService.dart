@@ -36,8 +36,8 @@ class userAccountService {
           onSuccess: () async {
             showSnackBar(context, 'You have logged in successfully.');
             //store token in app memory
-            SharedPreferences prefs = await SharedPreferences.getInstance();
-            await prefs.setString('x-auth-token', jsonDecode(res.body)['token']);
+            // SharedPreferences prefs = await SharedPreferences.getInstance();
+            // await prefs.setString('x-auth-token', jsonDecode(res.body)['token']);
             if (context.mounted) {
               Provider.of<UserProvider>(context, listen: false).setUser(res.body);
               Navigator.pushNamedAndRemoveUntil(context, "/navBar", (route) => false);

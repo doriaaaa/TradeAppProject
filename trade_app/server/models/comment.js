@@ -8,18 +8,22 @@ const commentSchema = mongoose.Schema({
     },
     user_id: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "User"
+        ref: "User",
+        required: true
     },
     thread_id: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Thread'
+        ref: 'Thread',
+        required: true
     },
     comment_id: {
-        type: Number
+        type: Number,
+        required: true
     },
     date: {
         type: Date,
-        default: Date.now
+        default: Date.now(),
+        required: true
     },
 });
 
