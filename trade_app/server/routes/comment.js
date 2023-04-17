@@ -85,7 +85,7 @@ commentRouter.delete('/api/comment/deleteComment/thread/:threadId/commentId/:com
 });
 
 // user edit comment
-commentRouter.put('/api/comment/editComment/thread/:threadId/commentId/:commentId', async(req, res) => {
+commentRouter.put('/api/comment/editComment/thread/:threadId/commentId/:commentId', auth, async(req, res) => {
     try {
         const { body, thread_id, comment_id } = req.body;
         // console.log(`comment_id = ${comment_id}`);

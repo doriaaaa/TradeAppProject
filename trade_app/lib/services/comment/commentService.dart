@@ -121,6 +121,7 @@ class commentService {
     required String body,
   }) async {
     try {
+      final userProvider = Provider.of<UserProvider>(context, listen: false);
       http.Response res = await http.put(Uri.parse('http://${dotenv.env['IP_ADDRESS']}:3000/api/comment/editComment/thread/$thread_id/commentId/$comment_id'),
         body: jsonEncode({
           'body': body,
@@ -129,6 +130,7 @@ class commentService {
         }),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
+          'x-auth-token': userProvider.user.token
         }
       );
       if (context.mounted) {
