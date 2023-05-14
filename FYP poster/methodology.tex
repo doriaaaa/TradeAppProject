@@ -1,0 +1,58 @@
+\begin{block}{Methodology}
+The application consists of three main parts: the frontend application, the backend server, and the database. The three-layer architecture allows for separations for the whole application, so that it allows for easier maintenance and performs independent updates on different components.\\
+\begin{figure}
+\includegraphics[width=0.8\linewidth]{app_architecture.png}
+\caption{Application Architecture}
+\end{figure}
+\vspace{-1.0cm}
+\textbf{Frontend Application.\space}The frontend handles user interaction and information display. It focuses on:
+\begin{itemize}
+    \item \textbf{User-friendly interface:\space}night mode, responsive screen etc.
+    \item \textbf{User actions:\space}uploading books, leaving comments etc.
+    \item \textbf{Third-party API implementations:\space}ChatGPT, New York Times API
+\end{itemize}
+\textit{\small**This part will be presented in the live demo.}\\
+% \begin{figure}[!htb]
+%     \minipage{0.2\textwidth}%
+%         \centering
+%         \includegraphics[width=0.7\linewidth]{night.png}
+%         % \caption{A really Awesome Image}\label{fig:awesome_image1}
+%     \endminipage\hfill
+%     \minipage{0.2\textwidth}%
+%         \centering
+%         \includegraphics[width=0.7\linewidth]{homepage.png}
+%         % \caption{A really Awesome Image}\label{fig:awesome_image2}
+%     \endminipage\hfill
+%     \minipage{0.2\textwidth}%
+%         \centering
+%         \includegraphics[width=0.7\linewidth]{bookshelf.png}
+%         % \caption{A really Awesome Image}\label{fig:awesome_image3}
+%     \endminipage\hfill
+%     \minipage{0.2\textwidth}%
+%         \centering
+%         \includegraphics[width=0.7\linewidth]{chatgpt.png}
+%         % \caption{A really Awesome Image}\label{fig:awesome_image3}
+%     \endminipage\hfill
+%     \minipage{0.2\textwidth}%
+%         \centering
+%         \includegraphics[width=0.7\linewidth]{search.png}
+%         % \caption{A really Awesome Image}\label{fig:awesome_image3}
+%     \endminipage\hfill
+%     \caption{Some Frontend UIs}
+% \end{figure}
+\textbf{Backend Server.\space}Backend server connects frontend to database and handles user data. The API calls are categorized as:\\
+\begin{itemize}
+    \item \textbf{User:\space}manage user information, such as changing account password.
+    \item \textbf{Thread:\space}manage discussion threads, such as fetching content from all the threads, creating threads, giving likes or dislikes.
+    \item \textbf{Comment:\space}manage comments, such as fetching information of all the comments in a thread, creating comments, editing comments.
+    \item \textbf{Book:\space}manage the book uploading action, such as adding book picture and retreiving book information. 
+\end{itemize}
+\textbf{Database.\space}The non-relational database can store different data types in the documents. A query doesn’t have to view several tables to find the desired data, which leads to a better performance compared to traditional database.
+\begin{figure}
+    \includegraphics[width=1\linewidth]{database.png}
+    % \input{app_architecture}
+    \caption{Relations between Documents in MongoDB}
+\end{figure}
+\vspace{-1.0cm}
+Documents in MongoDB are linked with their object ID. This allows developers to modify the database dynamically.
+\end{block}

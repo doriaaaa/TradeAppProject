@@ -28,9 +28,10 @@ Login to the application
 ** Test Steps **
 1. input the email: adminregister@gmail.com
 2. input the password: testingDummy
+3. click the login button
 
 ** Expected Result **
-
+successful login to the application
 
 ** Actual Result **
 (can fill `same as expected`)

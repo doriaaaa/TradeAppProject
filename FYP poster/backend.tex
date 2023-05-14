@@ -1,0 +1,28 @@
+\documentclass[border=5mm, convert]{standalone}
+\usepackage{tikz}
+\usetikzlibrary{shapes,arrows}
+\usetikzlibrary{arrows.meta,positioning}
+
+\begin{document}
+\tikzstyle{arrow} = [thick,->,>=stealth]
+\tikzstyle{box} = [rectangle, 
+minimum width=0.5cm, 
+minimum height=0.5cm,
+text centered, 
+draw=black,text width=2cm]
+
+\begin{tikzpicture}[node distance=3cm]
+    \node (nodejs) [box] {Node.js};
+    \node (mongoose) [box, right of=nodejs] {Mongoose};
+    \node (driver) [box, below=0.5 cm of mongoose] {Mongo Driver};
+    \node (mapping) [box, below=0.5cm of nodejs] {Object Mapping};
+    \node (mongoDB) [box, below=0.5cm of mapping] {MongoDB};
+
+    \draw [arrow](nodejs.east) -- node[anchor=south]{} (mongoose.west);
+    \draw [arrow](mongoose.south) -- node[anchor=south]{} (driver.north);
+    \draw [arrow](driver.south) |- node[anchor=west]{} (mongoDB.east);
+    \draw [arrow, dashed](nodejs.south) -- node[anchor=north]{} (mapping.north);
+    \draw [arrow, dashed](mongoDB.north) -- node[anchor=south]{} (mapping.south);
+\end{tikzpicture}
+ 
+\end{document}

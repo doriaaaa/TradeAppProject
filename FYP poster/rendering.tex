@@ -1,0 +1,25 @@
+\documentclass[border=5mm, convert]{standalone}
+\usepackage{tikz}
+\usetikzlibrary{shapes,arrows}
+\usetikzlibrary{arrows.meta,positioning}
+
+\begin{document}
+\tikzstyle{arrow} = [thick,->,>=stealth]
+\tikzstyle{box} = [rectangle, 
+minimum width=0.5cm, 
+minimum height=1cm,
+text centered, 
+draw=black,text width=2cm]
+\begin{tikzpicture}[node distance=3cm] % your picture code
+    \node (dart) [box] {Custom Dart code};
+    \node (framework) [box, right of=dart] {Rendering Tree};
+    \node (skia) [box, right of=framework] {Skia Canvas};
+    \node (iosShell) [box, right of=skia, yshift=0.7cm] {iOS Shell};
+    \node (AndroidShell) [box, right of=skia, yshift=-0.7cm] {Android Shell};
+
+    \draw [arrow](dart.east) -- node[anchor=south]{} (framework.west);
+    \draw [arrow](framework.east) -- node[anchor=south]{} (skia.west);
+    \draw [arrow](skia.east) -- node[anchor=south]{} (iosShell.west);
+    \draw [arrow](skia.east) -- node[anchor=south]{} (AndroidShell.west);
+\end{tikzpicture}
+\end{document}

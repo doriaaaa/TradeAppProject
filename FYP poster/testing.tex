@@ -1,0 +1,25 @@
+\begin{block}{Testing}
+% attach UAT testing result
+\textbf{User Acceptance Tests:}\\
+The purpose of the test is to check whether the UI widgets are running properly before putting to production environment.
+% attach a table
+\begin{table}[ht]
+    \centering
+    \begin{tabular}[t]{lccc}
+        \hline
+        &User Interface related&User Actions&Third-Party APIs\\
+        \hline
+        Passed&7&24&4\\
+        Failed&1&7&2\\
+        Total&8&31&6\\
+        \hline
+    \end{tabular}
+    \caption{User Acceptance Tests Evaluation}
+\end{table}%
+The majority of the failed tests were attributed to UI components incorrectly displaying information, with some of them showing incorrect updates.\\
+\indent $\rightarrow$ \textit{Improvements: automation testing, invite more testers}\\
+
+\textbf{Functional Tests:}\\
+The functional test for the backend server's API is conducted using Postman and involves running test script to verify the accuracy of the response structure, such as response status code, response time, and the presence of various response keys.\\
+\indent $\rightarrow$ \textit{Improvements: conduct testing with corner cases, such as including special characters}\\
+\end{block}

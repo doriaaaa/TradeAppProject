@@ -1,0 +1,51 @@
+This is BibTeX, Version 0.99d (TeX Live 2023)
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: main.aux
+The style file: unsrt.bst
+Database file #1: sample.bib
+Warning--entry type for "Flutter:Documentation" isn't style-file defined
+--line 1 of file sample.bib
+Warning--entry type for "MongoDB:Documentation" isn't style-file defined
+--line 7 of file sample.bib
+You've used 4 entries,
+            1791 wiz_defined-function locations,
+            465 strings with 4175 characters,
+and the built_in function-call counts, 504 in all, are:
+= -- 37
+> -- 18
+< -- 0
++ -- 8
+- -- 4
+* -- 15
+:= -- 78
+add.period$ -- 8
+call.type$ -- 4
+change.case$ -- 4
+chr.to.int$ -- 0
+cite$ -- 4
+duplicate$ -- 26
+empty$ -- 65
+format.name$ -- 4
+if$ -- 116
+int.to.chr$ -- 0
+int.to.str$ -- 4
+missing$ -- 2
+newline$ -- 19
+num.names$ -- 2
+pop$ -- 20
+preamble$ -- 1
+purify$ -- 0
+quote$ -- 0
+skip$ -- 19
+stack$ -- 0
+substring$ -- 0
+swap$ -- 4
+text.length$ -- 0
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 0
+warning$ -- 0
+while$ -- 2
+width$ -- 5
+write$ -- 35
+(There were 2 warnings)

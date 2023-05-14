@@ -1,0 +1,27 @@
+\documentclass[border=5mm, convert]{standalone}
+\usepackage{tikz}
+\usetikzlibrary{shapes,arrows}
+\usetikzlibrary{arrows.meta,positioning}
+
+\begin{document}
+% all other packages and stuff you need for the picture
+% styles
+\tikzstyle{arrow} = [thick,->,>=stealth]
+\tikzstyle{box} = [rectangle, 
+minimum width=0.5cm, 
+minimum height=3cm,
+text centered, 
+draw=black,text width=2cm]
+
+\begin{tikzpicture}[node distance=5cm] % your picture code
+\node (app) [box] {Frontend Application};
+\node (server) [box, right of=app] {Backend Server};
+\node (database) [box, right of=server] {Database};
+
+\draw [arrow]([yshift=0.75cm]app.east) coordinate (aux1) -- node[anchor=south]{send request} (aux1 -| server.west);
+\draw [arrow]([yshift=0.4cm]server.east) coordinate (aux1) -- node[anchor=south]{query} (aux1 -| database.west);
+\draw [arrow]([yshift=-0.4cm]database.west) coordinate (aux2) -- node[anchor=south]{return query} (aux2 -| server.east); 
+\draw [arrow]([yshift=-0.75cm]server.west) coordinate (aux2) -- node[anchor=south]{return response} (aux2 -| app.east); 
+
+\end{tikzpicture}
+\end{document}

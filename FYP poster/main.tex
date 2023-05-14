@@ -1,0 +1,181 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Jacobs Portrait Poster
+% LaTeX Template
+% Version 1.0 (31/08/2015)
+% (Based on Version 1.0 (29/03/13) of the landscape template
+%
+% Created by:
+% Computational Physics and Biophysics Group, Jacobs University
+% https://teamwork.jacobs-university.de:8443/confluence/display/CoPandBiG/LaTeX+Poster
+% 
+% Further modified by:
+% Nathaniel Johnston (nathaniel@njohnston.ca)
+%
+% Portrait version by:
+% John Hammersley
+%
+% The landscape version of this template was downloaded from:
+% http://www.LaTeXTemplates.com
+%
+% License:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+\documentclass[final,xcolor=x11names,table]{beamer}
+
+\usepackage[scale=1.24, size=a1]{beamerposter} % Use the beamerposter package for laying out the poster
+\usepackage{tikz}
+\usepackage{lipsum}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage[TS1,T1]{fontenc}
+% \usepackage{enumerate}
+% \usepackage{fourier,heuristica}
+% \usepackage{array, booktabs}
+\usepackage{caption} % define caption
+\usepackage{graphicx}  % Required for including images
+\usepackage{booktabs} % Top and bottom rules for tables
+\usepackage{standalone}
+\DeclareCaptionFont{blue}{\color{LightSteelBlue3}}
+\usetheme{confposter} % Use the confposter theme supplied with this template
+
+\setbeamercolor{block title}{fg=ngreen,bg=white} % Colors of the block titles
+\setbeamercolor{block body}{fg=black,bg=white} % Colors of the body of blocks
+\setbeamercolor{block alerted title}{fg=white,bg=dblue!70} % Colors of the highlighted block titles
+\setbeamercolor{block alerted body}{fg=black,bg=dblue!10} % Colors of the body of highlighted blocks
+% Many more colors are available for use in beamerthemeconfposter.sty
+
+%-----------------------------------------------------------
+% Define the column widths and overall poster size
+% To set effective sepwid, onecolwid and twocolwid values, first choose how many columns you want and how much separation you want between columns
+% In this template, the separation width chosen is 0.024 of the paper width and a 4-column layout
+% onecolwid should therefore be (1-(# of columns+1)*sepwid)/# of columns e.g. (1-(4+1)*0.024)/4 = 0.22
+% Set twocolwid to be (2*onecolwid)+sepwid = 0.464
+% Set threecolwid to be (3*onecolwid)+2*sepwid = 0.708
+
+\newlength{\sepwid}
+\newlength{\onecolwid}
+\newlength{\twocolwid}
+\newlength{\threecolwid}
+
+\setlength{\paperwidth}{36in} % A0 width: 46.8in
+\setlength{\paperheight}{48in} % A0 height: 33.1in
+\setlength{\sepwid}{0.024\paperwidth} % Separation width (white space) between columns
+\setlength{\onecolwid}{0.22\paperwidth} % Width of one column
+\setlength{\twocolwid}{0.464\paperwidth} % Width of two columns
+\setlength{\threecolwid}{0.708\paperwidth} % Width of three columns
+
+\setlength{\topmargin}{-0.7in} % Reduce the top margin size
+%-----------------------------------------------------------
+
+% custom command
+\newcommand{\foo}{\color{LightSteelBlue3}\makebox[0pt]{\textbullet}\hskip-0.5pt\vrule width 1pt\hspace{\labelsep}}
+%----------------------------------------------------------------------------------------
+%	TITLE SECTION 
+%----------------------------------------------------------------------------------------
+
+\title{Cross Plaform Application Development} % Poster title
+
+\author{Course: IERG4999 \and Student Name: Doria Tang\\Supervisor: Prof. Kehuan Zhang} % Author(s)
+
+\institute{Dept. of Information Engineering, The Chinese University of Hong Kong} % Institution(s)
+
+\setbeamertemplate{headline}{
+ \leavevmode
+  \begin{columns}[T]
+    \begin{column}{0.25\linewidth}
+        \vskip1cm
+        \hskip1cm
+        \includegraphics[width=\linewidth]{cuhk.png}
+    \end{column}
+        \begin{column}{.93\linewidth}
+         \vskip2cm
+         \centering
+         \usebeamercolor{title in headline}{\color{jblue}\huge{\textbf{\inserttitle}}\\[0.5ex]}
+         \usebeamercolor{author in headline}{\color{fg}\Large{\insertauthor}\\[1ex]}
+         \usebeamercolor{institute in headline}{\color{fg}\large{\insertinstitute}\\[1ex]}
+         \vskip1cm
+        \end{column}
+    \begin{column}{0.25\linewidth}
+        \vskip1cm
+        \includegraphics[width=\linewidth]{cuhk.png}
+        \hskip1cm
+    \end{column}        
+   \vspace{1cm}
+  \end{columns}
+ \vspace{0.3in}
+ \hspace{0.5in}\begin{beamercolorbox}[wd=47in,colsep=0.15cm]{cboxb}\end{beamercolorbox}
+ \vspace{0.1in}
+}
+%----------------------------------------------------------------------------------------
+
+\begin{document}
+
+\addtobeamertemplate{block end}{}{\vspace*{2ex}} % White space under blocks
+\addtobeamertemplate{block alerted end}{}{\vspace*{2ex}} % White space under highlighted (alert) blocks
+
+\setlength{\belowcaptionskip}{1.5ex} % White space under figures
+\setlength\belowdisplayshortskip{1ex} % White space under equations
+
+\begin{frame}[t] % The whole poster is enclosed in one beamer frame
+
+\begin{columns}[t] % The whole poster consists of three major columns, the second of which is split into two columns twice - the [t] option aligns each column's content to the top
+
+\begin{column}{\sepwid}\end{column} % Empty spacer column
+
+\begin{column}{\onecolwid} % The first column
+% \begin{column}{\colwidth}
+
+\input{objective.tex}
+
+\input{introduction.tex}
+
+\end{column} % End of first column
+
+\begin{column}{\sepwid}\end{column} % Empty spacer column
+
+\begin{column}{\twocolwid} % second column
+
+\input{methodology.tex}
+
+\input{testing.tex}
+
+\end{column} % End of second column
+
+\begin{column}{\sepwid}\end{column} % Empty spacer column
+
+\begin{column}{\onecolwid} % third column
+
+\input{future_work.tex}
+\input{conclusion.tex}
+
+%----------------------------------------------------------------------------------------
+%	REFERENCES
+%----------------------------------------------------------------------------------------
+
+\begin{block}{References}
+\nocite{*} % Insert publications even if they are not cited in the poster
+\small{\bibliographystyle{unsrt}
+\bibliography{sample}\vspace{0.75in}}
+\end{block}
+
+%----------------------------------------------------------------------------------------
+%	ACKNOWLEDGEMENTS
+%----------------------------------------------------------------------------------------
+% \setbeamercolor{block title}{fg=red,bg=white} % Change the block title color
+\begin{block}{Acknowledgements}
+\rmfamily{I would like to express my sincere gratitude to my supervisor Prof. Zhang for his support and guidance.} \\
+\end{block}
+
+\end{column} % End of third column
+
+\end{columns} % End of all the columns in the poster
+
+\end{frame} % End of the enclosing frame
+
+\end{document}
