@@ -1,14 +1,14 @@
 # Fdb version 4
-["bibtex main"] 1684056395 "main.aux" "main.bbl" "main" 1684057241 0
+["bibtex main"] 1684056395 "main.aux" "main.bbl" "main" 1684126851 0
   "./sample.bib" 1684050694 873 0ee9b096c2f7ed1a08e253dff374b911 ""
   "/usr/local/texlive/2023/texmf-dist/bibtex/bst/base/unsrt.bst" 1292289607 18030 1376b4b231b50c66211e47e42eda2875 ""
-  "main.aux" 1684057240 1877 a2824ca2d2e0a6e371c2a8903cf37f09 "pdflatex"
+  "main.aux" 1684126850 1877 a2824ca2d2e0a6e371c2a8903cf37f09 "pdflatex"
   (generated)
   "main.bbl"
   "main.blg"
   (rewritten before read)
-["pdflatex"] 1684057235 "/Users/doriatang/Downloads/Portrait Beamer Poster Template (Jacobs Style) copy/main.tex" "main.pdf" "main" 1684057241 0
-  "/Users/doriatang/Downloads/Portrait Beamer Poster Template (Jacobs Style) copy/main.tex" 1684056389 6852 1610bfe78042fbc9d49f7834bbc0f5fa ""
+["pdflatex"] 1684126845 "/Users/doriatang/Documents/GitHub/TradeAppProject/FYP_poster/main.tex" "main.pdf" "main" 1684126851 0
+  "/Users/doriatang/Documents/GitHub/TradeAppProject/FYP_poster/main.tex" 1684126844 6852 1610bfe78042fbc9d49f7834bbc0f5fa ""
   "/usr/local/texlive/2023/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc" 1254269338 2375 baa924870cfb487815765f9094cf3728 ""
   "/usr/local/texlive/2023/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc" 1202520719 2840 216e6e45ad352e2456e1149f28885bee ""
   "/usr/local/texlive/2023/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
@@ -275,14 +275,14 @@
   "beamerthemeconfposter.sty" 1683421260 13062 4b03f824cafb4befc31444bd66cb5988 ""
   "conclusion.tex" 1684048372 427 e0ce561fb33d72231913510ccb257268 ""
   "cuhk.png" 1683452377 303446 23a7369efb6d64ff1c5d40106b7a7b87 ""
-  "database.png" 1683992906 26146 bedf88ce6e2be64f255d84991e7469dd ""
+  "database.png" 1684126812 26197 171c03cc8c13ae6ae28f0f23de831fb7 ""
   "future_work.tex" 1684046866 475 592029467ab5beb27cfbc295d07157e8 ""
   "introduction.tex" 1684051895 1970 606717fac7da85130b14b44d39cde3e2 ""
-  "main.aux" 1684057240 1877 a2824ca2d2e0a6e371c2a8903cf37f09 "pdflatex"
+  "main.aux" 1684126850 1877 a2824ca2d2e0a6e371c2a8903cf37f09 "pdflatex"
   "main.bbl" 1684056395 786 b08e4baf015c6680990416f0e99a30c6 "bibtex main"
-  "main.nav" 1684057240 307 9e520c26371a1250ff9fc1fe87f9c655 "pdflatex"
-  "main.out" 1684057238 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
-  "main.tex" 1684056389 6852 1610bfe78042fbc9d49f7834bbc0f5fa ""
+  "main.nav" 1684126850 307 9e520c26371a1250ff9fc1fe87f9c655 "pdflatex"
+  "main.out" 1684126849 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
+  "main.tex" 1684126844 6852 1610bfe78042fbc9d49f7834bbc0f5fa ""
   "methodology.tex" 1684047039 3261 ccee48488e768d2237940a5571c85b57 ""
   "objective.tex" 1683457081 356 34f34d0ad209cd02b71fde4365cd296b ""
   "rendering.png" 1683905964 15367 bb0eaedd0647dc25cfb6ef985ae8fe4b ""

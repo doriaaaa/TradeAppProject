@@ -1,8 +1,8 @@
-PWD /Users/doriatang/Downloads/Portrait Beamer Poster Template (Jacobs Style) copy
+PWD /Users/doriatang/Documents/GitHub/TradeAppProject/FYP_poster
 INPUT /usr/local/texlive/2023/texmf.cnf
 INPUT /usr/local/texlive/2023/texmf-dist/web2c/texmf.cnf
 INPUT /usr/local/texlive/2023/texmf-var/web2c/pdftex/pdflatex.fmt
-INPUT /Users/doriatang/Downloads/Portrait Beamer Poster Template (Jacobs Style) copy/database.tex
+INPUT /Users/doriatang/Documents/GitHub/TradeAppProject/FYP_poster/database.tex
 OUTPUT database.log
 INPUT /usr/local/texlive/2023/texmf-dist/tex/latex/standalone/standalone.cls
 INPUT /usr/local/texlive/2023/texmf-dist/tex/latex/standalone/standalone.cls
@@ -90,11 +90,17 @@ INPUT /usr/local/texlive/2023/texmf-dist/tex/latex/base/size10.clo
 INPUT /usr/local/texlive/2023/texmf-dist/tex/latex/base/size10.clo
 INPUT /usr/local/texlive/2023/texmf-dist/tex/latex/base/size10.clo
 INPUT /usr/local/texlive/2023/texmf-dist/tex/latex/base/size10.clo
+INPUT ./database.png
+INPUT database.png
+INPUT ./database.png
 INPUT ./database.pdf
 INPUT ./database.aux
 INPUT database.aux
 INPUT database.aux
 INPUT ./database.pdf
+INPUT ./database.png
+INPUT database.png
+INPUT ./database.png
 INPUT /usr/local/texlive/2023/texmf-dist/tex/latex/pgf/frontendlayer/tikz.sty
 INPUT /usr/local/texlive/2023/texmf-dist/tex/latex/pgf/frontendlayer/tikz.sty
 INPUT /usr/local/texlive/2023/texmf-dist/tex/latex/pgf/frontendlayer/tikz.sty
